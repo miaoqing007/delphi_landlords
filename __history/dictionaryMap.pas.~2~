@@ -1,0 +1,18 @@
+unit dictionaryMap;
+
+interface
+
+uses uDsimpleTcpClient;
+
+type DMap = class
+  private
+    Dictionary:TDictionary<uint16,function(AStream)>;
+end;
+
+
+implementation
+
+var
+D_Map:=DMap;
+
+end.
