@@ -7,7 +7,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Memo.Types,
   FMX.ScrollBox, FMX.Memo, FMX.Controls.Presentation, FMX.StdCtrls, System.JSON,
   IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, FMX.Edit,uDSimpleTcpClient,
-  System.ImageList, FMX.ImgList, FMX.Objects,tcp,login;
+  System.ImageList, FMX.ImgList, FMX.Objects,tcp,login,handler;
 
 type
   TGameInterface = class(TForm)
@@ -29,6 +29,7 @@ type
 
 var
   GameInterface: TGameInterface;
+  LFrame: TLoginFrame;
 
 
 implementation
@@ -36,39 +37,13 @@ implementation
 {$R *.fmx}
 
 procedure TGameInterface.FormCreate(Sender: TObject);
-var
-  LFrame: TLoginFrame;
 begin
     G_TcpMessage:=TcpMessage.Create;
-//    G_TcpMessage.OnRead := G_TcpMessage.OnSocketRead;
-     LFrame := TLoginFrame.Create(Self);
+    ExHandler:=executeHandler.Create;
+    LFrame := TLoginFrame.Create(Self);
     LFrame.Parent := Self;
-    if not G_TcpMessage.ConnectionService()then
-    begin
-//         LFrame.Text1.Visible:=true;
-    end;
+    G_TcpMessage.ConnectionService();
     LFrame.BringToFront;
 end;
-
-//procedure TGameInterface.OnSocketRead(AStream: TMemoryStream);
-//var
-//  LJson: TJsonObject;
-//begin
-
-
-//  if Cmd = Login then
-//    begin
-//      if Success then
-//
-//    end;
-//var by :Byte;
-//var
-//  LStr: TStringStream;
-//begin
-//   LStr := TStringStream.Create('', TEncoding.UTF8);
-//   LStr.CopyFrom(AStream, AStream.Size);
-//   Memo2.Lines.Add(LStr.DataString);
-//   LStr.DisposeOf;
-//end;
 
 end.

@@ -3,7 +3,7 @@ unit tcp;
 interface
 
 uses
- System.Classes, System.SysUtils, uDsimpleTcpClient, System.JSON;
+ System.Classes, System.SysUtils, uDsimpleTcpClient,handler,System.Generics.Collections,System.JSON;
 
 type TcpMessage = class
 private
@@ -32,6 +32,7 @@ constructor TcpMessage.Create;
 begin
   fcon:= TConnection.Create;
   FCon.OnRead := OnSocketRead;
+
 end;
 
 destructor TcpMessage.Destroy;
@@ -70,23 +71,28 @@ end;
 
 procedure TcpMessage.OnSocketRead(AStream: TMemoryStream);
 var
-//  by1 :Byte;
-//  by2:byte;
   tos: uint16;
   LStr: TStringStream;
 begin
   AStream.Seek(0, 0);
+  AStream.Read(tos,SizeOf(uint16));
+  LStr := TStringStream.Create('', TEncoding.UTF8);
+  LStr.CopyFrom(AStream, AStream.Size-AStream.Position);
+  LStr.Seek(0, 0);
+  ExHandler.CallBackDictionary[tos](Lstr);
+  LStr.DisposeOf;
+//  v(LStr);
 
-    AStream.Read(tos,SizeOf(uint16));
+//  case tos of
+//  2001:
+//  showMessage(Lstr.DataString);
+//  2002:
+//  end;
 
-   LStr := TStringStream.Create('', TEncoding.UTF8);
+//  if Assigned(OnRead) then
+//   OnRead(AStream);
+//   showmessage(LStr.DataString);
 
-   LStr.CopyFrom(AStream, AStream.Size-AStream.Position);
-   LStr.Seek(0, 0);
-   if Assigned(OnRead) then
-   OnRead(AStream);
-   showmessage(LStr.DataString);
-   LStr.DisposeOf;
 end;
 
 function tcpMessage.ConnectionService:Boolean;

@@ -32,26 +32,9 @@ implementation
 
 {$R *.fmx}
 
-
 procedure TLoginFrame.Text3Click(Sender: TObject);
 var
 result : int16;
-begin
-    result:=Login;
-    if result=0 then
-    begin
-         self.Visible:=false
-    end
-    else if result=-1 then
-         begin
-           showMessage('用户名或密码不能为空');
-         end;
-
-end;
-
-
-function TLoginFrame.Login:int16;
-var
 userName : string;
 password: string;
 LJson: TJsonObject;
@@ -60,7 +43,7 @@ begin
   password:=inputPassword.Text;
     if (name='')or (password='') then
     begin
-      Result:= -1;
+      showMessage('用户名或密码不能为空');
     end
     else
     begin
@@ -71,6 +54,12 @@ begin
         LJson.DisposeOf
     end;
 end;
+
+
+function TLoginFrame.Login:int16;
+begin
+
+ end;
 
 end.
 

@@ -6,7 +6,8 @@ uses
   game in 'game.pas' {GameInterface},
   uDSimpleTcpClient in 'uDSimpleTcpClient.pas',
   tcp in 'tcp.pas',
-  login in 'login.pas' {LoginFrame: TFrame};
+  login in 'login.pas' {LoginFrame: TFrame},
+  handler in 'handler.pas';
 
 {$R *.res}
 
