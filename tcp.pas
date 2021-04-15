@@ -81,18 +81,6 @@ begin
   LStr.Seek(0, 0);
   ExHandler.CallBackDictionary[tos](Lstr);
   LStr.DisposeOf;
-//  v(LStr);
-
-//  case tos of
-//  2001:
-//  showMessage(Lstr.DataString);
-//  2002:
-//  end;
-
-//  if Assigned(OnRead) then
-//   OnRead(AStream);
-//   showmessage(LStr.DataString);
-
 end;
 
 function tcpMessage.ConnectionService:Boolean;

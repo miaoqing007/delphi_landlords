@@ -1,5 +1,4 @@
-/.idea
-/doudizhu/win64/Debug
-/doudizhu/win32/Debug
+# ignore target folder
+Debug/
 
 

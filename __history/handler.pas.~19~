@@ -1,0 +1,63 @@
+unit handler;
+
+interface
+
+uses uDSimpleTcpClient,System.Classes,System.SysUtils,System.Generics.Collections,
+FMX.Dialogs,system.JSON;
+
+type  executeFunction= procedure(LStr :TStringStream) of object;
+
+type executeHandler = class
+  private
+
+  public
+  CallBackDictionary: TDictionary<int16,executeFunction>;
+  procedure dealwithAfterLoginSuccess(LStr:TStringStream);
+  procedure dealwithErrorAck(LStr:TStringStream);
+  procedure AddCallBackDictionary;
+  constructor Create;
+  destructor Destroy; override;
+end;
+
+
+var ExHandler :executeHandler;
+
+implementation
+
+uses game;
+
+constructor executeHandler.Create;
+begin
+   CallBackDictionary:= TDictionary<int16,executeFunction>.Create;
+   AddCallBackDictionary();
+end;
+
+destructor executeHandler.Destroy;
+begin
+   CallBackDictionary.DisposeOf;
+   inherited;
+end;
+
+procedure executeHandler.AddCallBackDictionary();
+begin
+   CallBackDictionary.Add(2001,dealwithErrorAck);
+   CallBackDictionary.Add(2002,dealwithAfterLoginSuccess);
+end;
+
+
+procedure executeHandler.dealwithErrorAck(LStr:TStringStream);
+ var
+  JS: TJsonObject;
+  msg: string;
+begin
+    JS:=TJsonObject.ParseJSONValue(Lstr.DataString) as TJsonObject;
+    JS.TryGetValue('f_msg',msg);
+    showMessage(msg);
+    JS.DisposeOf;
+end;
+
+procedure executeHandler.dealwithAfterLoginSuccess(LStr:TStringStream);
+begin
+    LFrame.Visible:=false
+end;
+end.

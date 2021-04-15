@@ -19,18 +19,24 @@ type
     Rectangle2: TRectangle;
     Text3: TText;
     Text1: TText;
+    Rectangle3: TRectangle;
+    Text2: TText;
     procedure Text3Click(Sender: TObject);
+    procedure Text2Click(Sender: TObject);
   private
-    function Login:int16;
     { Private declarations }
   public
-
     { Public declarations }
   end;
 
 implementation
 
 {$R *.fmx}
+
+procedure TLoginFrame.Text2Click(Sender: TObject);
+begin
+   showMessage('¿ªÊ¼×¢²á');
+end;
 
 procedure TLoginFrame.Text3Click(Sender: TObject);
 var
@@ -51,15 +57,9 @@ begin
         LJson.AddPair('account',TJsonString.Create(userName));
         LJson.AddPair('password',TJsonString.Create(password));
         G_TcpMessage.SendTcpMessageToService(LJson.ToString,2001);
-        LJson.DisposeOf
+        LJson.DisposeOf;
     end;
 end;
-
-
-function TLoginFrame.Login:int16;
-begin
-
- end;
 
 end.
 

@@ -8,14 +8,22 @@ FMX.Dialogs,system.JSON;
 type  executeFunction= procedure(LStr :TStringStream) of object;
 
 type executeHandler = class
+
   private
+  procedure DoLoginSuccess(LStr:TStringStream);
+  procedure DoErrorAck(LStr:TStringStream);
+  procedure DoStartGameSuccess(LStr:TStringStream);
+  procedure DoOutOfTheCardSuccess(LStr:TStringStream);
+  procedure DoUserRegisterSuccess(LStr:TStringStream);
+  procedure AddCallBackDictionary;
+
 
   public
   CallBackDictionary: TDictionary<int16,executeFunction>;
-  procedure dealwithAfterLogin(LStr:TStringStream);
-  procedure AddCallBackDictionary;
   constructor Create;
   destructor Destroy; override;
+
+
 end;
 
 
@@ -39,17 +47,43 @@ end;
 
 procedure executeHandler.AddCallBackDictionary();
 begin
-   CallBackDictionary.Add(2002,dealwithAfterLogin);
+   CallBackDictionary.Add(2001,DoLoginSuccess);              //登陆成功，进入游戏界面
+   CallBackDictionary.Add(2002,DoErrorAck);                  //错误统一处理
+   CallBackDictionary.Add(2004,DoStartGameSuccess);          //开始游戏成功，等待匹配结果
+   CallBackDictionary.Add(2007,DoOutOfTheCardSuccess);       //出牌成功
+   CallBackDictionary.Add(2005,DoUserRegisterSuccess);      //新用户注册成功
 end;
 
-procedure executeHandler.dealwithAfterLogin(LStr:TStringStream);
-var
-  js: TJsonObject;
+
+procedure executeHandler.DoErrorAck(LStr:TStringStream);
+ var
+  JS: TJsonObject;
   msg: string;
-
 begin
-    js.TryGetValue('f_msg',msg);
-//    LFrame.Visible=false;
+    JS:=TJsonObject.ParseJSONValue(Lstr.DataString) as TJsonObject;
+    JS.TryGetValue('f_msg',msg);
     showMessage(msg);
+    JS.DisposeOf;
 end;
+
+procedure executeHandler.DoLoginSuccess(LStr:TStringStream);
+begin
+    LFrame.Visible:=false
+end;
+
+procedure executeHandler.DoStartGameSuccess(LStr:TStringStream);
+begin
+
+end;
+
+procedure  executeHandler.DoOutOfTheCardSuccess(LStr:TStringStream);
+begin
+
+end;
+
+procedure executeHandler.DoUserRegisterSuccess(LStr:TStringStream);
+begin
+
+end;
+
 end.
