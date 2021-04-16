@@ -1,0 +1,13 @@
+unit user;
+
+interface
+
+type User = class
+  private
+  public
+
+end;
+
+implementation
+
+end.

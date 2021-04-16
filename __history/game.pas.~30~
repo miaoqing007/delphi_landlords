@@ -7,18 +7,15 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Memo.Types,
   FMX.ScrollBox, FMX.Memo, FMX.Controls.Presentation, FMX.StdCtrls, System.JSON,
   IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, FMX.Edit,uDSimpleTcpClient,
-  System.ImageList, FMX.ImgList, FMX.Objects,tcp,login,handler,user;
+  System.ImageList, FMX.ImgList, FMX.Objects,tcp,login,handler;
 
 type
   TGameInterface = class(TForm)
-    MySelf: TMemo;
+    Memo1: TMemo;
     Image1: TImage;
-    CardTable: TMemo;
-    PlayerOne: TMemo;
-    PlayerTwo: TMemo;
-    StartGame: TButton;
-    outOfCard: TButton;
-    GiveUpCard: TButton;
+    Memo2: TMemo;
+    Memo3: TMemo;
+    Memo4: TMemo;
     procedure FormCreate(Sender: TObject);
     procedure Image1Click(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -34,7 +31,6 @@ type
 var
   GameInterface: TGameInterface;
   LFrame: TLoginFrame;
-//  SGFrame:TStartGameFrame1;
 
 
 implementation
@@ -45,10 +41,9 @@ procedure TGameInterface.FormCreate(Sender: TObject);
 begin
     G_TcpMessage:=TcpMessage.Create;
     ExHandler:=executeHandler.Create;
-    UI:= UserInfo.Create;
-    G_TcpMessage.ConnectionService();
     LFrame := TLoginFrame.Create(Self);
     LFrame.Parent := Self;
+    G_TcpMessage.ConnectionService();
     LFrame.BringToFront;
 end;
 

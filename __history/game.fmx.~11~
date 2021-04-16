@@ -2,14 +2,53 @@ object GameInterface: TGameInterface
   Left = 0
   Top = 0
   Caption = 'Form2'
-  ClientHeight = 728
+  ClientHeight = 601
   ClientWidth = 772
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
   OnCreate = FormCreate
-  OnDestroy = FormDestroy
   DesignerMasterStyle = 0
+  object Memo1: TMemo
+    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+    DataDetectorTypes = []
+    Position.X = -9.000000000000000000
+    Position.Y = 360.000000000000000000
+    Size.Width = 705.000000000000000000
+    Size.Height = 113.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    Viewport.Width = 701.000000000000000000
+    Viewport.Height = 109.000000000000000000
+  end
+  object Button2: TButton
+    StyledSettings = [Family, Style, FontColor]
+    Position.X = 260.000000000000000000
+    Position.Y = 491.000000000000000000
+    Size.Width = 149.000000000000000000
+    Size.Height = 45.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    Text = #21457#36865
+    TextSettings.Font.Size = 18.000000000000000000
+  end
+  object Memo2: TMemo
+    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+    DataDetectorTypes = []
+    Position.X = 128.000000000000000000
+    Position.Y = 120.000000000000000000
+    Size.Width = 433.000000000000000000
+    Size.Height = 161.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    Viewport.Width = 429.000000000000000000
+    Viewport.Height = 157.000000000000000000
+  end
+  object ImageControl1: TImageControl
+    Position.X = 8.000000000000000000
+    Position.Y = 8.000000000000000000
+    TabOrder = 4
+  end
   object Image1: TImage
     MultiResBitmap.Height = 300
     MultiResBitmap.Width = 258
@@ -3512,86 +3551,20 @@ object GameInterface: TGameInterface
           'C:\Users\Administrator\Desktop\2f374fd6a941f6f540f7cbbeddc6e453.' +
           'jpg'
       end>
-    Position.X = 544.000000000000000000
-    Position.Y = 16.000000000000000000
+    Position.X = 48.000000000000000000
+    Position.Y = 376.000000000000000000
     Size.Width = 50.000000000000000000
     Size.Height = 89.000000000000000000
     Size.PlatformDefault = False
     OnClick = Image1Click
   end
-  object MySelf: TMemo
-    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
-    DataDetectorTypes = []
-    Align = Bottom
-    Position.Y = 558.000000000000000000
-    Size.Width = 772.000000000000000000
-    Size.Height = 170.000000000000000000
-    Size.PlatformDefault = False
-    TabOrder = 3
-    Viewport.Width = 768.000000000000000000
-    Viewport.Height = 166.000000000000000000
-  end
-  object CardTable: TMemo
-    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
-    DataDetectorTypes = []
-    Align = Center
-    Size.Width = 350.000000000000000000
-    Size.Height = 350.000000000000000000
-    Size.PlatformDefault = False
-    TabOrder = 0
-    Viewport.Width = 346.000000000000000000
-    Viewport.Height = 346.000000000000000000
-  end
-  object PlayerOne: TMemo
-    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
-    DataDetectorTypes = []
-    Align = Left
-    Size.Width = 170.000000000000000000
-    Size.Height = 558.000000000000000000
-    Size.PlatformDefault = False
-    TabOrder = 2
-    Viewport.Width = 166.000000000000000000
-    Viewport.Height = 554.000000000000000000
-  end
-  object PlayerTwo: TMemo
-    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
-    DataDetectorTypes = []
-    Align = Right
-    Position.X = 602.000000000000000000
-    Size.Width = 170.000000000000000000
-    Size.Height = 558.000000000000000000
-    Size.PlatformDefault = False
-    TabOrder = 1
-    Viewport.Width = 166.000000000000000000
-    Viewport.Height = 554.000000000000000000
-  end
-  object StartGame: TButton
-    Position.X = 312.000000000000000000
-    Position.Y = 488.000000000000000000
-    Size.Width = 145.000000000000000000
-    Size.Height = 49.000000000000000000
-    Size.PlatformDefault = False
-    TabOrder = 8
-    Text = #24320#22987#28216#25103
-  end
-  object outOfCard: TButton
-    Position.X = 216.000000000000000000
-    Position.Y = 488.000000000000000000
-    Size.Width = 145.000000000000000000
-    Size.Height = 49.000000000000000000
-    Size.PlatformDefault = False
-    TabOrder = 7
-    Text = #20986'      '#29260
-    Visible = False
-  end
-  object GiveUpCard: TButton
-    Position.X = 416.000000000000000000
-    Position.Y = 488.000000000000000000
+  object Button3: TButton
+    Position.X = 328.000000000000000000
+    Position.Y = 288.000000000000000000
     Size.Width = 145.000000000000000000
     Size.Height = 49.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 6
-    Text = #25918'      '#24323
-    Visible = False
+    Text = 'Button3'
   end
 end

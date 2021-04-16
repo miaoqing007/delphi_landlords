@@ -1,0 +1,22 @@
+unit user;
+
+interface
+
+type UserInfo = class
+  private
+  UserId:string;
+  Name:string;
+  Cards : array of string;
+  public
+  procedure SetUserIdAndName(uid,name :string);
+end;
+
+implementation
+
+procedure  UserInfo.SetUserIdAndName(uid,name:string);
+begin
+  UserId:=uid;
+  Name:=name;
+end;
+
+end.

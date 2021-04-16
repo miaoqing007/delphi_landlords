@@ -6,8 +6,8 @@
     <Transaction>2021/04/13 11:25:08.000.871,C:\Users\Administrator\Documents\Embarcadero\Studio\Projects\Project1.dproj=D:\workgame\doudizhu\Project1.dproj</Transaction>
     <Transaction>2021/04/13 11:32:13.104,=D:\workgame\doudizhu\login.pas</Transaction>
     <Transaction>2021/04/13 11:32:23.564,=D:\workgame\doudizhu\Unit2.pas</Transaction>
-    <Transaction>2021/04/13 11:32:40.838,D:\workgame\doudizhu\game.fmx=D:\workgame\doudizhu\Unit2.fmx</Transaction>
     <Transaction>2021/04/13 11:32:40.838,D:\workgame\doudizhu\game.pas=D:\workgame\doudizhu\Unit2.pas</Transaction>
+    <Transaction>2021/04/13 11:32:40.838,D:\workgame\doudizhu\game.fmx=D:\workgame\doudizhu\Unit2.fmx</Transaction>
     <Transaction>2021/04/13 13:41:39.469,=D:\workgame\doudizhu\uDSimpleTcpClient.pas</Transaction>
     <Transaction>2021/04/13 13:48:04.480,=D:\workgame\doudizhu\Unit1.pas</Transaction>
     <Transaction>2021/04/13 13:48:22.014,D:\workgame\doudizhu\tcp.pas=D:\workgame\doudizhu\Unit1.pas</Transaction>
@@ -23,6 +23,14 @@
     <Transaction>2021/04/15 11:26:03.474,=D:\workgame\doudizhu\Unit1.pas</Transaction>
     <Transaction>2021/04/15 11:27:30.674,=D:\workgame\doudizhu\dictionaryMap.pas</Transaction>
     <Transaction>2021/04/15 11:32:58.906,D:\workgame\doudizhu\handler.pas=D:\workgame\doudizhu\dictionaryMap.pas</Transaction>
+    <Transaction>2021/04/16 15:08:55.049,=D:\workgame\doudizhu\Unit1.pas</Transaction>
+    <Transaction>2021/04/16 15:09:40.118,D:\workgame\doudizhu\gameStart.pas=D:\workgame\doudizhu\Unit1.pas</Transaction>
+    <Transaction>2021/04/16 15:09:40.118,D:\workgame\doudizhu\gameStart.fmx=D:\workgame\doudizhu\Unit1.fmx</Transaction>
+    <Transaction>2021/04/16 15:12:57.082,D:\workgame\doudizhu\StartGame.fmx=D:\workgame\doudizhu\gameStart.fmx</Transaction>
+    <Transaction>2021/04/16 15:12:57.082,D:\workgame\doudizhu\StartGame.pas=D:\workgame\doudizhu\gameStart.pas</Transaction>
+    <Transaction>2021/04/16 15:28:21.921,=D:\workgame\doudizhu\Unit1.pas</Transaction>
+    <Transaction>2021/04/16 15:28:33.636,D:\workgame\doudizhu\userInfo.pas=D:\workgame\doudizhu\Unit1.pas</Transaction>
+    <Transaction>2021/04/16 15:30:06.063,D:\workgame\doudizhu\user.pas=D:\workgame\doudizhu\userInfo.pas</Transaction>
   </Transactions>
 	<ActiveMobileDevice>
 		<NoProfile iOSSimulator="iPhone5"/>

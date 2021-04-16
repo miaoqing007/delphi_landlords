@@ -52,8 +52,9 @@ begin
    CallBackDictionary.Add(2002,DoErrorAck);                  //错误统一处理
    CallBackDictionary.Add(2004,DoStartGameSuccess);          //开始游戏成功，等待匹配结果
    CallBackDictionary.Add(2005,DoUserRegisterSuccess);       //新用户注册成功
-   CallBackDictionary.Add(2006,DoPullUserDataSuccess);       //拉取用户信息成功
+   CallBackDictionary.Add(2006,DoPullUserDataSuccess);
    CallBackDictionary.Add(2007,DoOutOfTheCardSuccess);       //出牌成功
+//   CallBackDictionary.DisposeOf;
 end;
 
 

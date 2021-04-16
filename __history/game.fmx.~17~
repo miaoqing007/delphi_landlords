@@ -3528,8 +3528,8 @@ object GameInterface: TGameInterface
     Size.Height = 170.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 3
-    Viewport.Width = 768.000000000000000000
-    Viewport.Height = 166.000000000000000000
+    Viewport.Width = 772.000000000000000000
+    Viewport.Height = 170.000000000000000000
   end
   object CardTable: TMemo
     Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
@@ -3539,8 +3539,8 @@ object GameInterface: TGameInterface
     Size.Height = 350.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
-    Viewport.Width = 346.000000000000000000
-    Viewport.Height = 346.000000000000000000
+    Viewport.Width = 350.000000000000000000
+    Viewport.Height = 350.000000000000000000
   end
   object PlayerOne: TMemo
     Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
@@ -3550,8 +3550,8 @@ object GameInterface: TGameInterface
     Size.Height = 558.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 2
-    Viewport.Width = 166.000000000000000000
-    Viewport.Height = 554.000000000000000000
+    Viewport.Width = 170.000000000000000000
+    Viewport.Height = 558.000000000000000000
   end
   object PlayerTwo: TMemo
     Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
@@ -3562,36 +3562,7 @@ object GameInterface: TGameInterface
     Size.Height = 558.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 1
-    Viewport.Width = 166.000000000000000000
-    Viewport.Height = 554.000000000000000000
-  end
-  object StartGame: TButton
-    Position.X = 312.000000000000000000
-    Position.Y = 488.000000000000000000
-    Size.Width = 145.000000000000000000
-    Size.Height = 49.000000000000000000
-    Size.PlatformDefault = False
-    TabOrder = 8
-    Text = #24320#22987#28216#25103
-  end
-  object outOfCard: TButton
-    Position.X = 216.000000000000000000
-    Position.Y = 488.000000000000000000
-    Size.Width = 145.000000000000000000
-    Size.Height = 49.000000000000000000
-    Size.PlatformDefault = False
-    TabOrder = 7
-    Text = #20986'      '#29260
-    Visible = False
-  end
-  object GiveUpCard: TButton
-    Position.X = 416.000000000000000000
-    Position.Y = 488.000000000000000000
-    Size.Width = 145.000000000000000000
-    Size.Height = 49.000000000000000000
-    Size.PlatformDefault = False
-    TabOrder = 6
-    Text = #25918'      '#24323
-    Visible = False
+    Viewport.Width = 170.000000000000000000
+    Viewport.Height = 558.000000000000000000
   end
 end

@@ -1,0 +1,15 @@
+unit user;
+
+interface
+
+type UserInfo = class
+  private
+  UserId:string;
+  Name:string;
+  public
+
+end;
+
+implementation
+
+end.
