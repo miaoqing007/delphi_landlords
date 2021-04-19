@@ -1,0 +1,21 @@
+program landlords;
+
+uses
+  System.StartUpCopy,
+  FMX.Forms,
+  game in 'game.pas' {GameInterface},
+  uDSimpleTcpClient in 'uDSimpleTcpClient.pas',
+  tcp in 'tcp.pas',
+  login in 'login.pas' {LoginFrame: TFrame},
+  handler in 'handler.pas',
+  StartGame in 'StartGame.pas' {StartGameFrame1: TFrame},
+  user in 'user.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  //Application.CreateForm(TLoginInterface, LoginInterface);
+  Application.CreateForm(TGameInterface, GameInterface);
+  Application.Run;
+end.

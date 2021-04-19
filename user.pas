@@ -13,6 +13,8 @@ type UserInfo = class
   destructor Destroy; override;
 end;
 
+var UI:UserInfo;
+
 implementation
 
 constructor UserInfo.Create;

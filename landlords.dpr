@@ -8,8 +8,8 @@ uses
   tcp in 'tcp.pas',
   login in 'login.pas' {LoginFrame: TFrame},
   handler in 'handler.pas',
-  StartGame in 'StartGame.pas' {StartGameFrame1: TFrame},
-  user in 'user.pas';
+  user in 'user.pas',
+  setUserName in 'setUserName.pas' {setUserNameFrame: TFrame};
 
 {$R *.res}
 

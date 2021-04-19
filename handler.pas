@@ -3,7 +3,7 @@ unit handler;
 interface
 
 uses uDSimpleTcpClient,System.Classes,System.SysUtils,System.Generics.Collections,
-FMX.Dialogs,system.JSON;
+FMX.Dialogs,system.JSON,user;
 
 type  executeFunction= procedure(LStr :TStringStream) of object;
 
@@ -16,6 +16,7 @@ type executeHandler = class
   procedure DoOutOfTheCardSuccess(LStr:TStringStream);
   procedure DoUserRegisterSuccess(LStr:TStringStream);
   procedure DoPullUserDataSuccess(LStr:TStringStream);
+  procedure DoPvpPlayerSuccess(LStr:TStringStream);
   procedure AddCallBackDictionary;
 
 
@@ -32,7 +33,7 @@ var ExHandler :executeHandler;
 
 implementation
 
-uses game;
+uses game,tcp;
 
 constructor executeHandler.Create;
 begin
@@ -50,10 +51,11 @@ procedure executeHandler.AddCallBackDictionary();
 begin
    CallBackDictionary.Add(2001,DoLoginSuccess);              //登陆成功，进入游戏界面
    CallBackDictionary.Add(2002,DoErrorAck);                  //错误统一处理
-   CallBackDictionary.Add(2004,DoStartGameSuccess);          //开始游戏成功，等待匹配结果
+   CallBackDictionary.Add(2003,DoStartGameSuccess);          //开始游戏成功，等待匹配结果
    CallBackDictionary.Add(2005,DoUserRegisterSuccess);       //新用户注册成功
    CallBackDictionary.Add(2006,DoPullUserDataSuccess);       //拉取用户信息成功
    CallBackDictionary.Add(2007,DoOutOfTheCardSuccess);       //出牌成功
+   CallBackDictionary.Add(3000,DoPvpPlayerSuccess);
 end;
 
 
@@ -70,7 +72,8 @@ end;
 
 procedure executeHandler.DoLoginSuccess(LStr:TStringStream);
 begin
-    LFrame.Visible:=false
+      LFrame.Visible:=false;
+      G_TcpMessage.SendTcpMessageToService('',2006);
 end;
 
 procedure executeHandler.DoStartGameSuccess(LStr:TStringStream);
@@ -89,8 +92,44 @@ begin
 end;
 
 procedure executeHandler.DoPullUserDataSuccess(LStr:TStringStream);
+var
+  Js:TJsonObject;
+  name:string;
+  uid:string;
 begin
+  Js:=TJsonObject.ParseJSONValue(Lstr.DataString)as TJsonObject;
+  Js.TryGetValue('name',name);
+  Js.TryGetValue('uid',uid);
 
+  SName.Visible:=false;
+
+  if not (name='') then
+  begin
+     SName.Visible:=false;
+     UI.SetUserIdAndName(uid,name);
+  end;
+  Js.DisposeOf;
+end;
+
+procedure executeHandler.DoPvpPlayerSuccess(LStr:TStringStream);
+var
+  Js:TJsonObject;
+  LPlayers:TJsonArray;
+  LPlayer:TJsonObject;
+  roomId:string;
+  I:integer;
+begin
+   Js:=TJsonObject.ParseJSONValue(Lstr.DataString) as TJsonObject;
+   js.TryGetValue('players',LPlayers);
+   js.TryGetValue('roomId',roomId);
+   if (Lplayers<>nil)and (not LPlayers.Null) then
+   begin
+     for I:=0 to Lplayers.Count-1 do
+       begin
+           LPlayer:=LPlayers.Items[I] as TJsonObject;
+           showMessage(LPlayer.ToString);
+       end;
+   end;
 end;
 
 end.

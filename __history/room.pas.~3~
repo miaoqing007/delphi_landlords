@@ -1,0 +1,47 @@
+unit room;
+
+interface
+
+uses System.Generics.Collections;
+
+type roomPlayer = class
+  uid : string;
+  name : string;
+  cards :array of string;
+end;
+
+type rm = class
+  roomId : string;
+  playerMap : TDictionary<string,roomPlayer>;
+
+  constructor Create;
+  destructor Destory;
+
+  public
+  procedure SetPlayerMap(uid :string,cards :array of string);
+
+end;
+
+
+implementation
+
+constructor rm.Create;
+begin
+    playerMap:=TDictionary<string,roomPlayer>.Create;
+end;
+
+destructor rm.Destory;
+begin
+   playerMap.DisposeOf;
+end;
+
+procedure rm.SetPlayerMap(uid:string,cards :array of string);
+var
+  rp :roomPlayer;
+begin
+  rp.uid=uid;
+  rp.cards=cards;
+  playerMap.Add(uid,rp);
+end;
+
+end.

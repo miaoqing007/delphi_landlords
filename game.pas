@@ -7,21 +7,24 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Memo.Types,
   FMX.ScrollBox, FMX.Memo, FMX.Controls.Presentation, FMX.StdCtrls, System.JSON,
   IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, FMX.Edit,uDSimpleTcpClient,
-  System.ImageList, FMX.ImgList, FMX.Objects,tcp,login,handler,user;
+  System.ImageList, FMX.ImgList, FMX.Objects,tcp,login,handler,user,setUserName;
 
 type
   TGameInterface = class(TForm)
     MySelf: TMemo;
     Image1: TImage;
-    CardTable: TMemo;
     PlayerOne: TMemo;
     PlayerTwo: TMemo;
     StartGame: TButton;
     outOfCard: TButton;
     GiveUpCard: TButton;
+    Memo1: TMemo;
+    Rectangle1: TRectangle;
     procedure FormCreate(Sender: TObject);
     procedure Image1Click(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure StartGameClick(Sender: TObject);
+
   private
     { Private declarations }
      image1ClickCount:integer;
@@ -34,7 +37,7 @@ type
 var
   GameInterface: TGameInterface;
   LFrame: TLoginFrame;
-//  SGFrame:TStartGameFrame1;
+  SName:TsetUserNameFrame;
 
 
 implementation
@@ -47,8 +50,14 @@ begin
     ExHandler:=executeHandler.Create;
     UI:= UserInfo.Create;
     G_TcpMessage.ConnectionService();
+
     LFrame := TLoginFrame.Create(Self);
     LFrame.Parent := Self;
+
+    SName:=TsetUserNameFrame.Create(Self);
+    SName.Parent:=Self;
+
+    SName.BringToFront;
     LFrame.BringToFront;
 end;
 
@@ -73,6 +82,14 @@ begin
          Image1ClickCount:=0;
        end;
 
+end;
+
+procedure TGameInterface.StartGameClick(Sender: TObject);
+//var
+//  js:TJsonObject;
+begin
+//     js:=TJsonObject.Create;
+       G_TcpMessage.SendTcpMessageToService('',2003);
 end;
 
 end.
