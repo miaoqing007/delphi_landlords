@@ -1,0 +1,27 @@
+unit card;
+
+interface
+
+uses System.Generics.Collections,FMX.Objects;
+
+type CardInfo = class
+  cardArrayMap : TDictionary<string,TImage>;
+  constructor Create;
+  destructor Destory;
+end;
+
+implementation
+
+constructor Cardinfo.Create;
+begin
+   cardArrayMap:=TDictionary<string,TImage>.Create;
+end;
+
+destructor CardInfo.Destory;
+begin
+  cardArrayMap.DisposeOf;
+end;
+
+end.
+
+

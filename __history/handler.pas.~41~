@@ -17,14 +17,11 @@ type executeHandler = class
   procedure DoUserRegisterSuccess(LStr:TStringStream);
   procedure DoPullUserDataSuccess(LStr:TStringStream);
   procedure DoPvpPlayerSuccess(LStr:TStringStream);
-  procedure DoCancelPvpMatchSuccess(LStr:TStringStream);
   procedure AddCallBackDictionary;
-//  procedure AddCode;
 
 
   public
   CallBackDictionary: TDictionary<int16,executeFunction>;
-//  Code : TDictionary<string,int16>;
   constructor Create;
   destructor Destroy; override;
 
@@ -41,22 +38,14 @@ uses game,tcp,room;
 constructor executeHandler.Create;
 begin
    CallBackDictionary:= TDictionary<int16,executeFunction>.Create;
-//   Code := TDictionary<string,int16>.Create;
-//   AddCode();
    AddCallBackDictionary();
 end;
 
 destructor executeHandler.Destroy;
 begin
    CallBackDictionary.DisposeOf;
-//   Code.DisposeOf;
    inherited;
 end;
-
-//procedure executeHandler.AddCode();
-//begin
-////  Code.Add();
-//end;
 
 procedure executeHandler.AddCallBackDictionary();
 begin
@@ -66,8 +55,7 @@ begin
    CallBackDictionary.Add(2005,DoUserRegisterSuccess);       //新用户注册成功
    CallBackDictionary.Add(2006,DoPullUserDataSuccess);       //拉取用户信息成功
    CallBackDictionary.Add(2007,DoOutOfTheCardSuccess);       //出牌成功
-   CallBackDictionary.Add(3000,DoPvpPlayerSuccess);          //匹配成功
-   CallBackDictionary.Add(2009,DoCancelPvpMatchSuccess);     //取消匹配成功
+   CallBackDictionary.Add(3000,DoPvpPlayerSuccess);
 end;
 
 
@@ -85,7 +73,6 @@ end;
 procedure executeHandler.DoLoginSuccess(LStr:TStringStream);
 begin
       LFrame.Visible:=false;
-      GameInterface.AniIndicator1.Visible:=false;
       G_TcpMessage.SendTcpMessageToService('',2006);
 end;
 
@@ -128,15 +115,16 @@ end;
 
 procedure executeHandler.DoPvpPlayerSuccess(LStr:TStringStream);
 var
-  Js : TJsonObject;
+  Js:TJsonObject;
   HoleCards :TjsonArray;
-  LPlayers : TJsonArray;
-  LPlayer : TJsonObject;
-  roomId : string;
-  I : integer;
-  Id : string;
-  cards : TjsonArray;
-  pj : TJsonObject;
+  LPlayers:TJsonArray;
+  LPlayer:TJsonObject;
+  roomId:string;
+  I:integer;
+  Id :string;
+  cards :TjsonArray;
+  pj: TJsonObject;
+
 
 begin
     RM:=RmInfo.Create;
@@ -158,17 +146,9 @@ begin
        end;
    end;
    js.DisposeOf;
-   GameInterface.cancelMatch.Visible := false;
-   GameInterface.AniIndicator1.Visible := false;
-   GameInterface.AniIndicator1.Enabled := false;
-   GameInterface.outOfCard.Visible := true;
-   GameInterface.giveUpCard.Visible := true;
-end;
-
-procedure executeHandler.DoCancelPvpMatchSuccess(LStr:TStringStream);
-begin
-   GameInterface.cancelMatch.Visible := false;
-   GameInterface.StartGame.Visible := true;
+   GameInterface.StartGame.Visible:=false;
+   GameInterface.outOfCard.Visible:=true;
+   GameInterface.giveUpCard.Visible:=true;
 end;
 
 end.

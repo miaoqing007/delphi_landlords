@@ -107,7 +107,7 @@ begin
      begin
       image1.Visible:=true;
       Image1.Position.Y:= holeCards.Position.Y+50;
-      image1.Position.X:=(self.Width / 2)+10;
+      image1.Position.X:=(holecards.Position.X / 2)+10;
      end;
 end;
 

@@ -11,9 +11,6 @@ type UserInfo = class
   public
   procedure SetUserId(uid :string);
   procedure SetUserName(name:string);
-  function GetUserId():string;
-  function GetUserName():string;
-
   constructor Create;
   destructor Destroy; override;
 end;
@@ -35,22 +32,12 @@ end;
 
 procedure UserInfo.SetUserName(name :string);
 begin
-  Name := name;
+  Name:=name;
 end;
 
 procedure  UserInfo.SetUserId(uid:string);
 begin
   UserId := uid;
-end;
-
-function UserInfo.GetUserId():string;
-begin
-  Result:=UserId;
-end;
-
-function UserInfo.GetUserName():string;
-begin
-  Result:=Name;
 end;
 
 end.

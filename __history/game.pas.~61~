@@ -23,17 +23,15 @@ type
     cancelMatch: TButton;
     AniIndicator1: TAniIndicator;
     Text1: TText;
-    Image1: TImage;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure StartGameClick(Sender: TObject);
     procedure cancelMatchClick(Sender: TObject);
-    procedure Image1Click(Sender: TObject);
-    procedure showImage(images : Tarray<string>);
+    procedure tableCardChange(Sender: TObject);
 
   private
     { Private declarations }
-//     image1ClickCount:integer;
+     image1ClickCount:integer;
   private
 //    procedure OnSocketRead(AStream: TMemoryStream);
   public
@@ -75,11 +73,6 @@ begin
     G_TcpMessage.DisposeOf;
 end;
 
-procedure TGameInterface.Image1Click(Sender: TObject);
-begin
-//
-end;
-
 procedure TGameInterface.StartGameClick(Sender: TObject);
 //var
 //  js:TJsonObject;
@@ -92,23 +85,16 @@ begin
        cancelMatch.Visible := true;
 end;
 
+procedure TGameInterface.tableCardChange(Sender: TObject);
+begin
+
+end;
+
 procedure TGameInterface.cancelMatchClick(Sender: TObject);
 begin
      G_TcpMessage.SendTcpMessageToService('',2008);
      AniIndicator1.Enabled:=false;
      AniIndicator1.Visible:=false;
-end;
-
-procedure  TGameInterface.showImage(images : Tarray<string>) ;
-var
- i : integer;
-begin
-   for I := 0 to 1 do
-     begin
-      image1.Visible:=true;
-      Image1.Position.Y:= holeCards.Position.Y+50;
-      image1.Position.X:=(self.Width / 2)+10;
-     end;
 end;
 
 end.

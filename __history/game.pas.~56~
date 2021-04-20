@@ -13,27 +13,26 @@ uses
 type
   TGameInterface = class(TForm)
     MySelf: TMemo;
+    Image1: TImage;
     PlayerOne: TMemo;
     PlayerTwo: TMemo;
     StartGame: TButton;
     outOfCard: TButton;
     giveUpCard: TButton;
     tableCard: TMemo;
+    Rectangle1: TRectangle;
     holeCards: TMemo;
     cancelMatch: TButton;
     AniIndicator1: TAniIndicator;
-    Text1: TText;
-    Image1: TImage;
     procedure FormCreate(Sender: TObject);
+    procedure Image1Click(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure StartGameClick(Sender: TObject);
     procedure cancelMatchClick(Sender: TObject);
-    procedure Image1Click(Sender: TObject);
-    procedure showImage(images : Tarray<string>);
 
   private
     { Private declarations }
-//     image1ClickCount:integer;
+     image1ClickCount:integer;
   private
 //    procedure OnSocketRead(AStream: TMemoryStream);
   public
@@ -77,7 +76,20 @@ end;
 
 procedure TGameInterface.Image1Click(Sender: TObject);
 begin
-//
+      if (Image1ClickCount mod 2=0) then
+       begin
+        Image1.Position.Y:=Image1.Position.Y-40;
+       end
+       else
+       begin
+         Image1.Position.Y:=Image1.Position.Y+40;
+       end;
+       Image1ClickCount:= image1ClickCount+1;
+       if Image1ClickCount=2 then
+       begin
+         Image1ClickCount:=0;
+       end;
+
 end;
 
 procedure TGameInterface.StartGameClick(Sender: TObject);
@@ -97,18 +109,6 @@ begin
      G_TcpMessage.SendTcpMessageToService('',2008);
      AniIndicator1.Enabled:=false;
      AniIndicator1.Visible:=false;
-end;
-
-procedure  TGameInterface.showImage(images : Tarray<string>) ;
-var
- i : integer;
-begin
-   for I := 0 to 1 do
-     begin
-      image1.Visible:=true;
-      Image1.Position.Y:= holeCards.Position.Y+50;
-      image1.Position.X:=(self.Width / 2)+10;
-     end;
 end;
 
 end.

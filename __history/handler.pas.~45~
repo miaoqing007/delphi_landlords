@@ -19,7 +19,7 @@ type executeHandler = class
   procedure DoPvpPlayerSuccess(LStr:TStringStream);
   procedure DoCancelPvpMatchSuccess(LStr:TStringStream);
   procedure AddCallBackDictionary;
-//  procedure AddCode;
+  procedure AddCode;
 
 
   public
@@ -53,10 +53,10 @@ begin
    inherited;
 end;
 
-//procedure executeHandler.AddCode();
-//begin
-////  Code.Add();
-//end;
+procedure executeHandler.AddCode();
+begin
+//  Code.Add();
+end;
 
 procedure executeHandler.AddCallBackDictionary();
 begin
@@ -85,7 +85,6 @@ end;
 procedure executeHandler.DoLoginSuccess(LStr:TStringStream);
 begin
       LFrame.Visible:=false;
-      GameInterface.AniIndicator1.Visible:=false;
       G_TcpMessage.SendTcpMessageToService('',2006);
 end;
 
@@ -159,16 +158,13 @@ begin
    end;
    js.DisposeOf;
    GameInterface.cancelMatch.Visible := false;
-   GameInterface.AniIndicator1.Visible := false;
-   GameInterface.AniIndicator1.Enabled := false;
    GameInterface.outOfCard.Visible := true;
    GameInterface.giveUpCard.Visible := true;
 end;
 
 procedure executeHandler.DoCancelPvpMatchSuccess(LStr:TStringStream);
 begin
-   GameInterface.cancelMatch.Visible := false;
-   GameInterface.StartGame.Visible := true;
+
 end;
 
 end.

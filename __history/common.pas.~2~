@@ -1,0 +1,21 @@
+unit common;
+
+interface
+
+uses system.JSON;
+
+type cmFunction = class
+
+public
+  function TJosnArray2TArray(Tja : TJsonArray):Tarray<string>;
+
+end;
+
+implementation
+
+function cmFunction.TJosnArray2TArray(Tja : TJsonArray):Tarray<string>;
+begin
+
+end;
+
+end.

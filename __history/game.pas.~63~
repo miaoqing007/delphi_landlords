@@ -105,9 +105,8 @@ var
 begin
    for I := 0 to 1 do
      begin
-      image1.Visible:=true;
-      Image1.Position.Y:= holeCards.Position.Y+50;
-      image1.Position.X:=(self.Width / 2)+10;
+      Image1.Position.Y:= holeCards.Position.Y-50;
+      image1.Position.X:=holecards.Position.X;
      end;
 end;
 

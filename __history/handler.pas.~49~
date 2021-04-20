@@ -19,7 +19,7 @@ type executeHandler = class
   procedure DoPvpPlayerSuccess(LStr:TStringStream);
   procedure DoCancelPvpMatchSuccess(LStr:TStringStream);
   procedure AddCallBackDictionary;
-//  procedure AddCode;
+  procedure AddCode;
 
 
   public
@@ -53,10 +53,10 @@ begin
    inherited;
 end;
 
-//procedure executeHandler.AddCode();
-//begin
-////  Code.Add();
-//end;
+procedure executeHandler.AddCode();
+begin
+//  Code.Add();
+end;
 
 procedure executeHandler.AddCallBackDictionary();
 begin

@@ -1035,11 +1035,8 @@ object GameInterface: TGameInterface
           0ABF4B2FBD54FE3F2188CE1E52E7D9530000000049454E44AE426082}
         FileName = 'C:\Users\Administrator\Desktop\redTwo.jpg'
       end>
-    Position.X = 312.000000000000000000
-    Position.Y = 72.000000000000000000
-    Size.Width = 65.000000000000000000
-    Size.Height = 105.000000000000000000
-    Size.PlatformDefault = False
+    Position.X = 296.000000000000000000
+    Position.Y = 88.000000000000000000
     OnClick = Image1Click
   end
 end

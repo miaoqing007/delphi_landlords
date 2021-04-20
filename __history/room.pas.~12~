@@ -41,17 +41,11 @@ begin
 end;
 
 procedure  RmInfo.SetHoleCards(roomId : string;HCards :TJsonArray);
-var
-  i : integer;
 begin
    rm.roomId := roomId;
    rm.holeCards:=  CM.TJosnArray2TArray(HCards);
    GameInterface.holeCards.Lines.Clear;
    GameInterface.holeCards.Lines.Add(Hcards.ToString);
-
-
-    GameInterface.showImage(rm.holeCards);
-
 end;
 
 
@@ -66,9 +60,10 @@ begin
 
    if (UI.GetUserId() = uid )then
    begin
-   GameInterface.MySelf.Lines.Clear;
+     GameInterface.MySelf.Lines.Clear;
    GameInterface.MySelf.Lines.Add(TJcards.ToString);
    end;
+
 
 end;
 

@@ -46,12 +46,15 @@ var
 begin
    rm.roomId := roomId;
    rm.holeCards:=  CM.TJosnArray2TArray(HCards);
+
+   for I := 0 to High(rm.holeCards) do
+   begin
+      showmessage(rm.holeCards[i]);
+   end;
+
+
    GameInterface.holeCards.Lines.Clear;
    GameInterface.holeCards.Lines.Add(Hcards.ToString);
-
-
-    GameInterface.showImage(rm.holeCards);
-
 end;
 
 

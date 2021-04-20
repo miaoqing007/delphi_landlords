@@ -19,7 +19,7 @@ type RmInfo = class
 
   public
   procedure SetOrUpdatePlayerMap(uid :string ;TJCards :TJsonArray);
-  procedure SetHoleCards(roomId :string;HCards : TJsonArray);
+  procedure SetHoleCards(HCards : TJsonArray);
 
 
 end;
@@ -28,7 +28,7 @@ var RM :RmInfo;
 
 implementation
 
-uses game,common,user;
+uses game,common;
 
 constructor RmInfo.Create;
 begin
@@ -40,17 +40,8 @@ begin
    playerMap.DisposeOf;
 end;
 
-procedure  RmInfo.SetHoleCards(roomId : string;HCards :TJsonArray);
-var
-  i : integer;
+procedure  RmInfo.SetHoleCards(HCards :TJsonArray);
 begin
-   rm.roomId := roomId;
-   rm.holeCards:=  CM.TJosnArray2TArray(HCards);
-   GameInterface.holeCards.Lines.Clear;
-   GameInterface.holeCards.Lines.Add(Hcards.ToString);
-
-
-    GameInterface.showImage(rm.holeCards);
 
 end;
 
@@ -59,17 +50,14 @@ procedure RmInfo.SetOrUpdatePlayerMap(uid:string ; TJCards :TJsonArray);
 var
   rp :roomPlayer;
 begin
-   rp:=roomplayer.Create;
+//    rp:=roomplayer.Create;
    rp.cards:=CM.TJosnArray2TArray(TJCards);
    rp.uid := uid;
    playerMap.TryAdd(uid,rp);
-
-   if (UI.GetUserId() = uid )then
-   begin
    GameInterface.MySelf.Lines.Clear;
    GameInterface.MySelf.Lines.Add(TJcards.ToString);
-   end;
-
 end;
+
+function
 
 end.

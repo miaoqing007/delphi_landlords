@@ -13,14 +13,12 @@ end;
 type RmInfo = class
   roomId : string;
   playerMap : TDictionary<string,roomPlayer>;
-  holeCards : Tarray<string>;
+
   constructor Create;
   destructor Destory;
 
   public
   procedure SetOrUpdatePlayerMap(uid :string ;TJCards :TJsonArray);
-  procedure SetHoleCards(roomId :string;HCards : TJsonArray);
-
 
 end;
 
@@ -28,7 +26,7 @@ var RM :RmInfo;
 
 implementation
 
-uses game,common,user;
+uses game;
 
 constructor RmInfo.Create;
 begin
@@ -40,36 +38,22 @@ begin
    playerMap.DisposeOf;
 end;
 
-procedure  RmInfo.SetHoleCards(roomId : string;HCards :TJsonArray);
-var
-  i : integer;
-begin
-   rm.roomId := roomId;
-   rm.holeCards:=  CM.TJosnArray2TArray(HCards);
-   GameInterface.holeCards.Lines.Clear;
-   GameInterface.holeCards.Lines.Add(Hcards.ToString);
-
-
-    GameInterface.showImage(rm.holeCards);
-
-end;
-
-
 procedure RmInfo.SetOrUpdatePlayerMap(uid:string ; TJCards :TJsonArray);
 var
   rp :roomPlayer;
+  I:integer;
 begin
-   rp:=roomplayer.Create;
-   rp.cards:=CM.TJosnArray2TArray(TJCards);
-   rp.uid := uid;
-   playerMap.TryAdd(uid,rp);
-
-   if (UI.GetUserId() = uid )then
+  rp:=roomplayer.Create;
+     for I := 0 to TJCards.Count-1 do
    begin
-   GameInterface.MySelf.Lines.Clear;
-   GameInterface.MySelf.Lines.Add(TJcards.ToString);
+        SetLength( rp.cards, Length( rp.cards)+1);
+        rp.cards[High(rp.cards)] :=(TJCards.Items[i] as TJsonString).Value;
    end;
 
+   rp.uid := uid;
+   playerMap.TryAdd(uid,rp);
+   GameInterface.MySelf.Lines.Clear;
+   GameInterface.MySelf.Lines.Add(TJcards.ToString);
 end;
 
 end.

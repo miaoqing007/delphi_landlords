@@ -1,0 +1,32 @@
+unit common;
+
+interface
+
+uses system.JSON;
+
+type cmFunction = class
+
+public
+  function TJosnArray2TArray(Tja : TJsonArray):Tarray<string>;
+
+end;
+
+var
+  CM:cmFunction;
+
+implementation
+
+function cmFunction.TJosnArray2TArray(Tja : TJsonArray):Tarray<string>;
+var
+  I:integer;
+  TA:Tarray<string>;
+begin
+     for I := 0 to TJCards.Count-1 do
+   begin
+        SetLength( rp.cards, Length( rp.cards)+1);
+        rp.cards[High(rp.cards)] :=(TJCards.Items[i] as TJsonString).Value;
+   end;
+
+end;
+
+end.
