@@ -228,7 +228,7 @@ begin
   for i := 0 to High(images) do
       begin
          CI.cardMap[images[i]].Position.X := marginleft + i * 30;
-         CI.cardMap[images[i]].Position.Y := self.Height-200;
+         CI.cardMap[images[i]].Position.Y := self.Height-250;
          CI.cardMap[images[i]].Width := 80;
          CI.cardMap[images[i]].Height := 150;
          CI.cardMap[images[i]].WrapMode:=TImageWrapMode.Stretch;

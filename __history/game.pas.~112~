@@ -187,13 +187,13 @@ procedure TGameInterface.ClickCard(Sender: TObject);
 begin
       if rm.cardsClickCountMap[TImage(Sender).TagString] then
       begin
-         TImage(Sender).Position.Y:=TImage(Sender).Position.Y - 40;
-         rm.cardsClickCountMap[TImage(Sender).TagString] := false;
+         TImage(Sender).Position.Y:=TImage(Sender).Position.Y - 50;
+         rm.cardsClickCountMap[TImage(Sender).TagString] := true;
       end
       else
       begin
-        TImage(Sender).Position.Y := TImage(Sender).Position.Y + 40;
-         rm.cardsClickCountMap[TImage(Sender).TagString] := true;
+        TImage(Sender).Position.Y := TImage(Sender).Position.Y + 50;
+         rm.cardsClickCountMap[TImage(Sender).TagString] := false;
       end;
 end;
 
@@ -228,7 +228,7 @@ begin
   for i := 0 to High(images) do
       begin
          CI.cardMap[images[i]].Position.X := marginleft + i * 30;
-         CI.cardMap[images[i]].Position.Y := self.Height-200;
+         CI.cardMap[images[i]].Position.Y := self.Height-250;
          CI.cardMap[images[i]].Width := 80;
          CI.cardMap[images[i]].Height := 150;
          CI.cardMap[images[i]].WrapMode:=TImageWrapMode.Stretch;
@@ -240,20 +240,19 @@ end;
 procedure TGameInterface.EvaluationImageTagString();
 begin
     dawang.TagString:= 'Q88';
-    xiaowang.TagString:= 'K99';
+    xiaowang.TagString:='K99';
 
     three_1.TagString:= 'A3';
     three_2.TagString:= 'B3';
-    three_3.TagString:= 'C3';
-    three_4.TagString:= 'D3';
-
+    three_4.TagString:= 'C3';
+    three_3.TagString:= 'D3';
 
     four_1.TagString:= 'A4';
     four_2.TagString:= 'B4';
     four_3.TagString:= 'C4';
     four_4.TagString:= 'D4';
 
-    five_1.TagString:= 'A5';
+    five_1.TagString:='A5';
     five_2.TagString:= 'B5';
     five_3.TagString:= 'C5';
     five_4.TagString:= 'D5';
@@ -306,7 +305,7 @@ begin
     two_1.TagString:= 'A15';
     two_2.TagString:= 'B15';
     two_3.TagString:= 'C15';
-    two_4.TagString:= 'D15';
+    two_4.TagString:='D15';
 end;
 
 end.

@@ -1869,7 +1869,6 @@ object GameInterface: TGameInterface
     Size.PlatformDefault = False
     Visible = False
     WrapMode = Stretch
-    OnClick = ClickCard
   end
   object three_1: TImage
     MultiResBitmap.Height = 150

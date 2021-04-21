@@ -14,7 +14,7 @@ type RmInfo = class
 
   roomId : string;
   playerMap : TDictionary<string,roomPlayer>;
-  cardsClickCountMap : TDictionary<string,boolean>;
+  cardsClickCountMap : TDictionary<string,integer>;
   holeCards : Tarray<string>;
 
 
@@ -38,7 +38,7 @@ uses game,common,user;
 constructor RmInfo.Create;
 begin
     playerMap :=  TDictionary<string,roomPlayer>.Create;
-    cardsClickCountMap := TDictionary<string,boolean>.Create;
+    cardsClickCountMap := TDictionary<string,integer>.Create;
 end;
 
 destructor RmInfo.Destory;
@@ -59,7 +59,10 @@ var i : integer;
 begin
     for i := 0 to High(cards) do
     begin
-        cardsClickCountMap.TryAdd(cards[i],true);
+       if not cardsClickCountMap.ContainsKey(cards[i]) then
+        begin
+             cardsClickCountMap.TryAdd(cards[i],0);
+        end;
     end;
 
 end;

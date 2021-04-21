@@ -29,13 +29,13 @@ end;
 destructor CardInfo.Destory;
 begin
   cardMap.DisposeOf;
-  inherited;
 end;
 
 procedure CardInfo.initCardMap();
 begin
-    cardMap.TryAdd('Q88',GameInterface.dawang);    //大王
-    cardMap.TryAdd('K99',GameInterface.xiaowang);    //小王
+    cardMap.TryAdd('Q88',GameInterface.dawang);       //大王
+    cardMap.TryAdd('K99',GameInterface.xiaowang);     //小王
+
 
     cardMap.TryAdd('A3',GameInterface.three_1);     //3
     cardMap.TryAdd('B3',GameInterface.three_2);
@@ -45,7 +45,7 @@ begin
     cardMap.TryAdd('A4',GameInterface.four_1);     //4
     cardMap.TryAdd('B4',GameInterface.four_2);
     cardMap.TryAdd('C4',GameInterface.four_3);
-    cardMap.TryAdd('D4',GameInterface.four_4);
+    cardMap.TryAdd('C4',GameInterface.four_4);
 
     cardMap.TryAdd('A5',GameInterface.five_1);     //5
     cardMap.TryAdd('B5',GameInterface.five_2);
@@ -84,23 +84,23 @@ begin
 
     cardMap.TryAdd('A12',GameInterface.Q_1);     //Q
     cardMap.TryAdd('B12',GameInterface.Q_2);
-    cardMap.TryAdd('C12',GameInterface.Q_3);
+    cardMap.TryAdd('C13',GameInterface.Q_3);
     cardMap.TryAdd('D12',GameInterface.Q_4);
 
-    cardMap.TryAdd('A13',GameInterface.K_1);      //K
-    cardMap.TryAdd('B13',GameInterface.K_2);
-    cardMap.TryAdd('C13',GameInterface.K_3);
-    cardMap.TryAdd('D13',GameInterface.K_4);
+    cardMap.TryAdd('A13',GameInterface.xiaowang);      //K
+    cardMap.TryAdd('B13',GameInterface.xiaowang);
+    cardMap.TryAdd('C13',GameInterface.xiaowang);
+    cardMap.TryAdd('D13',GameInterface.xiaowang);
 
-    cardMap.TryAdd('A14',GameInterface.A_1);      //A
-    cardMap.TryAdd('B14',GameInterface.A_2);
-    cardMap.TryAdd('C14',GameInterface.A_3);
-    cardMap.TryAdd('D14',GameInterface.A_4);
+    cardMap.TryAdd('A14',GameInterface.xiaowang);      //A
+    cardMap.TryAdd('B14',GameInterface.xiaowang);
+    cardMap.TryAdd('C14',GameInterface.xiaowang);
+    cardMap.TryAdd('D14',GameInterface.xiaowang);
 
-    cardMap.TryAdd('A15',GameInterface.two_1);      //2
-    cardMap.TryAdd('B15',GameInterface.two_2);
-    cardMap.TryAdd('C15',GameInterface.two_3);
-    cardMap.TryAdd('D15',GameInterface.two_4);
+    cardMap.TryAdd('A15',GameInterface.xiaowang);      //2
+    cardMap.TryAdd('B15',GameInterface.xiaowang);
+    cardMap.TryAdd('C15',GameInterface.xiaowang);
+    cardMap.TryAdd('D15',GameInterface.xiaowang);
 end;
 
 end.

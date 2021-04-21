@@ -1021,7 +1021,6 @@ object GameInterface: TGameInterface
     Size.PlatformDefault = False
     Visible = False
     WrapMode = Stretch
-    OnClick = ClickCard
   end
   object xiaowang: TImage
     MultiResBitmap.Width = 105
@@ -1869,7 +1868,6 @@ object GameInterface: TGameInterface
     Size.PlatformDefault = False
     Visible = False
     WrapMode = Stretch
-    OnClick = ClickCard
   end
   object three_1: TImage
     MultiResBitmap.Height = 150
@@ -2221,7 +2219,6 @@ object GameInterface: TGameInterface
     Position.X = 400.000000000000000000
     Position.Y = 320.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object three_2: TImage
     MultiResBitmap.Height = 150
@@ -2678,7 +2675,6 @@ object GameInterface: TGameInterface
     Position.X = 208.000000000000000000
     Position.Y = 360.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object three_4: TImage
     MultiResBitmap.Height = 150
@@ -3079,7 +3075,6 @@ object GameInterface: TGameInterface
     Position.X = 536.000000000000000000
     Position.Y = 328.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object three_3: TImage
     MultiResBitmap.Height = 150
@@ -3440,7 +3435,6 @@ object GameInterface: TGameInterface
     Position.X = 296.000000000000000000
     Position.Y = 352.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object four_1: TImage
     MultiResBitmap.Height = 150
@@ -3820,7 +3814,6 @@ object GameInterface: TGameInterface
     Position.X = 160.000000000000000000
     Position.Y = 168.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object four_2: TImage
     MultiResBitmap.Height = 150
@@ -4334,7 +4327,6 @@ object GameInterface: TGameInterface
     Position.X = 216.000000000000000000
     Position.Y = 56.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object four_3: TImage
     MultiResBitmap.Height = 150
@@ -4727,7 +4719,6 @@ object GameInterface: TGameInterface
     Position.X = 288.000000000000000000
     Position.Y = 112.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object four_4: TImage
     MultiResBitmap.Height = 150
@@ -5191,7 +5182,6 @@ object GameInterface: TGameInterface
     Position.X = 320.000000000000000000
     Position.Y = 152.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object five_1: TImage
     MultiResBitmap.Height = 150
@@ -5614,7 +5604,6 @@ object GameInterface: TGameInterface
     Position.X = 200.000000000000000000
     Position.Y = 104.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object five_2: TImage
     MultiResBitmap.Height = 150
@@ -6195,7 +6184,6 @@ object GameInterface: TGameInterface
     Position.X = 264.000000000000000000
     Position.Y = 104.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object five_3: TImage
     MultiResBitmap.Height = 150
@@ -6713,7 +6701,6 @@ object GameInterface: TGameInterface
     Position.X = 312.000000000000000000
     Position.Y = 96.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object five_4: TImage
     MultiResBitmap.Height = 150
@@ -7231,7 +7218,6 @@ object GameInterface: TGameInterface
     Position.X = 392.000000000000000000
     Position.Y = 144.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object six_1: TImage
     MultiResBitmap.Height = 150
@@ -7690,7 +7676,6 @@ object GameInterface: TGameInterface
     Position.X = 216.000000000000000000
     Position.Y = 88.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object six_2: TImage
     MultiResBitmap.Height = 150
@@ -8317,7 +8302,6 @@ object GameInterface: TGameInterface
     Position.X = 264.000000000000000000
     Position.Y = 136.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object six_3: TImage
     MultiResBitmap.Height = 150
@@ -8777,7 +8761,6 @@ object GameInterface: TGameInterface
     Position.X = 440.000000000000000000
     Position.Y = 168.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object six_4: TImage
     MultiResBitmap.Height = 150
@@ -9329,7 +9312,6 @@ object GameInterface: TGameInterface
     Position.X = 456.000000000000000000
     Position.Y = 104.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object seven_1: TImage
     MultiResBitmap.Height = 150
@@ -9781,7 +9763,6 @@ object GameInterface: TGameInterface
     Position.X = 248.000000000000000000
     Position.Y = 80.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object seven_2: TImage
     MultiResBitmap.Height = 150
@@ -10423,7 +10404,6 @@ object GameInterface: TGameInterface
     Position.X = 336.000000000000000000
     Position.Y = 88.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object seven_3: TImage
     MultiResBitmap.Height = 150
@@ -10896,7 +10876,6 @@ object GameInterface: TGameInterface
     Position.X = 448.000000000000000000
     Position.Y = 88.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object seven_4: TImage
     MultiResBitmap.Height = 150
@@ -11483,7 +11462,6 @@ object GameInterface: TGameInterface
     Size.Height = 49.000000000000000000
     Size.PlatformDefault = False
     Visible = False
-    OnClick = ClickCard
   end
   object eight_1: TImage
     MultiResBitmap.Height = 150
@@ -11996,7 +11974,6 @@ object GameInterface: TGameInterface
     Position.X = 256.000000000000000000
     Position.Y = 88.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object eight_2: TImage
     MultiResBitmap.Height = 150
@@ -12745,7 +12722,6 @@ object GameInterface: TGameInterface
     Position.X = 344.000000000000000000
     Position.Y = 80.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object eight_3: TImage
     MultiResBitmap.Height = 150
@@ -13273,7 +13249,6 @@ object GameInterface: TGameInterface
     Position.X = 408.000000000000000000
     Position.Y = 72.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object eight_4: TImage
     MultiResBitmap.Height = 150
@@ -13952,7 +13927,6 @@ object GameInterface: TGameInterface
     Position.X = 528.000000000000000000
     Position.Y = 88.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object nine_1: TImage
     MultiResBitmap.Height = 150
@@ -14486,7 +14460,6 @@ object GameInterface: TGameInterface
     Position.X = 272.000000000000000000
     Position.Y = 104.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object nine_2: TImage
     MultiResBitmap.Height = 150
@@ -15236,7 +15209,6 @@ object GameInterface: TGameInterface
     Position.X = 352.000000000000000000
     Position.Y = 104.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object nine_3: TImage
     MultiResBitmap.Height = 150
@@ -15910,7 +15882,6 @@ object GameInterface: TGameInterface
     Position.X = 416.000000000000000000
     Position.Y = 104.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object nine_4: TImage
     MultiResBitmap.Height = 150
@@ -16584,7 +16555,6 @@ object GameInterface: TGameInterface
     Position.X = 496.000000000000000000
     Position.Y = 104.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object ten_1: TImage
     MultiResBitmap.Height = 150
@@ -17155,7 +17125,6 @@ object GameInterface: TGameInterface
     Position.X = 272.000000000000000000
     Position.Y = 104.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object ten_2: TImage
     MultiResBitmap.Height = 150
@@ -17976,7 +17945,6 @@ object GameInterface: TGameInterface
     Position.X = 344.000000000000000000
     Position.Y = 104.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object ten_3: TImage
     MultiResBitmap.Height = 150
@@ -18564,7 +18532,6 @@ object GameInterface: TGameInterface
     Position.X = 424.000000000000000000
     Position.Y = 104.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object ten_4: TImage
     MultiResBitmap.Height = 150
@@ -19303,7 +19270,6 @@ object GameInterface: TGameInterface
     Position.X = 488.000000000000000000
     Position.Y = 104.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object J_1: TImage
     MultiResBitmap.Height = 150
@@ -20224,7 +20190,6 @@ object GameInterface: TGameInterface
     Position.X = 240.000000000000000000
     Position.Y = 112.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object J_2: TImage
     MultiResBitmap.Height = 150
@@ -21261,7 +21226,6 @@ object GameInterface: TGameInterface
     Position.X = 312.000000000000000000
     Position.Y = 112.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object J_3: TImage
     MultiResBitmap.Height = 150
@@ -22225,7 +22189,6 @@ object GameInterface: TGameInterface
     Position.X = 376.000000000000000000
     Position.Y = 112.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object J_4: TImage
     MultiResBitmap.Height = 150
@@ -23224,7 +23187,6 @@ object GameInterface: TGameInterface
     Position.X = 456.000000000000000000
     Position.Y = 112.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object Q_1: TImage
     MultiResBitmap.Height = 150
@@ -24136,7 +24098,6 @@ object GameInterface: TGameInterface
     Position.X = 200.000000000000000000
     Position.Y = 112.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object Q_2: TImage
     MultiResBitmap.Height = 150
@@ -25164,7 +25125,6 @@ object GameInterface: TGameInterface
     Position.X = 272.000000000000000000
     Position.Y = 104.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object Q_3: TImage
     MultiResBitmap.Height = 150
@@ -26159,7 +26119,6 @@ object GameInterface: TGameInterface
     Position.X = 344.000000000000000000
     Position.Y = 104.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object Q_4: TImage
     MultiResBitmap.Height = 150
@@ -27194,7 +27153,6 @@ object GameInterface: TGameInterface
     Position.X = 424.000000000000000000
     Position.Y = 120.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object K_1: TImage
     MultiResBitmap.Height = 150
@@ -28024,7 +27982,6 @@ object GameInterface: TGameInterface
     Position.X = 160.000000000000000000
     Position.Y = 104.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object K_2: TImage
     MultiResBitmap.Height = 150
@@ -29059,7 +29016,6 @@ object GameInterface: TGameInterface
     Position.X = 248.000000000000000000
     Position.Y = 96.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object K_3: TImage
     MultiResBitmap.Height = 150
@@ -30031,7 +29987,6 @@ object GameInterface: TGameInterface
     Position.X = 384.000000000000000000
     Position.Y = 104.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object K_4: TImage
     MultiResBitmap.Height = 150
@@ -31091,7 +31046,6 @@ object GameInterface: TGameInterface
     Position.X = 456.000000000000000000
     Position.Y = 112.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object A_1: TImage
     MultiResBitmap.Height = 150
@@ -31485,7 +31439,6 @@ object GameInterface: TGameInterface
     Position.X = 240.000000000000000000
     Position.Y = 104.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object A_2: TImage
     MultiResBitmap.Height = 150
@@ -31809,7 +31762,6 @@ object GameInterface: TGameInterface
     Position.X = 304.000000000000000000
     Position.Y = 104.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object A_3: TImage
     MultiResBitmap.Height = 150
@@ -32086,7 +32038,6 @@ object GameInterface: TGameInterface
     Position.X = 384.000000000000000000
     Position.Y = 104.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object A_4: TImage
     MultiResBitmap.Height = 150
@@ -32391,7 +32342,6 @@ object GameInterface: TGameInterface
     Position.X = 504.000000000000000000
     Position.Y = 104.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object two_1: TImage
     MultiResBitmap.Height = 150
@@ -32709,7 +32659,6 @@ object GameInterface: TGameInterface
     Position.X = 232.000000000000000000
     Position.Y = 112.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object two_2: TImage
     MultiResBitmap.Height = 150
@@ -33106,7 +33055,6 @@ object GameInterface: TGameInterface
     Position.X = 328.000000000000000000
     Position.Y = 104.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object two_3: TImage
     MultiResBitmap.Height = 150
@@ -33442,7 +33390,6 @@ object GameInterface: TGameInterface
     Position.X = 408.000000000000000000
     Position.Y = 104.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
   object two_4: TImage
     MultiResBitmap.Height = 150
@@ -33788,6 +33735,5 @@ object GameInterface: TGameInterface
     Position.X = 504.000000000000000000
     Position.Y = 104.000000000000000000
     Visible = False
-    OnClick = ClickCard
   end
 end

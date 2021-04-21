@@ -185,15 +185,9 @@ end;
 
 procedure TGameInterface.ClickCard(Sender: TObject);
 begin
-      if rm.cardsClickCountMap[TImage(Sender).TagString] then
+      if (rm.cardsClickCountMap[TImage(Sender).TagString] mod 2)=0 then
       begin
-         TImage(Sender).Position.Y:=TImage(Sender).Position.Y - 40;
-         rm.cardsClickCountMap[TImage(Sender).TagString] := false;
-      end
-      else
-      begin
-        TImage(Sender).Position.Y := TImage(Sender).Position.Y + 40;
-         rm.cardsClickCountMap[TImage(Sender).TagString] := true;
+
       end;
 end;
 
@@ -228,7 +222,7 @@ begin
   for i := 0 to High(images) do
       begin
          CI.cardMap[images[i]].Position.X := marginleft + i * 30;
-         CI.cardMap[images[i]].Position.Y := self.Height-200;
+         CI.cardMap[images[i]].Position.Y := self.Height-250;
          CI.cardMap[images[i]].Width := 80;
          CI.cardMap[images[i]].Height := 150;
          CI.cardMap[images[i]].WrapMode:=TImageWrapMode.Stretch;
@@ -240,20 +234,19 @@ end;
 procedure TGameInterface.EvaluationImageTagString();
 begin
     dawang.TagString:= 'Q88';
-    xiaowang.TagString:= 'K99';
+    xiaowang.TagString:='KQQ';
 
     three_1.TagString:= 'A3';
     three_2.TagString:= 'B3';
-    three_3.TagString:= 'C3';
-    three_4.TagString:= 'D3';
-
+    three_4.TagString:= 'C3';
+    three_3.TagString:= 'D3';
 
     four_1.TagString:= 'A4';
     four_2.TagString:= 'B4';
     four_3.TagString:= 'C4';
     four_4.TagString:= 'D4';
 
-    five_1.TagString:= 'A5';
+    five_1.TagString:='A5';
     five_2.TagString:= 'B5';
     five_3.TagString:= 'C5';
     five_4.TagString:= 'D5';
@@ -266,7 +259,7 @@ begin
     seven_1.TagString:= 'A7';
     seven_2.TagString:= 'B7';
     seven_3.TagString:= 'C7';
-    seven_4.TagString:= 'D7';
+    seven_4.TagString:='D7';
 
     eight_1.TagString:= 'A8';
     eight_2.TagString:= 'B8';
@@ -278,7 +271,7 @@ begin
     nine_3.TagString:='C9';
     nine_4.TagString:='D9';
 
-    ten_1.TagString:='A10';
+    ten_1.TagString:= 'A10';
     ten_2.TagString:='B10';
     ten_3.TagString:='C10';
     ten_4.TagString:='D10';
@@ -286,17 +279,17 @@ begin
     J_1.TagString:='A11';
     J_2.TagString:='B11';
     J_3.TagString:='C11';
-    J_4.TagString:='D11';
+    J_4.TagString:= 'D11';
 
     Q_1.TagString:='A12';
     Q_2.TagString:='B12';
-    Q_3.TagString:='C12';
+    Q_3.TagString:= 'C12';
     Q_4.TagString:='D12';
 
     K_1.TagString:='A13';
     K_2.TagString:='B13';
     K_3.TagString:='C13';
-    K_4.TagString:='D13';
+    K_4.TagString:= 'D13';
 
     A_1.TagString:='A14';
     A_2.TagString:='B14';
@@ -306,7 +299,7 @@ begin
     two_1.TagString:= 'A15';
     two_2.TagString:= 'B15';
     two_3.TagString:= 'C15';
-    two_4.TagString:= 'D15';
+    two_4.TagString:='D15';
 end;
 
 end.

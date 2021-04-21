@@ -34,8 +34,9 @@ end;
 
 procedure CardInfo.initCardMap();
 begin
-    cardMap.TryAdd('Q88',GameInterface.dawang);    //大王
-    cardMap.TryAdd('K99',GameInterface.xiaowang);    //小王
+    cardMap.TryAdd('Q88',GameInterface.dawang);       //大王
+    cardMap.TryAdd('K99',GameInterface.xiaowang);     //小王
+
 
     cardMap.TryAdd('A3',GameInterface.three_1);     //3
     cardMap.TryAdd('B3',GameInterface.three_2);
@@ -84,7 +85,7 @@ begin
 
     cardMap.TryAdd('A12',GameInterface.Q_1);     //Q
     cardMap.TryAdd('B12',GameInterface.Q_2);
-    cardMap.TryAdd('C12',GameInterface.Q_3);
+    cardMap.TryAdd('C13',GameInterface.Q_3);
     cardMap.TryAdd('D12',GameInterface.Q_4);
 
     cardMap.TryAdd('A13',GameInterface.K_1);      //K
