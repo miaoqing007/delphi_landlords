@@ -8,7 +8,7 @@ uses
   FMX.ScrollBox, FMX.Memo, FMX.Controls.Presentation, FMX.StdCtrls, System.JSON,
   IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, FMX.Edit,uDSimpleTcpClient,
   System.ImageList, FMX.ImgList, FMX.Objects,tcp,login,handler,user,setUserName,card,
-  common,room;
+  common,room, FMX.Layouts, FMX.TreeView;
 
 type
   TGameInterface = class(TForm)
@@ -86,17 +86,23 @@ type
     two_2: TImage;
     two_3: TImage;
     two_4: TImage;
+    StyleBook1: TStyleBook;
+    background: TImage;
+    Layout1: TLayout;
 
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure StartGameClick(Sender: TObject);
     procedure cancelMatchClick(Sender: TObject);
-    procedure showHoleCards(images : Tarray<string>);
-    procedure showMyCards(images : Tarray<string>);
+    procedure showHoleCards(cards : Tarray<string>);
+    procedure showMyCards(cards : Tarray<string>);
     procedure FormResize(Sender: TObject);
-    procedure dawangClick(Sender: TObject);
     procedure ClickCard(Sender: TObject);
     procedure EvaluationImageTagString();
+    procedure SetButton();
+    procedure SetCards();
+    procedure outOfCardClick(Sender: TObject);
+    procedure ShowOutOfCards(cards : Tarray<string>);
 
   private
     { Private declarations }
@@ -117,13 +123,6 @@ implementation
 
 {$R *.fmx}
 
-
-procedure TGameInterface.dawangClick(Sender: TObject);
-begin
-//      rm.cardsClickCountMap[]
-      dawang.Position.Y:=dawang.Position.Y-50;
-end;
-
 procedure TGameInterface.FormCreate(Sender: TObject);
 begin
     G_TcpMessage := TcpMessage.Create;
@@ -134,7 +133,9 @@ begin
 
     G_TcpMessage.ConnectionService();
 
+
     EvaluationImageTagString();
+    SetButton();
 
     LFrame := TLoginFrame.Create(Self);
     LFrame.Parent := Self;
@@ -152,6 +153,38 @@ begin
 end;
 
 procedure TGameInterface.FormResize(Sender: TObject);
+begin
+    SetButton();
+    SetCards();
+end;
+
+procedure TGameInterface.outOfCardClick(Sender: TObject);
+var
+  card  : string;
+  js : TJsonObject;
+  JsAy : TjsonArray;
+begin
+      if rm.choiceCards.Count=0 then
+      begin
+        showMessage('请选择需要出的牌');
+        exit;
+      end;
+
+      js := TJsonObject.Create;
+      JsAy := TjsonArray.Create;
+      for card in rm.choiceCards.Keys do
+      begin
+         JsAy.AddElement(TJsonString.Create(card));
+      end;
+
+     js.AddPair('cards',JsAy);
+     js.AddPair('roomId',TJsonString.Create(rm.roomid));
+     G_TcpMessage.SendTcpMessageToService(js.ToString,2007);
+
+     js.DisposeOf;
+end;
+
+procedure TGameInterface.SetCards();
   var
   uid : string;
 begin
@@ -159,16 +192,21 @@ begin
     begin
       exit;
     end;
+
     uid := ui.GetUserId();
-    if (uid = '') or (rm = nil)  then
+    if (uid = '') or (rm = nil) then
     begin
       exit;
-    end
-    else if (rm.playerMap<>nil) and (rm.playerMap.ContainsKey(uid)) then
+    end;
+      if (length(rm.MyCards)<>0) then
+       begin
+          showMyCards(rm.MyCards);
+       end;
+      if (length(rm.outOfCards)<>0) then
       begin
-         showMyCards(rm.playerMap[uid].cards);
-         showHoleCards(rm.holeCards);
+          ShowOutOfCards(rm.outOfCards);
       end;
+
 end;
 
 procedure TGameInterface.StartGameClick(Sender: TObject);
@@ -177,8 +215,10 @@ procedure TGameInterface.StartGameClick(Sender: TObject);
 begin
 //     js:=TJsonObject.Create;
        G_TcpMessage.SendTcpMessageToService('',2003);
+       self.Invalidate;
        AniIndicator1.Visible:=true;
        AniIndicator1.Enabled:=true;
+       Text1.Visible:=true;
        startGame.Visible:=false;
        cancelMatch.Visible := true;
 end;
@@ -189,52 +229,115 @@ begin
       begin
          TImage(Sender).Position.Y:=TImage(Sender).Position.Y - 40;
          rm.cardsClickCountMap[TImage(Sender).TagString] := false;
+         rm.AddOrRemoveChoiceCardsMap(TImage(sender).TagString,true)
       end
       else
       begin
         TImage(Sender).Position.Y := TImage(Sender).Position.Y + 40;
-         rm.cardsClickCountMap[TImage(Sender).TagString] := true;
+        rm.cardsClickCountMap[TImage(Sender).TagString] := true;
+        rm.AddOrRemoveChoiceCardsMap(TImage(sender).TagString,false)
       end;
 end;
 
 procedure TGameInterface.cancelMatchClick(Sender: TObject);
 begin
      G_TcpMessage.SendTcpMessageToService('',2008);
+     self.Invalidate;
      AniIndicator1.Enabled:=false;
      AniIndicator1.Visible:=false;
+     Text1.Visible:=false;
 end;
 
-procedure  TGameInterface.showHoleCards(images : Tarray<string>) ;
+procedure TGameInterface.ShowOutOfCards(cards : Tarray<string>);
+var
+ i : integer;
+ cardslength : single;
+ totalCardsLength : single;
+ marginLeft : single;
+ marginTop : single;
+begin
+  if length(cards)=0 then
+  begin
+    exit;
+  end;
+
+    totalCardsLength :=(Length(cards)-1)* 30 + 80;
+
+    marginLeft := (self.Width-totalCardsLength) / 2;
+
+    marginTop := (self.Height-150)/2;
+
+  for i := 0 to High(cards) do
+      begin
+         CI.cardMap[cards[i]].Position.X := marginleft + i * 30;
+         CI.cardMap[cards[i]].Position.Y :=marginTop-80;
+         CI.cardMap[cards[i]].Width := 80;
+         CI.cardMap[cards[i]].Height := 150;
+         CI.cardMap[cards[i]].WrapMode:=TImageWrapMode.Stretch;
+         Ci.cardMap[cards[i]].Visible := true;
+         CI.cardMap[cards[i]].BringToFront;
+      end;
+
+end;
+
+
+procedure  TGameInterface.showHoleCards(cards : Tarray<string>) ;
 begin
 //
 end;
 
-procedure TGameInterface.showMyCards(images : Tarray<string>);
+procedure TGameInterface.showMyCards(cards : Tarray<string>);
 var
  i : integer;
  cardslength : single;
  totalCardsLength : single;
  marginLeft : single;
 begin
-  if length(images)=0 then
+  if length(cards)=0 then
   begin
     exit;
   end;
 
-    totalCardsLength :=(Length(images)-1)* 30 + 80;
+    totalCardsLength :=(Length(cards)-1)* 30 + 80;
 
     marginLeft := (self.Width-totalCardsLength) / 2;
 
-  for i := 0 to High(images) do
+  for i := 0 to High(cards) do
       begin
-         CI.cardMap[images[i]].Position.X := marginleft + i * 30;
-         CI.cardMap[images[i]].Position.Y := self.Height-200;
-         CI.cardMap[images[i]].Width := 80;
-         CI.cardMap[images[i]].Height := 150;
-         CI.cardMap[images[i]].WrapMode:=TImageWrapMode.Stretch;
-         Ci.cardMap[images[i]].Visible := true;
-         CI.cardMap[images[i]].BringToFront;
+         CI.cardMap[cards[i]].Position.X := marginleft + i * 30;
+         CI.cardMap[cards[i]].Position.Y := self.Height-200;
+         CI.cardMap[cards[i]].Width := 80;
+         CI.cardMap[cards[i]].Height := 150;
+         CI.cardMap[cards[i]].WrapMode:=TImageWrapMode.Stretch;
+         Ci.cardMap[cards[i]].Visible := true;
+         CI.cardMap[cards[i]].BringToFront;
       end;
+      rm.SetCardsClickCountMap(cards);
+end;
+
+procedure TGameInterface.SetButton();
+begin
+  //
+  StartGame.Position.X:=(self.Width-StartGame.Width)/2;
+  StartGame.Position.Y:=self.Height-230;
+
+  cancelMatch.Position.X:=(self.Width-cancelMatch.Width)/2;
+  cancelMatch.Position.Y:=self.Height-230;
+
+  Text1.Position.X:=(self.Width-Text1.Width)/2+7;
+  Text1.Position.Y:=self.Height-265;
+
+  AniIndicator1.Position.X:=(self.Width-AniIndicator1.Width)/2-7;
+  AniIndicator1.Position.Y:=self.Height-325;
+
+  giveUpCard.Position.X:=(self.Width-giveUpCard.Width)/2 -100;
+  giveUpCard.Position.Y:=self.Height-275;
+
+  outOfCard.Position.X:=(self.Width-outOfCard.Width)/2 + 100;
+  outOfCard.Position.Y:=self.Height-275;
+
+
+
 end;
 
 procedure TGameInterface.EvaluationImageTagString();

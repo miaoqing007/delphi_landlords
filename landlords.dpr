@@ -12,7 +12,8 @@ uses
   setUserName in 'setUserName.pas' {setUserNameFrame: TFrame},
   room in 'room.pas',
   common in 'common.pas',
-  card in 'card.pas';
+  card in 'card.pas',
+  uToast in 'uToast.pas';
 
 {$R *.res}
 

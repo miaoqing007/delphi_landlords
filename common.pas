@@ -21,6 +21,10 @@ var
   I:integer;
   TA:Tarray<string>;
 begin
+  if TJa.Count = 0 then
+    begin
+      exit;
+    end;
      for I := 0 to Tja.Count-1 do
    begin
         SetLength( TA, Length(TA)+1);

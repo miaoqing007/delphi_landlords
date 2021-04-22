@@ -15,7 +15,14 @@ type RmInfo = class
   roomId : string;
   playerMap : TDictionary<string,roomPlayer>;
   cardsClickCountMap : TDictionary<string,boolean>;
+
   holeCards : Tarray<string>;
+
+  MyCards: Tarray<string>;
+
+  choiceCards :TDictionary<string,boolean>;
+
+  outOfCards : Tarray<string>;
 
 
   constructor Create;
@@ -25,6 +32,9 @@ type RmInfo = class
   procedure SetOrUpdatePlayerMap(uid :string ;TJCards :TJsonArray);
   procedure SetHoleCards(roomId :string;HCards : TJsonArray);
   procedure SetCardsClickCountMap(cards : Tarray<string>);
+  procedure AddOrRemoveChoiceCardsMap(card : string ; addOrRemove : boolean);
+  procedure HideChoiceCards(cards : Tarray<string>);
+  procedure SetOutOfCards(cards : TJsonArray);
 
 
 end;
@@ -33,18 +43,20 @@ var RM :RmInfo;
 
 implementation
 
-uses game,common,user;
+uses game,common,user,card;
 
 constructor RmInfo.Create;
 begin
     playerMap :=  TDictionary<string,roomPlayer>.Create;
     cardsClickCountMap := TDictionary<string,boolean>.Create;
+    choiceCards := TDictionary<string,boolean>.Create;
 end;
 
 destructor RmInfo.Destory;
 begin
    playerMap.DisposeOf;
    cardsClickCountMap.DisposeOf;
+   choiceCards.DisposeOf;
    inherited;
 end;
 
@@ -52,6 +64,7 @@ procedure RmInfo.SetHoleCards(roomId : string;HCards :TJsonArray);
 begin
    rm.roomId := roomId;
    rm.holeCards:=  CM.TJosnArray2TArray(HCards);
+
 end;
 
 procedure RmInfo.SetCardsClickCountMap(cards : Tarray<string>);
@@ -59,8 +72,9 @@ var i : integer;
 begin
     for i := 0 to High(cards) do
     begin
-        cardsClickCountMap.TryAdd(cards[i],true);
+        cardsClickCountMap.AddOrSetValue(cards[i],true);
     end;
+    ChoiceCards.Clear;
 
 end;
 
@@ -69,17 +83,57 @@ procedure RmInfo.SetOrUpdatePlayerMap(uid:string ; TJCards :TJsonArray);
 var
   rp :roomPlayer;
 begin
-   rp:=roomplayer.Create;
-   rp.cards:=CM.TJosnArray2TArray(TJCards);
-   rp.uid := uid;
-   playerMap.TryAdd(uid,rp);
-
    if (UI.GetUserId() = uid )then
    begin
-      GameInterface.showMyCards(rp.cards);
-      SetCardsClickCountMap(rp.cards);
+      MyCards:=Cm.TJosnArray2TArray(TJCards);
+      GameInterface.showMyCards(MyCards);
+   end
+   else
+   begin
+      rp:=roomplayer.Create;
+      rp.cards:=CM.TJosnArray2TArray(TJCards);
+      rp.uid := uid;
+      playerMap.AddOrSetValue(uid,rp);
    end;
 
+end;
+
+procedure RmInfo.AddOrRemoveChoiceCardsMap(card :string ; addOrRemove : boolean);
+begin
+  if addOrRemove then
+  begin
+    ChoiceCards.TryAdd(card,true);
+  end
+  else
+  begin
+    if choiceCards.ContainsKey(card) then
+    begin
+         choiceCards.Remove(card);
+    end;
+  end;
+end;
+
+procedure RmInfo.HideChoiceCards(cards : Tarray<string>);
+var
+  i : integer;
+begin
+  for i := 0 to High(cards) do
+  begin
+     CI.cardMap[cards[i]].Visible := false;
+  end;
+
+end;
+
+procedure RmInfo.SetOutOfCards(cards : TJsonArray);
+begin
+
+    if (Length(outofCards)<>0) then
+     begin
+       HideChoiceCards(outOfcards);
+     end;
+
+    outOfCards:=CM.TJosnArray2TArray(cards);
+    GameInterface.ShowOutOfCards(outOfCards);
 end;
 
 end.

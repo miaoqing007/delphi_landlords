@@ -3,13 +3,17 @@ unit handler;
 interface
 
 uses uDSimpleTcpClient,System.Classes,System.SysUtils,System.Generics.Collections,
-FMX.Dialogs,system.JSON,user;
+FMX.Dialogs,system.JSON,user,common,uToast;
 
 type  executeFunction= procedure(LStr :TStringStream) of object;
 
 type executeHandler = class
 
   private
+  procedure AddCallBackDictionary;
+
+  private
+  procedure DoIngoreMsg(LStr:TStringStream);
   procedure DoLoginSuccess(LStr:TStringStream);
   procedure DoErrorAck(LStr:TStringStream);
   procedure DoStartGameSuccess(LStr:TStringStream);
@@ -18,7 +22,8 @@ type executeHandler = class
   procedure DoPullUserDataSuccess(LStr:TStringStream);
   procedure DoPvpPlayerSuccess(LStr:TStringStream);
   procedure DoCancelPvpMatchSuccess(LStr:TStringStream);
-  procedure AddCallBackDictionary;
+  procedure DoOutOfCardSuccess(LStr:TStringStream);
+  procedure DoOutOfCardFailed(LStr:TStringStream);
 //  procedure AddCode;
 
 
@@ -36,7 +41,7 @@ var ExHandler :executeHandler;
 
 implementation
 
-uses game,tcp,room;
+uses game,tcp,room,card;
 
 constructor executeHandler.Create;
 begin
@@ -60,6 +65,7 @@ end;
 
 procedure executeHandler.AddCallBackDictionary();
 begin
+   CallBackDictionary.Add(0,DoIngoreMsg);                    //处理忽略消息
    CallBackDictionary.Add(2001,DoLoginSuccess);              //登陆成功，进入游戏界面
    CallBackDictionary.Add(2002,DoErrorAck);                  //错误统一处理
    CallBackDictionary.Add(2003,DoStartGameSuccess);          //开始游戏成功，等待匹配结果
@@ -68,8 +74,15 @@ begin
    CallBackDictionary.Add(2007,DoOutOfTheCardSuccess);       //出牌成功
    CallBackDictionary.Add(3000,DoPvpPlayerSuccess);          //匹配成功
    CallBackDictionary.Add(2009,DoCancelPvpMatchSuccess);     //取消匹配成功
+   CallBackDictionary.Add(2011,DoOutOfCardSuccess);          //出牌成功
+   CallBackDictionary.Add(2010,DoOutOfCardFailed);           //出牌失败
 end;
 
+
+procedure executeHandler.DoIngoreMsg(LStr:TStringStream);
+begin
+
+end;
 
 procedure executeHandler.DoErrorAck(LStr:TStringStream);
  var
@@ -161,6 +174,7 @@ begin
    GameInterface.cancelMatch.Visible := false;
    GameInterface.AniIndicator1.Visible := false;
    GameInterface.AniIndicator1.Enabled := false;
+   GameInterface.Text1.Visible:=false;
    GameInterface.outOfCard.Visible := true;
    GameInterface.giveUpCard.Visible := true;
 end;
@@ -169,6 +183,43 @@ procedure executeHandler.DoCancelPvpMatchSuccess(LStr:TStringStream);
 begin
    GameInterface.cancelMatch.Visible := false;
    GameInterface.StartGame.Visible := true;
+end;
+
+procedure executeHandler.DoOutOfCardSuccess(LStr:TStringStream);
+var
+  Js : TJsonObject;
+  cards : TjsonArray;
+  outofCards : TJsonArray;
+  id : string;
+  c : string;
+begin
+    Js:=TJsonObject.ParseJSONValue(Lstr.DataString) as TJsonObject;
+    js.TryGetValue('id',id);
+    js.TryGetValue('cards',cards);
+    js.TryGetValue('outOfCards',outOfCards);
+
+     rm.SetOutOfCards(outofCards);
+
+    if (id = ui.GetUserId()) then
+    begin
+      RM.SetOrUpdatePlayerMap(id,cards);
+    end;
+
+
+    js.DisposeOf;
+end;
+
+procedure executeHandler.DoOutOfCardFailed(LStr:TStringStream);
+var
+ Js : TJsonObject;
+ msg : string;
+
+begin
+    js := TJsonobject.ParseJSONValue(Lstr.DataString) as TJsonObject;
+    js.TryGetValue('msg',msg);
+
+    js.DisposeOf;
+   TToast.MakeText(GameInterface, '123', TToastLength.Toast_LENGTH_LONG);
 end;
 
 end.
