@@ -3,7 +3,8 @@ unit uToast;
 interface
 
 uses
-  FMX.Types, FMX.Ani, FMX.Controls, FMX.Objects, FMX.Forms, FMX.Effects, System.UITypes, System.Math;
+  FMX.Types, FMX.Ani, FMX.Controls, FMX.Objects, FMX.Forms, FMX.Effects, System.UITypes, System.Math,
+  FMX.Graphics;
 
 const
   Rect_Padding_Hor = 30;  //水平（左右）向内缩进大小
@@ -54,8 +55,11 @@ begin
   retToast.Padding.Right := Rect_Padding_Hor;
   retToast.Padding.Top := Rect_Padding_Ver;
   retToast.Padding.Bottom := Rect_Padding_Ver;
-  retToast.Fill.Color := $FF262626;
+  retToast.Fill.Color := TAlphaColorRec.Black;
   retToast.Parent := AOwner;
+  retToast.YRadius := 10;
+  retToast.XRadius := 10;
+  retToast.Fill.Kind := TBrushKind.Solid;
 
   //显示动画，显示一定时间后消失
   aniToast := TFloatAnimation.Create(AOwner);
@@ -120,7 +124,7 @@ begin
     toast.txtToast.WordWrap := true;
     toast.txtToast.AutoSize := true;
 
-    toast.retToast.Width := toast.txtToast.Width + Rect_Padding_Hor * 2;
+    toast.retToast.Width := toast.txtToast.Width + Rect_Padding_Hor * 2 ;
     toast.retToast.Height := toast.txtToast.Height + Rect_Padding_Ver * 2;
 
     toast.txtToast.Parent := toast.retToast;

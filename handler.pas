@@ -17,13 +17,14 @@ type executeHandler = class
   procedure DoLoginSuccess(LStr:TStringStream);
   procedure DoErrorAck(LStr:TStringStream);
   procedure DoStartGameSuccess(LStr:TStringStream);
-  procedure DoOutOfTheCardSuccess(LStr:TStringStream);
   procedure DoUserRegisterSuccess(LStr:TStringStream);
   procedure DoPullUserDataSuccess(LStr:TStringStream);
   procedure DoPvpPlayerSuccess(LStr:TStringStream);
   procedure DoCancelPvpMatchSuccess(LStr:TStringStream);
   procedure DoOutOfCardSuccess(LStr:TStringStream);
   procedure DoOutOfCardFailed(LStr:TStringStream);
+  procedure DoLoginFailed(LStr:TStringStream);
+  procedure DoRegisterName(LStr:TStringStream);
 //  procedure AddCode;
 
 
@@ -71,11 +72,12 @@ begin
    CallBackDictionary.Add(2003,DoStartGameSuccess);          //开始游戏成功，等待匹配结果
    CallBackDictionary.Add(2005,DoUserRegisterSuccess);       //新用户注册成功
    CallBackDictionary.Add(2006,DoPullUserDataSuccess);       //拉取用户信息成功
-   CallBackDictionary.Add(2007,DoOutOfTheCardSuccess);       //出牌成功
    CallBackDictionary.Add(3000,DoPvpPlayerSuccess);          //匹配成功
    CallBackDictionary.Add(2009,DoCancelPvpMatchSuccess);     //取消匹配成功
    CallBackDictionary.Add(2011,DoOutOfCardSuccess);          //出牌成功
    CallBackDictionary.Add(2010,DoOutOfCardFailed);           //出牌失败
+   CallBackDictionary.Add(2012,DoLoginFailed);                //登陆失败
+   CallBackDictionary.Add(2014,DoRegisterName);
 end;
 
 
@@ -91,23 +93,19 @@ procedure executeHandler.DoErrorAck(LStr:TStringStream);
 begin
     JS:=TJsonObject.ParseJSONValue(Lstr.DataString) as TJsonObject;
     JS.TryGetValue('f_msg',msg);
-    showMessage(msg);
     JS.DisposeOf;
+    LFrame.Layout1.BringToFront;
+    TToast.MakeText(LFrame.LAYOUT1, msg, TToastLength.Toast_LENGTH_LONG);
 end;
 
 procedure executeHandler.DoLoginSuccess(LStr:TStringStream);
 begin
-      LFrame.Visible:=false;
-      GameInterface.AniIndicator1.Visible:=false;
+//      LFrame.Visible:=false;
+//      GameInterface.AniIndicator1.Visible:=false;
       G_TcpMessage.SendTcpMessageToService('',2006);
 end;
 
 procedure executeHandler.DoStartGameSuccess(LStr:TStringStream);
-begin
-
-end;
-
-procedure  executeHandler.DoOutOfTheCardSuccess(LStr:TStringStream);
 begin
 
 end;
@@ -128,14 +126,18 @@ begin
   Js.TryGetValue('uid',uid);
 
   SName.Visible:=false;
+  LFrame.Visible:=false;
+  GameInterface.AniIndicator1.Visible:=false;
 
+  UI.SetUserName(name);
   UI.SetUserId(uid);
 
-  if not (name='') then
-  begin
-     SName.Visible:=false;
-     UI.SetUserName(name);
-  end;
+//  if not (name='') then
+//  begin
+//     SName.Visible:=false;
+//     UI.SetUserName(name);
+//  end;
+
   Js.DisposeOf;
 end;
 
@@ -145,9 +147,11 @@ var
   HoleCards :TjsonArray;
   LPlayers : TJsonArray;
   LPlayer : TJsonObject;
+  LplayerIds : TJsonArray;
   roomId : string;
   I : integer;
   Id : string;
+  name : string;
   cards : TjsonArray;
   pj : TJsonObject;
 
@@ -157,7 +161,14 @@ begin
    js.TryGetValue('players',LPlayers);
    js.TryGetValue('roomId',roomId);
    js.TryGetValue('hole_cards',HoleCards);
+   js.TryGetValue('playerIds',LPlayerIds);
+
+
+
    Rm.SetHoleCards(roomId,HoleCards);
+
+   Rm.SetLeftAndRigthPlayer(LPlayerIds);
+
    if (Lplayers<>nil)and (not LPlayers.Null) then
    begin
      for I:=0 to Lplayers.Count-1 do
@@ -166,7 +177,8 @@ begin
            PJ:=TJsonOBject.ParseJSONValue(LPlayer.ToString) as TJsonObject;
            pJ.TryGetValue('id',Id);
            pj.TryGetValue('cards',cards);
-           RM.SetOrUpdatePlayerMap(id,cards);
+           Pj.TryGetValue('name',name);
+           RM.SetOrUpdatePlayerMap(id,name,cards);
            pj.DisposeOf;
        end;
    end;
@@ -174,7 +186,7 @@ begin
    GameInterface.cancelMatch.Visible := false;
    GameInterface.AniIndicator1.Visible := false;
    GameInterface.AniIndicator1.Enabled := false;
-   GameInterface.Text1.Visible:=false;
+   GameInterface.waitting.Visible:=false;
    GameInterface.outOfCard.Visible := true;
    GameInterface.giveUpCard.Visible := true;
 end;
@@ -198,13 +210,9 @@ begin
     js.TryGetValue('cards',cards);
     js.TryGetValue('outOfCards',outOfCards);
 
-     rm.SetOutOfCards(outofCards);
+    rm.SetOutOfCards(outofCards);
 
-    if (id = ui.GetUserId()) then
-    begin
-      RM.SetOrUpdatePlayerMap(id,cards);
-    end;
-
+    RM.SetOrUpdatePlayerMap(id,'',cards);
 
     js.DisposeOf;
 end;
@@ -218,8 +226,28 @@ begin
     js := TJsonobject.ParseJSONValue(Lstr.DataString) as TJsonObject;
     js.TryGetValue('msg',msg);
 
+    GameInterface.LAYOUT1.BringToFront;
+    TToast.MakeText(GameInterface.LAYOUT1, msg, TToastLength.Toast_LENGTH_LONG);
     js.DisposeOf;
-   TToast.MakeText(GameInterface, '123', TToastLength.Toast_LENGTH_LONG);
+end;
+
+procedure executeHandler.DoLoginFailed(LStr:TStringStream);
+var
+ Js : TJsonObject;
+ msg : string;
+
+begin
+    js := TJsonobject.ParseJSONValue(Lstr.DataString) as TJsonObject;
+    js.TryGetValue('msg',msg);
+
+    LFrame.LoginFailed(msg);
+
+    js.DisposeOf;
+end;
+
+procedure executeHandler.DoRegisterName(LStr:TStringStream);
+begin
+    lFrame.Visible:=false;
 end;
 
 end.

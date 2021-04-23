@@ -8,7 +8,7 @@ uses
   FMX.ScrollBox, FMX.Memo, FMX.Controls.Presentation, FMX.StdCtrls, System.JSON,
   IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, FMX.Edit,uDSimpleTcpClient,
   System.ImageList, FMX.ImgList, FMX.Objects,tcp,login,handler,user,setUserName,card,
-  common,room, FMX.Layouts, FMX.TreeView;
+  common,room, FMX.Layouts, FMX.TreeView,uToast;
 
 type
   TGameInterface = class(TForm)
@@ -17,7 +17,7 @@ type
     giveUpCard: TButton;
     cancelMatch: TButton;
     AniIndicator1: TAniIndicator;
-    Text1: TText;
+    waitting: TText;
 
     dawang: TImage;
     xiaowang: TImage;
@@ -89,6 +89,14 @@ type
     StyleBook1: TStyleBook;
     background: TImage;
     Layout1: TLayout;
+    Image1: TImage;
+    leftPlayerCardCount: TText;
+    rightPlayerCardCount: TText;
+    leftPlayerName: TText;
+    rightPlayerName: TText;
+    myName: TText;
+    rightName: TRectangle;
+    leftName: TRectangle;
 
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -103,6 +111,8 @@ type
     procedure SetCards();
     procedure outOfCardClick(Sender: TObject);
     procedure ShowOutOfCards(cards : Tarray<string>);
+    procedure ShowLeftPlayerCards(count : integer; name :string);
+    procedure ShowRightPlayerCards(count : integer; name : string);
 
   private
     { Private declarations }
@@ -166,8 +176,9 @@ var
 begin
       if rm.choiceCards.Count=0 then
       begin
-        showMessage('请选择需要出的牌');
-        exit;
+      Self.LAYOUT1.BringToFront;
+      TToast.MakeText(Self.LAYOUT1, '请选择需要出的牌', TToastLength.Toast_LENGTH_LONG);
+      exit;
       end;
 
       js := TJsonObject.Create;
@@ -187,6 +198,7 @@ end;
 procedure TGameInterface.SetCards();
   var
   uid : string;
+  rp : roomPlayer;
 begin
     if ui=nil then
     begin
@@ -198,13 +210,31 @@ begin
     begin
       exit;
     end;
-      if (length(rm.MyCards)<>0) then
+      if length(rm.MyCards)<>0 then
        begin
           showMyCards(rm.MyCards);
        end;
-      if (length(rm.outOfCards)<>0) then
+      if length(rm.outOfCards)<>0 then
       begin
           ShowOutOfCards(rm.outOfCards);
+      end;
+      if length(rm.holeCards)<>0 then
+      begin
+          showHoleCards(rm.holeCards);
+      end;
+      if rm.playerRightMap.Count<>0 then
+      begin
+          for rp in rm.playerLeftMap.Values do
+                begin
+                  ShowLeftPlayerCards(rp.cardsCOunt,rp.name);
+                end;
+      end;
+      if rm.playerRightMap.Count<>0 then
+      begin
+        for rp in rm.playerRightMap.Values do
+          begin
+            ShowRightPlayerCards(rp.cardsCOunt,rp.name);
+          end;
       end;
 
 end;
@@ -218,7 +248,7 @@ begin
        self.Invalidate;
        AniIndicator1.Visible:=true;
        AniIndicator1.Enabled:=true;
-       Text1.Visible:=true;
+       waitting.Visible:=true;
        startGame.Visible:=false;
        cancelMatch.Visible := true;
 end;
@@ -245,7 +275,7 @@ begin
      self.Invalidate;
      AniIndicator1.Enabled:=false;
      AniIndicator1.Visible:=false;
-     Text1.Visible:=false;
+     waitting.Visible:=false;
 end;
 
 procedure TGameInterface.ShowOutOfCards(cards : Tarray<string>);
@@ -282,7 +312,31 @@ end;
 
 
 procedure  TGameInterface.showHoleCards(cards : Tarray<string>) ;
+var
+ i : integer;
+ cardslength : single;
+ totalCardsLength : single;
+ marginLeft : single;
 begin
+  if length(cards)=0 then
+  begin
+    exit;
+  end;
+
+    totalCardsLength :=(Length(cards)-1)* 50 + 80;
+
+    marginLeft := (self.Width-totalCardsLength) / 2;
+
+  for i := 0 to High(cards) do
+      begin
+         CI.cardMap[cards[i]].Position.X := marginleft + i * 50;
+         CI.cardMap[cards[i]].Position.Y := 0;
+         CI.cardMap[cards[i]].Width := 50;
+         CI.cardMap[cards[i]].Height := 120;
+         CI.cardMap[cards[i]].WrapMode:=TImageWrapMode.Stretch;
+         Ci.cardMap[cards[i]].Visible := true;
+         CI.cardMap[cards[i]].BringToFront;
+      end;
 //
 end;
 
@@ -315,6 +369,96 @@ begin
       rm.SetCardsClickCountMap(cards);
 end;
 
+procedure TGameInterface.ShowLeftPlayerCards(count : Integer; name :string);
+//var
+// i : integer;
+// totalCardsLength : single;
+// margin : single;
+begin
+
+//    totalCardsLength:=count* 5 + 60;
+//     margin:=(self.Width-totalCardsLength)/2;
+
+    cI.backCardArray[0].Position.X:=25;
+    CI.backCardArray[0].Position.Y := self.Height/2-CI.backCardArray[0].Height;
+    CI.backCardArray[0].WrapMode:= TimageWrapMode.Stretch;
+    CI.backCardArray[0].Visible := true;
+    CI.backCardArray[0].BringToFront;
+
+    leftPlayerCardCount.Position.X := 25+15;
+    leftPlayerCardCount.Position.Y := self.Height/2;
+    leftPlayerCardCount.Size.Height:=30;
+    leftPlayerCardCount.Size.Width:=30;
+    leftPlayerCardCount.Text := count.ToString;
+    leftPlayerCardCount.Visible := true;
+    leftPlayerCardCount.BringToFront;
+
+    LeftName.Position.X := 100;
+    LeftName.Position.Y := self.Height/2-CI.backCardArray[0].Height-50;
+    LeftPlayerName.Text := name;
+    LeftPlayerName.Visible := true;
+    LeftName.Visible := true;
+    LeftName.BringToFront;
+
+//    leftPlayerName.Width:=30;
+//    leftPlayerName.Height:=10;
+//    leftPlayerName.Position.X:=15;
+//    leftPlayerName.Position.Y:=self.Height/2-100-20;
+//    leftPlayerName.Text := name;
+//    leftPlayerName.Visible := true;
+//    leftPlayerName.BringToFront;
+//   for I := 0 to (count-1) do
+//      begin
+//        CI.backCardArray[i].Position.X := 25 + i*5;
+//        CI.backCardArray[i].Position.Y := self.Height/2-CI.backCardArray[i].Height;
+//        CI.backCardArray[i].WrapMode:= TimageWrapMode.Stretch;
+//        CI.backCardArray[i].Visible := true;
+//        CI.backCardArray[i].BringToFront;
+//      end;
+
+end;
+
+procedure TGameInterface.ShowRightPlayerCards(count : Integer;name :string);
+//var
+// i : integer;
+// totalCardsLength : single;
+// margin : single;
+begin
+
+
+    cI.backCardArray[1].Position.X:=self.Width-100;
+    CI.backCardArray[1].Position.Y := self.Height/2-CI.backCardArray[1].Height;
+    CI.backCardArray[1].WrapMode:= TimageWrapMode.Stretch;
+    CI.backCardArray[1].Visible := true;
+    CI.backCardArray[1].BringToFront;
+
+    rightPlayerCardCount.Position.X := self.Width-100;
+    rightPlayerCardCount.Position.Y := self.Height/2;
+    rightPlayerCardCount.Size.Height:=30;
+    rightPlayerCardCount.Size.Width:=30;
+    rightPlayerCardCount.Text := count.ToString;
+    rightPlayerCardCount.Visible := true;
+    rightPlayerCardCount.BringToFront;
+
+    rightName.Position.X := self.Width-100-50;
+    rightName.Position.Y := self.Height/2-CI.backCardArray[1].Height-50;
+    rightPlayerName.Text := name;
+    rightPlayerName.Visible := true;
+    rightName.Visible := true;
+    rightName.BringToFront;
+
+//    totalCardsLength:=count* 5 + 60;
+//     margin:=(self.Width-totalCardsLength)/2;
+//  for I := 0 to count do
+//    begin
+//        CI.backCardArray[i+20].Position.X:=(self.Width-100) - i*5;
+//        CI.backCardArray[i+20].Position.Y:= self.Height/2-CI.backCardArray[i].Height;
+//        CI.backCardArray[i+20].WrapMode:=TimageWrapMode.Stretch;
+//        CI.backCardArray[i+20].Visible:=true;
+//        CI.backCardArray[i+20].BringToFront;
+//    end;
+end;
+
 procedure TGameInterface.SetButton();
 begin
   //
@@ -324,8 +468,8 @@ begin
   cancelMatch.Position.X:=(self.Width-cancelMatch.Width)/2;
   cancelMatch.Position.Y:=self.Height-230;
 
-  Text1.Position.X:=(self.Width-Text1.Width)/2+7;
-  Text1.Position.Y:=self.Height-265;
+  waitting.Position.X:=(self.Width-waitting.Width)/2+7;
+  waitting.Position.Y:=self.Height-265;
 
   AniIndicator1.Position.X:=(self.Width-AniIndicator1.Width)/2-7;
   AniIndicator1.Position.Y:=self.Height-325;
@@ -335,8 +479,6 @@ begin
 
   outOfCard.Position.X:=(self.Width-outOfCard.Width)/2 + 100;
   outOfCard.Position.Y:=self.Height-275;
-
-
 
 end;
 

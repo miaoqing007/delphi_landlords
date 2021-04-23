@@ -5,11 +5,11 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
-  FMX.Edit, FMX.Objects, FMX.Controls.Presentation,tcp,System.JSON;
+  FMX.Edit, FMX.Objects, FMX.Controls.Presentation,tcp,System.JSON, FMX.Layouts,
+  uToast;
 
 type
   TLoginFrame = class(TFrame)
-    rect_Login: TRectangle;
     userName: TText;
     inputUserName: TEdit;
     password: TText;
@@ -18,11 +18,12 @@ type
     Image1: TImage;
     Rectangle2: TRectangle;
     Text3: TText;
-    Text1: TText;
-    Rectangle3: TRectangle;
-    Text2: TText;
+    Layout1: TLayout;
+
+
     procedure Text3Click(Sender: TObject);
     procedure Text2Click(Sender: TObject);
+    procedure LoginFailed(msg : string);
   private
     { Private declarations }
   public
@@ -35,7 +36,7 @@ implementation
 
 procedure TLoginFrame.Text2Click(Sender: TObject);
 begin
-   showMessage('开始注册');
+//   showMessage('开始注册');
 end;
 
 procedure TLoginFrame.Text3Click(Sender: TObject);
@@ -49,7 +50,8 @@ begin
   password:=inputPassword.Text;
     if (name='')or (password='') then
     begin
-      showMessage('用户名或密码不能为空');
+    Self.LAYOUT1.BringToFront;
+    TToast.MakeText(Self.LAYOUT1,'用户名或密码不能为空', TToastLength.Toast_LENGTH_LONG);
     end
     else
     begin
@@ -59,6 +61,12 @@ begin
         G_TcpMessage.SendTcpMessageToService(LJson.ToString,2001);
         LJson.DisposeOf;
     end;
+end;
+
+procedure TLoginFrame.LoginFailed(msg : string);
+begin
+  self.Layout1.BringToFront;
+  TToast.MakeText(Self.LAYOUT1,msg, TToastLength.Toast_LENGTH_LONG);
 end;
 
 end.

@@ -5,15 +5,18 @@ interface
 uses System.Generics.Collections,FMX.Dialogs,system.JSON;
 
 type roomPlayer = class
-  uid : string;
   name : string;
-  cards : Tarray<string>;
+  cardsCOunt : integer;
 end;
 
 type RmInfo = class
 
   roomId : string;
-  playerMap : TDictionary<string,roomPlayer>;
+
+  playerLeftMap : TDictionary<string,roomPlayer>;
+
+  playerRightMap :  TDictionary<string,roomPlayer>;
+
   cardsClickCountMap : TDictionary<string,boolean>;
 
   holeCards : Tarray<string>;
@@ -29,12 +32,13 @@ type RmInfo = class
   destructor Destory;
 
   public
-  procedure SetOrUpdatePlayerMap(uid :string ;TJCards :TJsonArray);
+  procedure SetOrUpdatePlayerMap(uid ,name:string ;TJCards:TJsonArray);
   procedure SetHoleCards(roomId :string;HCards : TJsonArray);
   procedure SetCardsClickCountMap(cards : Tarray<string>);
   procedure AddOrRemoveChoiceCardsMap(card : string ; addOrRemove : boolean);
   procedure HideChoiceCards(cards : Tarray<string>);
   procedure SetOutOfCards(cards : TJsonArray);
+  procedure SetLeftAndRigthPlayer(ids : TJsonArray);
 
 
 end;
@@ -47,14 +51,16 @@ uses game,common,user,card;
 
 constructor RmInfo.Create;
 begin
-    playerMap :=  TDictionary<string,roomPlayer>.Create;
+    playerLeftMap :=  TDictionary<string,roomPlayer>.Create;
+    playerRightMap := TDictionary<string , roomPlayer>.Create;
     cardsClickCountMap := TDictionary<string,boolean>.Create;
     choiceCards := TDictionary<string,boolean>.Create;
 end;
 
 destructor RmInfo.Destory;
 begin
-   playerMap.DisposeOf;
+   playerLeftMap.DisposeOf;
+   playerRightMap.DisposeOf;
    cardsClickCountMap.DisposeOf;
    choiceCards.DisposeOf;
    inherited;
@@ -63,8 +69,8 @@ end;
 procedure RmInfo.SetHoleCards(roomId : string;HCards :TJsonArray);
 begin
    rm.roomId := roomId;
-   rm.holeCards:=  CM.TJosnArray2TArray(HCards);
-
+   rm.holeCards :=  CM.TJosnArray2TArray(HCards);
+   GameInterface.showHoleCards(rm.holeCards);
 end;
 
 procedure RmInfo.SetCardsClickCountMap(cards : Tarray<string>);
@@ -79,21 +85,81 @@ begin
 end;
 
 
-procedure RmInfo.SetOrUpdatePlayerMap(uid:string ; TJCards :TJsonArray);
+procedure RmInfo.SetOrUpdatePlayerMap(uid ,name :string ; TJCards :TJsonArray);
 var
-  rp :roomPlayer;
+  cards : Tarray<string>;
 begin
+   cards:=Cm.TJosnArray2TArray(TJCards);
+
    if (UI.GetUserId() = uid )then
    begin
-      MyCards:=Cm.TJosnArray2TArray(TJCards);
+      MyCards:= cards;
       GameInterface.showMyCards(MyCards);
-   end
-   else
+      exit;
+   end;
+
+   if playerLeftMap.ContainsKey(uid) then
    begin
-      rp:=roomplayer.Create;
-      rp.cards:=CM.TJosnArray2TArray(TJCards);
-      rp.uid := uid;
-      playerMap.AddOrSetValue(uid,rp);
+      playerLeftMap[uid].cardsCOunt:=length(cards);
+      if (playerLeftMap[uid].name='')and (name<>'') then
+      begin
+         playerLeftMap[uid].name := name;
+      end;
+      GameInterface.ShowLeftPlayerCards(length(cards),name);
+      exit;
+   end;
+
+   if playerRightMap.ContainsKey(uid) then
+   begin
+      playerRightMap[uid].cardsCOunt:=length(cards);
+      if (playerRightMap[uid].name='')and (name<>'') then
+      begin
+         playerRightMap[uid].name := name;
+      end;
+     GameInterface.ShowRightPlayerCards(length(cards),name);
+     exit;
+   end;
+
+end;
+
+procedure RmInfo.SetLeftAndRigthPlayer(ids : TJsonArray);
+var
+  i  : integer;
+  rp : roomPlayer;
+begin
+    if ids.Count<3 then
+    begin
+      exit
+    end;
+   if (playerLeftMap.Count=0)or (PlayerRightMap.Count=0) then
+   begin
+        rp := roomPlayer.Create();
+       for I := 0 to ids.Count-1 do
+       begin
+           if ui.GetUserId = (ids.Items[i] as TjsonString).Value then
+            begin
+                 if i=0 then
+                 begin
+                 playerRightMap.AddOrSetValue((ids.Items[i+1] as TJsonString).Value,rp);
+                 PlayerLeftMap.AddOrSetValue((ids.Items[i+2] as TJsonString).Value,rp);
+                 exit;
+                 end;
+                 if i=1 then
+                 begin
+                 playerRightMap.AddOrSetValue((ids.Items[i+1] as TJsonString).Value,rp);
+                 PlayerLeftMap.AddOrSetValue((ids.Items[i-1] as TJsonString).Value,rp);
+                 exit;
+                 end;
+                 if i=2 then
+                 begin
+                 playerRightMap.AddOrSetValue((ids.Items[i-2] as TJsonString).Value,rp);
+                 PlayerLeftMap.AddOrSetValue((ids.Items[i-1] as TJsonString).Value,rp);
+                 exit;
+                 end;
+            end;
+
+       end;
+
    end;
 
 end;

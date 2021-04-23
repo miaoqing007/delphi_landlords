@@ -5,10 +5,14 @@ interface
 uses System.Generics.Collections,FMX.Objects;
 
 type CardInfo = class
+
   cardMap : TDictionary<string,TImage>;
+
+  backCardArray : Tarray<TImage>;
 
   public
   procedure initCardMap();
+  procedure initBackCard();
 
   constructor Create;
   destructor Destory;
@@ -23,7 +27,11 @@ uses game;
 constructor Cardinfo.Create;
 begin
    cardMap:=TDictionary<string,TImage>.Create;
+
    initCardMap();
+
+   initBackCard();
+
 end;
 
 destructor CardInfo.Destory;
@@ -101,6 +109,27 @@ begin
     cardMap.TryAdd('B15',GameInterface.two_2);
     cardMap.TryAdd('C15',GameInterface.two_3);
     cardMap.TryAdd('D15',GameInterface.two_4);
+end;
+
+
+procedure CardInfo.initBackCard();
+var
+  im : TImage;
+  i : integer;
+begin
+  for i := 0 to 40 do
+  begin
+        im := TImage.Create(GameInterface);
+        im.Parent := GameInterface;
+        im.Bitmap.Assign(GameInterface.Image1.Bitmap);
+        im.Height := 100;
+        im.Width := 60;
+//        im.RotationAngle := 90;
+        im.Visible := false;
+        SetLength(backCardArray, Length(backCardArray)+1);
+        backCardArray[High(backCardArray)] := im;
+  end;
+
 end;
 
 end.
