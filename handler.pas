@@ -187,8 +187,14 @@ begin
    GameInterface.AniIndicator1.Visible := false;
    GameInterface.AniIndicator1.Enabled := false;
    GameInterface.waitting.Visible:=false;
+
+   if ui.GetUserId=rm.uids[0] then
+   begin
    GameInterface.outOfCard.Visible := true;
    GameInterface.giveUpCard.Visible := true;
+   GameInterface.ShowMyWaitText();
+   rm.HideChoiceCards(rm.outOfCards);
+   end;
 end;
 
 procedure executeHandler.DoCancelPvpMatchSuccess(LStr:TStringStream);
@@ -204,15 +210,28 @@ var
   outofCards : TJsonArray;
   id : string;
   c : string;
+  nextId :string;
 begin
     Js:=TJsonObject.ParseJSONValue(Lstr.DataString) as TJsonObject;
     js.TryGetValue('id',id);
     js.TryGetValue('cards',cards);
     js.TryGetValue('outOfCards',outOfCards);
 
-    rm.SetOutOfCards(outofCards);
+    nextId:=rm.SetOutOfCards(id,outofCards);
 
     RM.SetOrUpdatePlayerMap(id,'',cards);
+
+    if id =Ui.GetUserId then
+    begin
+       GameInterface.outOfCard.Visible := false;
+       GameInterface.giveUpCard.Visible := false;
+    end;
+
+    if nextId=UI.GetUserId then
+    begin
+       GameInterface.outOfCard.Visible := true;
+       GameInterface.giveUpCard.Visible := true;
+    end;
 
     js.DisposeOf;
 end;

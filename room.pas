@@ -7,6 +7,7 @@ uses System.Generics.Collections,FMX.Dialogs,system.JSON;
 type roomPlayer = class
   name : string;
   cardsCOunt : integer;
+  outOfCards : Tarray<string>;
 end;
 
 type RmInfo = class
@@ -27,6 +28,8 @@ type RmInfo = class
 
   outOfCards : Tarray<string>;
 
+  uids : Tarray<string>;
+
 
   constructor Create;
   destructor Destory;
@@ -37,8 +40,10 @@ type RmInfo = class
   procedure SetCardsClickCountMap(cards : Tarray<string>);
   procedure AddOrRemoveChoiceCardsMap(card : string ; addOrRemove : boolean);
   procedure HideChoiceCards(cards : Tarray<string>);
-  procedure SetOutOfCards(cards : TJsonArray);
+  function SetOutOfCards(uid : string;cards : TJsonArray):string;
   procedure SetLeftAndRigthPlayer(ids : TJsonArray);
+  function JudgeOutOfCardInMyCards(card : string):boolean;
+  function findNextId(uid : string):string;
 
 
 end;
@@ -58,7 +63,20 @@ begin
 end;
 
 destructor RmInfo.Destory;
+var
+  rp : roomplayer;
 begin
+
+  for rp in playerLeftMap.Values do
+  begin
+       rp.DisposeOf;
+  end;
+
+  for rp in PlayerRightMap.Values do
+  begin
+       rp.DisposeOf;
+  end;
+
    playerLeftMap.DisposeOf;
    playerRightMap.DisposeOf;
    cardsClickCountMap.DisposeOf;
@@ -101,22 +119,22 @@ begin
    if playerLeftMap.ContainsKey(uid) then
    begin
       playerLeftMap[uid].cardsCOunt:=length(cards);
-      if (playerLeftMap[uid].name='')and (name<>'') then
+      if (name<>'')and ( playerLeftMap[uid].name='') then
       begin
          playerLeftMap[uid].name := name;
       end;
-      GameInterface.ShowLeftPlayerCards(length(cards),name);
+      GameInterface.ShowLeftPlayerCards(length(cards),playerLeftMap[uid].name);
       exit;
    end;
 
    if playerRightMap.ContainsKey(uid) then
    begin
       playerRightMap[uid].cardsCOunt:=length(cards);
-      if (playerRightMap[uid].name='')and (name<>'') then
+      if (name<>'')and ( playerRightMap[uid].name='') then
       begin
          playerRightMap[uid].name := name;
       end;
-     GameInterface.ShowRightPlayerCards(length(cards),name);
+     GameInterface.ShowRightPlayerCards(length(cards),playerRightMap[uid].name);
      exit;
    end;
 
@@ -126,14 +144,19 @@ procedure RmInfo.SetLeftAndRigthPlayer(ids : TJsonArray);
 var
   i  : integer;
   rp : roomPlayer;
+  rp2 :roomPlayer;
 begin
     if ids.Count<3 then
     begin
       exit
     end;
+
+    uids:=CM.TJosnArray2TArray(ids);
+
    if (playerLeftMap.Count=0)or (PlayerRightMap.Count=0) then
    begin
         rp := roomPlayer.Create();
+        rp2 := roomPlayer.Create();
        for I := 0 to ids.Count-1 do
        begin
            if ui.GetUserId = (ids.Items[i] as TjsonString).Value then
@@ -141,19 +164,19 @@ begin
                  if i=0 then
                  begin
                  playerRightMap.AddOrSetValue((ids.Items[i+1] as TJsonString).Value,rp);
-                 PlayerLeftMap.AddOrSetValue((ids.Items[i+2] as TJsonString).Value,rp);
+                 PlayerLeftMap.AddOrSetValue((ids.Items[i+2] as TJsonString).Value,rp2);
                  exit;
                  end;
                  if i=1 then
                  begin
                  playerRightMap.AddOrSetValue((ids.Items[i+1] as TJsonString).Value,rp);
-                 PlayerLeftMap.AddOrSetValue((ids.Items[i-1] as TJsonString).Value,rp);
+                 PlayerLeftMap.AddOrSetValue((ids.Items[i-1] as TJsonString).Value,rp2);
                  exit;
                  end;
                  if i=2 then
                  begin
                  playerRightMap.AddOrSetValue((ids.Items[i-2] as TJsonString).Value,rp);
-                 PlayerLeftMap.AddOrSetValue((ids.Items[i-1] as TJsonString).Value,rp);
+                 PlayerLeftMap.AddOrSetValue((ids.Items[i-1] as TJsonString).Value,rp2);
                  exit;
                  end;
             end;
@@ -190,16 +213,96 @@ begin
 
 end;
 
-procedure RmInfo.SetOutOfCards(cards : TJsonArray);
+function RmInfo.SetOutOfCards(uid : string;cards : TJsonArray):string;
+var
+  ofCards: Tarray<string>;
 begin
+     ofCards:=CM.TJosnArray2TArray(cards);
 
-    if (Length(outofCards)<>0) then
-     begin
-       HideChoiceCards(outOfcards);
-     end;
+     Result:= findNextId(uid);
 
-    outOfCards:=CM.TJosnArray2TArray(cards);
-    GameInterface.ShowOutOfCards(outOfCards);
+     if result=ui.GetUserId then
+      begin
+        GameInterface.ShowMyWaitText();
+      end;
+
+      if playerLeftMap.ContainsKey(result) then
+      begin
+        GameInterface.ShowLeftWaitText();
+      end;
+
+      if playerRightMap.ContainsKey(result) then
+      begin
+        GameInterface.ShowRightWaitText();
+      end;
+
+    if uid=ui.GetUserId() then
+    begin
+         if length(outOfCards)<>0 then
+         begin
+           HideChoiceCards(outOfCards);
+         end;
+         outOfCards:=ofCards;
+         GameInterface.ShowMyOutOfCards(ofCards);
+         exit;
+    end;
+
+    if playerLeftMap.ContainsKey(uid) then
+    begin
+        if length(playerLeftMap[uid].outOfCards)<>0 then
+        begin
+            HideChoiceCards(playerLeftMap[uid].outOfCards);
+        end;
+        playerLeftMap[uid].outOfCards:=ofCards;
+        GameInterface.ShowLeftOutOfCards(ofCards);
+        exit;
+    end;
+
+    if playerRightMap.ContainsKey(uid) then
+    begin
+        if length(playerRightMap[uid].outOfCards)<>0 then
+        begin
+             HideChoiceCards(playerRightMap[uid].outOfCards);
+        end;
+         playerRightMap[uid].outOfCards:=ofCards;
+         GameInterface.ShowRightOutOfCards(ofcards);
+         exit;
+    end;
+end;
+
+function RmInfo.JudgeOutOfCardInMyCards(card : string):boolean;
+var
+  i: integer;
+begin
+  for I := 0 to High(Mycards) do
+  begin
+    if MyCards[i]=card then
+    begin
+      Result:=true;
+      exit;
+    end;
+  end;
+    Result:=false;
+end;
+
+function RmInfo.findNextId(uid: string):string;
+var
+  i : integer;
+begin
+  for I := 0 to high(uids) do
+  begin
+    if uids[i]=uid then
+    begin
+      if (i=0)or (i=1) then
+      begin
+         Result:=uids[i+1];
+      end
+      else
+      begin
+         Result:=uids[i-2];
+      end;
+    end;
+  end;
 end;
 
 end.
