@@ -30,6 +30,8 @@ type RmInfo = class
 
   uids : Tarray<string>;
 
+  nextPlayerId : string;
+
 
   constructor Create;
   destructor Destory;
@@ -44,7 +46,7 @@ type RmInfo = class
   procedure SetLeftAndRigthPlayer(ids : TJsonArray);
   function JudgeOutOfCardInMyCards(card : string):boolean;
   function findNextId(uid : string):string;
-
+  procedure ShowWaitText(uid : string);
 
 end;
 
@@ -108,6 +110,10 @@ var
   cards : Tarray<string>;
 begin
    cards:=Cm.TJosnArray2TArray(TJCards);
+   if length(cards)=0 then
+   begin
+     exit;
+   end;
 
    if (UI.GetUserId() = uid )then
    begin
@@ -206,11 +212,39 @@ procedure RmInfo.HideChoiceCards(cards : Tarray<string>);
 var
   i : integer;
 begin
+    if length(cards)=0 then
+    begin
+      exit;
+    end;
+
   for i := 0 to High(cards) do
   begin
      CI.cardMap[cards[i]].Visible := false;
   end;
 
+end;
+
+procedure RmInfo.ShowWaitText(uid : string);
+begin
+      if length(uids)=0 then
+      begin
+        exit;
+      end;
+
+     if uid=ui.GetUserId then
+      begin
+        GameInterface.ShowMyWaitText();
+      end;
+
+      if playerLeftMap.ContainsKey(uid) then
+      begin
+        GameInterface.ShowLeftWaitText();
+      end;
+
+      if playerRightMap.ContainsKey(uid) then
+      begin
+        GameInterface.ShowRightWaitText();
+      end;
 end;
 
 function RmInfo.SetOutOfCards(uid : string;cards : TJsonArray):string;
@@ -219,22 +253,14 @@ var
 begin
      ofCards:=CM.TJosnArray2TArray(cards);
 
-     Result:= findNextId(uid);
+     nextPlayerId:= findNextId(uid);
 
-     if result=ui.GetUserId then
-      begin
-        GameInterface.ShowMyWaitText();
-      end;
+     ShowWaitText(nextPlayerId);
 
-      if playerLeftMap.ContainsKey(result) then
-      begin
-        GameInterface.ShowLeftWaitText();
-      end;
-
-      if playerRightMap.ContainsKey(result) then
-      begin
-        GameInterface.ShowRightWaitText();
-      end;
+     if nextPlayerId=ui.GetUserId then
+     begin
+       HideChoiceCards(outofCards);
+     end;
 
     if uid=ui.GetUserId() then
     begin

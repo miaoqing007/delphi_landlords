@@ -99,6 +99,10 @@ type
     leftName: TRectangle;
     waitText: TText;
     waitRec: TRectangle;
+    gameEnd: TRectangle;
+    gameEndText: TText;
+    ContinueGame: TButton;
+    endGame: TButton;
 
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -120,6 +124,13 @@ type
     procedure ShowMyWaitText();
     procedure ShowLeftWaitText();
     procedure ShowRightWaitText();
+    procedure giveUpCardClick(Sender: TObject);
+    procedure GameVictory();
+    procedure GameDefeat();
+    procedure CloseRec();
+    procedure continueGameClick(Sender: TObject);
+    procedure DoGameEnd();
+    procedure endGameClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -162,6 +173,16 @@ begin
 
     SName.BringToFront;
     LFrame.BringToFront;
+
+end;
+
+procedure TGameInterface.CloseRec();
+begin
+    leftPlayerCardCount.Visible:=false;
+    rightPlayerCardCount.Visible:=false;
+    rightName.Visible:=false;
+    leftName.Visible:=false;
+    waitRec.Visible:=false;
 end;
 
 procedure TGameInterface.FormDestroy(Sender: TObject);
@@ -173,6 +194,16 @@ procedure TGameInterface.FormResize(Sender: TObject);
 begin
     SetButton();
     SetCards();
+end;
+
+procedure TGameInterface.giveUpCardClick(Sender: TObject);
+var
+  js : TJsonObject;
+begin
+     js:=TJsonObject.Create;
+     js.AddPair('roomId',TJsonString.Create(rm.roomid));
+     G_TcpMessage.SendTcpMessageToService(js.ToString,2016);
+     js.DisposeOf;
 end;
 
 procedure TGameInterface.outOfCardClick(Sender: TObject);
@@ -251,6 +282,14 @@ begin
             end;
           end;
       end;
+      if rm.nextPlayerId<>'' then
+      begin
+          rm.ShowWaitText(rm.nextPlayerId);
+      end
+      else if length(rm.uids)<>0 then
+      begin
+          rm.ShowWaitText(rm.uids[0]);
+      end;
 
 end;
 
@@ -286,6 +325,13 @@ begin
       end;
 end;
 
+procedure TGameInterface.continueGameClick(Sender: TObject);
+begin
+   StartGameClick(Sender);
+   gameEnd.Visible:=false;
+   continueGame.Visible:=false;
+end;
+
 procedure TGameInterface.cancelMatchClick(Sender: TObject);
 begin
      G_TcpMessage.SendTcpMessageToService('',2008);
@@ -298,10 +344,8 @@ end;
 procedure TGameInterface.ShowMyOutOfCards(cards : Tarray<string>);
 var
  i : integer;
- cardslength : single;
  totalCardsLength : single;
  marginLeft : single;
-// marginTop : single;
 begin
   if length(cards)=0 then
   begin
@@ -312,7 +356,6 @@ begin
 
     marginLeft := (self.ClientWidth-totalCardsLength) / 2;
 
-//    marginTop := (self.ClientHeight-150)/2;
 
   for i := 0 to High(cards) do
       begin
@@ -373,7 +416,6 @@ end;
 procedure  TGameInterface.showHoleCards(cards : Tarray<string>) ;
 var
  i : integer;
- cardslength : single;
  totalCardsLength : single;
  marginLeft : single;
 begin
@@ -402,7 +444,7 @@ end;
 procedure TGameInterface.showMyCards(cards : Tarray<string>);
 var
  i : integer;
- cardslength : single;
+// cardslength : single;
  totalCardsLength : single;
  marginLeft : single;
 begin
@@ -487,9 +529,12 @@ end;
 
 procedure TGameInterface.ShowMyWaitText();
 begin
-//waitRec.Position.X:=
-//waitRec.Position.Y:=
-  //
+    waitRec.Position.X:=0;
+    waitRec.Position.Y:= self.ClientHeight-WaitRec.Height;
+
+    waitText.Visible := true;
+    waitRec.Visible := true;
+    waitRec.BringToFront;
 end;
 
 procedure TGameInterface.ShowLeftWaitText();
@@ -521,9 +566,52 @@ begin
   //
 end;
 
+procedure TGameInterface.GameVictory();
+begin
+  gameEndText.Text:='Ê¤Àû';
+  gameEndText.Color:=TAlphaColorRec.Gold;
+  gameEndText.Visible:=true;
+  gameEnd.Visible:=true;
+  giveUpCard.Visible:=false;
+  outOfCard.Visible:=false;
+  gameEnd.BringToFront;
+
+  DoGameEnd();
+end;
+
+procedure TGameInterface.GameDefeat();
+begin
+  gameEndText.Text:='Ê§°Ü';
+  gameEndText.Color:=TAlphaColorRec.Red;
+  gameEndText.Visible:=true;
+  gameEnd.Visible:=true;
+  gameEnd.Visible:=true;
+  giveUpCard.Visible:=false;
+  outOfCard.Visible:=false;
+  gameEnd.BringToFront;
+
+  DoGameEnd();
+end;
+
+procedure TGameInterface.DoGameEnd();
+begin
+  CI.CloseCards();
+  CloseRec();
+  continueGame.Visible:=true;
+  endGame.Visible:=true;
+  rm.DisposeOf;
+end;
+
+procedure TGameInterface.endGameClick(Sender: TObject);
+begin
+   gameEnd.Visible:=false;
+   endGame.Visible:=false;
+   continueGame.Visible:=false;
+   startGame.Visible:=true;
+end;
+
 procedure TGameInterface.SetButton();
 begin
-  //
   StartGame.Position.X:=(self.ClientWidth-StartGame.Width)/2;
   StartGame.Position.Y:=self.ClientHeight-180;
 
@@ -541,6 +629,12 @@ begin
 
   outOfCard.Position.X:=(self.ClientWidth-outOfCard.Width)/2 + 100;
   outOfCard.Position.Y:=self.ClientHeight-225;
+
+  ContinueGame.Position.X:=(self.ClientWidth-ContinueGame.Width)/2+100;
+  ContinueGame.Position.Y:=self.ClientHeight-225;
+
+  endGame.Position.X:=(self.ClientWidth-endGame.Width)/2-100;
+  endGame.Position.Y:=self.ClientHeight-225;
 
 end;
 

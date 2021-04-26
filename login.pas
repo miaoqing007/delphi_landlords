@@ -41,7 +41,7 @@ end;
 
 procedure TLoginFrame.Text3Click(Sender: TObject);
 var
-result : int16;
+//result : int16;
 userName : string;
 password: string;
 LJson: TJsonObject;

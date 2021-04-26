@@ -25,6 +25,7 @@ type executeHandler = class
   procedure DoOutOfCardFailed(LStr:TStringStream);
   procedure DoLoginFailed(LStr:TStringStream);
   procedure DoRegisterName(LStr:TStringStream);
+  procedure DoGameOver(LStr:TStringStream);
 //  procedure AddCode;
 
 
@@ -77,7 +78,8 @@ begin
    CallBackDictionary.Add(2011,DoOutOfCardSuccess);          //出牌成功
    CallBackDictionary.Add(2010,DoOutOfCardFailed);           //出牌失败
    CallBackDictionary.Add(2012,DoLoginFailed);                //登陆失败
-   CallBackDictionary.Add(2014,DoRegisterName);
+   CallBackDictionary.Add(2014,DoRegisterName);              //设置玩家名字
+   CallBackDictionary.Add(2017,DoGameOver);                  //游戏结束
 end;
 
 
@@ -156,14 +158,12 @@ var
   pj : TJsonObject;
 
 begin
-    RM:=RmInfo.Create;
+   RM:=RmInfo.Create;
    Js:=TJsonObject.ParseJSONValue(Lstr.DataString) as TJsonObject;
    js.TryGetValue('players',LPlayers);
    js.TryGetValue('roomId',roomId);
    js.TryGetValue('hole_cards',HoleCards);
    js.TryGetValue('playerIds',LPlayerIds);
-
-
 
    Rm.SetHoleCards(roomId,HoleCards);
 
@@ -192,9 +192,9 @@ begin
    begin
    GameInterface.outOfCard.Visible := true;
    GameInterface.giveUpCard.Visible := true;
-   GameInterface.ShowMyWaitText();
    rm.HideChoiceCards(rm.outOfCards);
    end;
+   rm.ShowWaitText(rm.uids[0]);
 end;
 
 procedure executeHandler.DoCancelPvpMatchSuccess(LStr:TStringStream);
@@ -209,7 +209,6 @@ var
   cards : TjsonArray;
   outofCards : TJsonArray;
   id : string;
-  c : string;
   nextId :string;
 begin
     Js:=TJsonObject.ParseJSONValue(Lstr.DataString) as TJsonObject;
@@ -217,7 +216,7 @@ begin
     js.TryGetValue('cards',cards);
     js.TryGetValue('outOfCards',outOfCards);
 
-    nextId:=rm.SetOutOfCards(id,outofCards);
+    rm.SetOutOfCards(id,outofCards);
 
     RM.SetOrUpdatePlayerMap(id,'',cards);
 
@@ -227,7 +226,7 @@ begin
        GameInterface.giveUpCard.Visible := false;
     end;
 
-    if nextId=UI.GetUserId then
+    if rm.nextPlayerId=UI.GetUserId then
     begin
        GameInterface.outOfCard.Visible := true;
        GameInterface.giveUpCard.Visible := true;
@@ -260,13 +259,30 @@ begin
     js.TryGetValue('msg',msg);
 
     LFrame.LoginFailed(msg);
-
     js.DisposeOf;
 end;
 
 procedure executeHandler.DoRegisterName(LStr:TStringStream);
 begin
     lFrame.Visible:=false;
+end;
+
+procedure executeHandler.DoGameOver(LStr:TStringStream);
+var
+  js : TjsonObject;
+  winId : string;
+begin
+   js:=TjsonObject.ParseJSONValue(Lstr.DataString) as TJsonObject;
+   js.TryGetValue('winId',winId);
+    if winId=ui.GetUserId then
+    begin
+      GameInterface.GameVictory();
+    end
+    else
+    begin
+      GameInterface.GameDefeat();
+    end;
+    js.DisposeOf;
 end;
 
 end.
