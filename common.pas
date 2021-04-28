@@ -4,9 +4,11 @@ interface
 
 uses system.JSON;
 
+
+
 type cmFunction = class
 
-public
+  public
   function TJosnArray2TArray(Tja : TJsonArray):Tarray<string>;
 
 end;

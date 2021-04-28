@@ -32,6 +32,17 @@ type RmInfo = class
 
   nextPlayerId : string;
 
+  grabLandownerEnd : boolean;
+
+//  ifGrabLandowner : boolean;
+
+  ifHavelandowenr :boolean;
+
+
+  usedTime : integer;
+
+  ifExcute : boolean;
+
 
   constructor Create;
   destructor Destory;
@@ -46,7 +57,8 @@ type RmInfo = class
   procedure SetLeftAndRigthPlayer(ids : TJsonArray);
   function JudgeOutOfCardInMyCards(card : string):boolean;
   function findNextId(uid : string):string;
-  procedure ShowWaitText(uid : string);
+  procedure ShowWaitClock(uid : string);
+  procedure ShowGrabResult(uid : string;ifGrab,ifcall : boolean);
 
 end;
 
@@ -90,7 +102,7 @@ procedure RmInfo.SetHoleCards(roomId : string;HCards :TJsonArray);
 begin
    rm.roomId := roomId;
    rm.holeCards :=  CM.TJosnArray2TArray(HCards);
-   GameInterface.showHoleCards(rm.holeCards);
+   GameInterface.showBackHoleCards();
 end;
 
 procedure RmInfo.SetCardsClickCountMap(cards : Tarray<string>);
@@ -221,10 +233,10 @@ begin
   begin
      CI.cardMap[cards[i]].Visible := false;
   end;
-
+  GameInterface.buchu.Visible:=false;
 end;
 
-procedure RmInfo.ShowWaitText(uid : string);
+procedure RmInfo.ShowWaitClock(uid : string);
 begin
       if length(uids)=0 then
       begin
@@ -233,17 +245,23 @@ begin
 
      if uid=ui.GetUserId then
       begin
-        GameInterface.ShowMyWaitText();
+        HideChoiceCards(outofcards);
+        GameInterface.ShowMyClock();
+        exit;
       end;
 
       if playerLeftMap.ContainsKey(uid) then
       begin
-        GameInterface.ShowLeftWaitText();
+        HideChoiceCards(playerLeftMap[uid].outOfCards);
+        GameInterface.showLeftClock();
+        exit;
       end;
 
       if playerRightMap.ContainsKey(uid) then
       begin
-        GameInterface.ShowRightWaitText();
+        HideChoiceCards(playerRightMap[uid].outOfCards);
+        GameInterface.showrightClock();
+        exit;
       end;
 end;
 
@@ -255,12 +273,7 @@ begin
 
      nextPlayerId:= findNextId(uid);
 
-     ShowWaitText(nextPlayerId);
-
-     if nextPlayerId=ui.GetUserId then
-     begin
-       HideChoiceCards(outofCards);
-     end;
+     ShowWaitClock(nextPlayerId);
 
     if uid=ui.GetUserId() then
     begin
@@ -295,6 +308,52 @@ begin
          exit;
     end;
 end;
+
+procedure Rminfo.ShowGrabResult(uid :string;ifGrab,ifcall : boolean);
+begin
+
+  GameInterface.CloseImage();
+
+  if uid =ui.GetUserId then
+  begin
+    if ifGrab then
+    begin
+      GameInterface.showMyQiangOrJiaoDiZhu(ifcall);
+    end
+    else
+    begin
+       GameInterface.showMyBuQiangOrBuJiao(ifcall);
+    end;
+    exit;
+  end;
+
+  if playerleftMap.ContainsKey(uid) then
+  begin
+    if ifGrab then
+    begin
+      GameInterface.showLeftQiangOrJiaoDiZhu(ifcall);
+    end
+    else
+    begin
+      GameInterface.showLeftBuQiangOrBuJiao(ifcall);
+    end;
+    exit;
+  end;
+
+  if playerRightMap.ContainsKey(uid) then
+  begin
+    if ifGrab then
+    begin
+      GameInterface.showRightQiangOrJiaoDiZhu(ifcall);
+    end
+    else
+    begin
+      GameInterface.showRightBuQiangOrBuJiao(ifcall);
+    end;
+    exit;
+  end;
+end;
+
 
 function RmInfo.JudgeOutOfCardInMyCards(card : string):boolean;
 var

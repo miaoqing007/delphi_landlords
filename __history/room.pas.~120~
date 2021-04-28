@@ -1,0 +1,395 @@
+unit room;
+
+interface
+
+uses System.Generics.Collections,FMX.Dialogs,system.JSON;
+
+type roomPlayer = class
+  name : string;
+  cardsCOunt : integer;
+  outOfCards : Tarray<string>;
+end;
+
+type RmInfo = class
+
+  roomId : string;
+
+  playerLeftMap : TDictionary<string,roomPlayer>;
+
+  playerRightMap :  TDictionary<string,roomPlayer>;
+
+  cardsClickCountMap : TDictionary<string,boolean>;
+
+  holeCards : Tarray<string>;
+
+  MyCards: Tarray<string>;
+
+  choiceCards :TDictionary<string,boolean>;
+
+  outOfCards : Tarray<string>;
+
+  uids : Tarray<string>;
+
+  nextPlayerId : string;
+
+  grabLandownerEnd : boolean;
+
+//  ifGrabLandowner : boolean;
+
+  ifHavelandowenr :boolean;
+
+
+  usedTime : integer;
+
+  ifExcute : boolean;
+
+
+  constructor Create;
+  destructor Destory;
+
+  public
+  procedure SetOrUpdatePlayerMap(uid ,name:string ;TJCards:TJsonArray);
+  procedure SetHoleCards(roomId :string;HCards : TJsonArray);
+  procedure SetCardsClickCountMap(cards : Tarray<string>);
+  procedure AddOrRemoveChoiceCardsMap(card : string ; addOrRemove : boolean);
+  procedure HideChoiceCards(cards : Tarray<string>);
+  function SetOutOfCards(uid : string;cards : TJsonArray):string;
+  procedure SetLeftAndRigthPlayer(ids : TJsonArray);
+  function JudgeOutOfCardInMyCards(card : string):boolean;
+  function findNextId(uid : string):string;
+  procedure ShowWaitClock(uid : string);
+  procedure ShowGrabResult(uid : string;ifGrab,ifcall : boolean);
+
+end;
+
+var RM :RmInfo;
+
+implementation
+
+uses game,common,user,card;
+
+constructor RmInfo.Create;
+begin
+    playerLeftMap :=  TDictionary<string,roomPlayer>.Create;
+    playerRightMap := TDictionary<string , roomPlayer>.Create;
+    cardsClickCountMap := TDictionary<string,boolean>.Create;
+    choiceCards := TDictionary<string,boolean>.Create;
+end;
+
+destructor RmInfo.Destory;
+var
+  rp : roomplayer;
+begin
+
+  for rp in playerLeftMap.Values do
+  begin
+       rp.DisposeOf;
+  end;
+
+  for rp in PlayerRightMap.Values do
+  begin
+       rp.DisposeOf;
+  end;
+
+   playerLeftMap.DisposeOf;
+   playerRightMap.DisposeOf;
+   cardsClickCountMap.DisposeOf;
+   choiceCards.DisposeOf;
+   inherited;
+end;
+
+procedure RmInfo.SetHoleCards(roomId : string;HCards :TJsonArray);
+begin
+   rm.roomId := roomId;
+   rm.holeCards :=  CM.TJosnArray2TArray(HCards);
+   GameInterface.showBackHoleCards();
+end;
+
+procedure RmInfo.SetCardsClickCountMap(cards : Tarray<string>);
+var i : integer;
+begin
+    for i := 0 to High(cards) do
+    begin
+        cardsClickCountMap.AddOrSetValue(cards[i],true);
+    end;
+    ChoiceCards.Clear;
+
+end;
+
+
+procedure RmInfo.SetOrUpdatePlayerMap(uid ,name :string ; TJCards :TJsonArray);
+var
+  cards : Tarray<string>;
+begin
+   cards:=Cm.TJosnArray2TArray(TJCards);
+   if length(cards)=0 then
+   begin
+     exit;
+   end;
+
+   if (UI.GetUserId() = uid )then
+   begin
+      MyCards:= cards;
+      GameInterface.showMyCards(MyCards);
+      exit;
+   end;
+
+   if playerLeftMap.ContainsKey(uid) then
+   begin
+      playerLeftMap[uid].cardsCOunt:=length(cards);
+      if (name<>'')and ( playerLeftMap[uid].name='') then
+      begin
+         playerLeftMap[uid].name := name;
+      end;
+      GameInterface.ShowLeftPlayerCards(length(cards),playerLeftMap[uid].name);
+      exit;
+   end;
+
+   if playerRightMap.ContainsKey(uid) then
+   begin
+      playerRightMap[uid].cardsCOunt:=length(cards);
+      if (name<>'')and ( playerRightMap[uid].name='') then
+      begin
+         playerRightMap[uid].name := name;
+      end;
+     GameInterface.ShowRightPlayerCards(length(cards),playerRightMap[uid].name);
+     exit;
+   end;
+
+end;
+
+procedure RmInfo.SetLeftAndRigthPlayer(ids : TJsonArray);
+var
+  i  : integer;
+  rp : roomPlayer;
+  rp2 :roomPlayer;
+begin
+    if ids.Count<3 then
+    begin
+      exit
+    end;
+
+    uids:=CM.TJosnArray2TArray(ids);
+
+   if (playerLeftMap.Count=0)or (PlayerRightMap.Count=0) then
+   begin
+        rp := roomPlayer.Create();
+        rp2 := roomPlayer.Create();
+       for I := 0 to ids.Count-1 do
+       begin
+           if ui.GetUserId = (ids.Items[i] as TjsonString).Value then
+            begin
+                 if i=0 then
+                 begin
+                 playerRightMap.AddOrSetValue((ids.Items[i+1] as TJsonString).Value,rp);
+                 PlayerLeftMap.AddOrSetValue((ids.Items[i+2] as TJsonString).Value,rp2);
+                 exit;
+                 end;
+                 if i=1 then
+                 begin
+                 playerRightMap.AddOrSetValue((ids.Items[i+1] as TJsonString).Value,rp);
+                 PlayerLeftMap.AddOrSetValue((ids.Items[i-1] as TJsonString).Value,rp2);
+                 exit;
+                 end;
+                 if i=2 then
+                 begin
+                 playerRightMap.AddOrSetValue((ids.Items[i-2] as TJsonString).Value,rp);
+                 PlayerLeftMap.AddOrSetValue((ids.Items[i-1] as TJsonString).Value,rp2);
+                 exit;
+                 end;
+            end;
+
+       end;
+
+   end;
+
+end;
+
+procedure RmInfo.AddOrRemoveChoiceCardsMap(card :string ; addOrRemove : boolean);
+begin
+  if addOrRemove then
+  begin
+    ChoiceCards.TryAdd(card,true);
+  end
+  else
+  begin
+    if choiceCards.ContainsKey(card) then
+    begin
+         choiceCards.Remove(card);
+    end;
+  end;
+end;
+
+procedure RmInfo.HideChoiceCards(cards : Tarray<string>);
+var
+  i : integer;
+begin
+    if length(cards)=0 then
+    begin
+      exit;
+    end;
+
+  for i := 0 to High(cards) do
+  begin
+     CI.cardMap[cards[i]].Visible := false;
+  end;
+
+end;
+
+procedure RmInfo.ShowWaitClock(uid : string);
+begin
+      if length(uids)=0 then
+      begin
+        exit;
+      end;
+
+     if uid=ui.GetUserId then
+      begin
+        GameInterface.ShowMyClock();
+        exit;
+      end;
+
+      if playerLeftMap.ContainsKey(uid) then
+      begin
+        GameInterface.showLeftClock();
+        exit;
+      end;
+
+      if playerRightMap.ContainsKey(uid) then
+      begin
+        GameInterface.showrightClock();
+        exit;
+      end;
+end;
+
+function RmInfo.SetOutOfCards(uid : string;cards : TJsonArray):string;
+var
+  ofCards: Tarray<string>;
+begin
+     ofCards:=CM.TJosnArray2TArray(cards);
+
+     nextPlayerId:= findNextId(uid);
+
+     ShowWaitClock(nextPlayerId);
+
+     if nextPlayerId=ui.GetUserId then
+     begin
+       HideChoiceCards(outofCards);
+     end;
+
+    if uid=ui.GetUserId() then
+    begin
+         if length(outOfCards)<>0 then
+         begin
+           HideChoiceCards(outOfCards);
+         end;
+         outOfCards:=ofCards;
+         GameInterface.ShowMyOutOfCards(ofCards);
+         exit;
+    end;
+
+    if playerLeftMap.ContainsKey(uid) then
+    begin
+        if length(playerLeftMap[uid].outOfCards)<>0 then
+        begin
+            HideChoiceCards(playerLeftMap[uid].outOfCards);
+        end;
+        playerLeftMap[uid].outOfCards:=ofCards;
+        GameInterface.ShowLeftOutOfCards(ofCards);
+        exit;
+    end;
+
+    if playerRightMap.ContainsKey(uid) then
+    begin
+        if length(playerRightMap[uid].outOfCards)<>0 then
+        begin
+             HideChoiceCards(playerRightMap[uid].outOfCards);
+        end;
+         playerRightMap[uid].outOfCards:=ofCards;
+         GameInterface.ShowRightOutOfCards(ofcards);
+         exit;
+    end;
+end;
+
+procedure Rminfo.ShowGrabResult(uid :string;ifGrab,ifcall : boolean);
+begin
+
+  GameInterface.CloseImage();
+
+  if uid =ui.GetUserId then
+  begin
+    if ifGrab then
+    begin
+      GameInterface.showMyQiangOrJiaoDiZhu(ifcall);
+    end
+    else
+    begin
+       GameInterface.showMyBuQiangOrBuJiao(ifcall);
+    end;
+    exit;
+  end;
+
+  if playerleftMap.ContainsKey(uid) then
+  begin
+    if ifGrab then
+    begin
+      GameInterface.showLeftQiangOrJiaoDiZhu(ifcall);
+    end
+    else
+    begin
+      GameInterface.showLeftBuQiangOrBuJiao(ifcall);
+    end;
+    exit;
+  end;
+
+  if playerRightMap.ContainsKey(uid) then
+  begin
+    if ifGrab then
+    begin
+      GameInterface.showRightQiangOrJiaoDiZhu(ifcall);
+    end
+    else
+    begin
+      GameInterface.showRightBuQiangOrBuJiao(ifcall);
+    end;
+    exit;
+  end;
+end;
+
+
+function RmInfo.JudgeOutOfCardInMyCards(card : string):boolean;
+var
+  i: integer;
+begin
+  for I := 0 to High(Mycards) do
+  begin
+    if MyCards[i]=card then
+    begin
+      Result:=true;
+      exit;
+    end;
+  end;
+    Result:=false;
+end;
+
+function RmInfo.findNextId(uid: string):string;
+var
+  i : integer;
+begin
+  for I := 0 to high(uids) do
+  begin
+    if uids[i]=uid then
+    begin
+      if (i=0)or (i=1) then
+      begin
+         Result:=uids[i+1];
+      end
+      else
+      begin
+         Result:=uids[i-2];
+      end;
+    end;
+  end;
+end;
+
+end.

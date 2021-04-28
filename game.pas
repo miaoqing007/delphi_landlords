@@ -8,7 +8,8 @@ uses
   FMX.ScrollBox, FMX.Memo, FMX.Controls.Presentation, FMX.StdCtrls, System.JSON,
   IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, FMX.Edit,uDSimpleTcpClient,
   System.ImageList, FMX.ImgList, FMX.Objects,tcp,login,handler,user,setUserName,card,
-  common,room, FMX.Layouts, FMX.TreeView,uToast;
+  common,room, FMX.Layouts, FMX.TreeView,uToast, Data.Cloud.CloudAPI,
+  Data.Cloud.AzureAPI, FMX.Media;
 
 type
   TGameInterface = class(TForm)
@@ -103,12 +104,26 @@ type
     gameEndText: TText;
     ContinueGame: TButton;
     endGame: TButton;
+    callLandowner: TButton;
+    giveupCall: TButton;
+    jiaodizhu: TImage;
+    buchu: TImage;
+    bujiao: TImage;
+    buqiang: TImage;
+    Image2: TImage;
+    qiangdizhu: TImage;
+    grabLandowner: TButton;
+    giveupGrab: TButton;
+    Timer1: TTimer;
+    clock: TImage;
+    clockText: TText;
 
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure StartGameClick(Sender: TObject);
     procedure cancelMatchClick(Sender: TObject);
-    procedure showHoleCards(cards : Tarray<string>);
+    procedure showBackHoleCards();
+    procedure showFrontHoleCards();
     procedure showMyCards(cards : Tarray<string>);
     procedure FormResize(Sender: TObject);
     procedure ClickCard(Sender: TObject);
@@ -121,9 +136,9 @@ type
     procedure ShowRightPlayerCards(count : integer; name : string);
     procedure ShowLeftOutOfCards(cards :Tarray<string>);
     procedure ShowRightOutOfCards(cards : Tarray<string>);
-    procedure ShowMyWaitText();
-    procedure ShowLeftWaitText();
-    procedure ShowRightWaitText();
+//    procedure ShowMyWaitText();
+//    procedure ShowLeftWaitText();
+//    procedure ShowRightWaitText();
     procedure giveUpCardClick(Sender: TObject);
     procedure GameVictory();
     procedure GameDefeat();
@@ -131,6 +146,22 @@ type
     procedure continueGameClick(Sender: TObject);
     procedure DoGameEnd();
     procedure endGameClick(Sender: TObject);
+    procedure callLandownerClick(Sender: TObject);
+    procedure giveupCallClick(Sender: TObject);
+    procedure showMyBuQiangOrBujiao(ifcall : boolean);
+    procedure showLeftBuQiangOrBujiao(ifcall : boolean);
+    procedure showRightBuQiangOrBujiao(ifcall : boolean);
+    procedure showMyQiangOrJiaoDiZhu(ifcall : boolean);
+    procedure showLeftQiangOrJiaoDiZhu(ifcall : boolean);
+    procedure showRightQiangOrJiaoDiZhu(ifcall : boolean);
+    procedure grabLandownerClick(Sender: TObject);
+    procedure giveupGrabClick(Sender: TObject);
+    procedure CloseImage();
+    procedure CloseButton();
+    procedure Timer1Timer(Sender: TObject);
+    procedure ShowMyClock();
+    procedure showLeftClock();
+    procedure showrightClock();
 
   private
     { Private declarations }
@@ -203,7 +234,86 @@ begin
      js:=TJsonObject.Create;
      js.AddPair('roomId',TJsonString.Create(rm.roomid));
      G_TcpMessage.SendTcpMessageToService(js.ToString,2016);
+
+     giveupcard.Visible:=false;
+     outofcard.Visible:=false;
+     clock.Visible:=false;
+     clock.Enabled:=false;
+
      js.DisposeOf;
+end;
+
+procedure TGameInterface.giveupGrabClick(Sender: TObject);
+var
+  js :TJsonObject;
+begin
+    js:=TJsonObject.Create;
+    js.AddPair('roomId',TJsonString.Create(rm.roomid));
+    js.AddPair('ifGrab',TJsonBool.Create(false));
+    js.AddPair('ifcall',TjsonBool.Create(false));
+    G_TcpMessage.SendTcpMessageToService(js.ToString,2018);
+
+    giveupGrab.Visible:=false;
+    GrabLandowner.Visible:=false;
+    clock.Visible:=false;
+    clock.Enabled:=false;
+
+    js.DisposeOf;
+end;
+
+procedure TGameInterface.grabLandownerClick(Sender: TObject);
+var
+  js :TJsonObject;
+begin
+    js:=TJsonObject.Create;
+    js.AddPair('roomId',TJsonString.Create(rm.roomid));
+    js.AddPair('ifGrab',TJsonBool.Create(true));
+    js.AddPair('ifcall',TjsonBool.Create(false));
+    G_TcpMessage.SendTcpMessageToService(js.ToString,2018);
+
+    giveupGrab.Visible:=false;
+    GrabLandowner.Visible:=false;
+    clock.Visible:=false;
+    clock.Enabled:=false;
+
+    js.DisposeOf;
+
+end;
+
+procedure TGameInterface.giveupCallClick(Sender: TObject);
+var
+  js :TJsonObject;
+begin
+    js:=TJsonObject.Create;
+    js.AddPair('roomId',TJsonString.Create(rm.roomid));
+    js.AddPair('ifGrab',TJsonBool.Create(false));
+    js.AddPair('ifcall',TjsonBool.Create(true));
+    G_TcpMessage.SendTcpMessageToService(js.ToString,2018);
+
+    giveupCall.Visible:=false;
+    CallLandowner.Visible:=false;
+    clock.Visible:=false;
+    clock.Enabled:=false;
+
+    js.DisposeOf;
+end;
+
+procedure TGameInterface.callLandownerClick(Sender: TObject);
+var
+  js :TJsonObject;
+begin
+  js:=TJsonObject.Create;
+  js.AddPair('roomId',TJsonString.Create(rm.roomid));
+  js.AddPair('ifGrab',TJsonBool.Create(true));
+  js.AddPair('ifcall',TjsonBool.Create(true));
+  G_TcpMessage.SendTcpMessageToService(js.ToString,2018);
+
+  giveupCall.Visible:=false;
+  CallLandowner.Visible:=false;
+  clock.Visible:=false;
+  clock.Enabled:=false;
+
+  js.DisposeOf;
 end;
 
 procedure TGameInterface.outOfCardClick(Sender: TObject);
@@ -229,6 +339,11 @@ begin
      js.AddPair('cards',JsAy);
      js.AddPair('roomId',TJsonString.Create(rm.roomid));
      G_TcpMessage.SendTcpMessageToService(js.ToString,2007);
+
+//     outofcard.Visible:=false;
+//     giveupcard.Visible:=false;
+//     clock.Visible:=false;
+//     clock.Enabled:=false;
 
      js.DisposeOf;
 end;
@@ -258,7 +373,15 @@ begin
       end;
       if length(rm.holeCards)<>0 then
       begin
-          showHoleCards(rm.holeCards);
+          if rm.grabLandownerEnd then
+          begin
+          showFrontHoleCards();
+          end
+          else
+          begin
+           showBackHoleCards();
+          end;
+
       end;
       if rm.playerRightMap.Count<>0 then
       begin
@@ -284,11 +407,11 @@ begin
       end;
       if rm.nextPlayerId<>'' then
       begin
-          rm.ShowWaitText(rm.nextPlayerId);
+          rm.ShowWaitClock(rm.nextPlayerId);
       end
       else if length(rm.uids)<>0 then
       begin
-          rm.ShowWaitText(rm.uids[0]);
+          rm.ShowWaitClock(rm.uids[0]);
       end;
 
 end;
@@ -302,6 +425,43 @@ begin
        waitting.Visible:=true;
        startGame.Visible:=false;
        cancelMatch.Visible := true;
+end;
+
+procedure TGameInterface.Timer1Timer(Sender: TObject);
+begin
+  if rm=nil then
+  begin
+    exit;
+  end;
+  timer1.Interval:=1000;
+  rm.usedTime:=rm.usedTime+1;
+  clocktext.Text:=(150-rm.usedTime).ToString;
+  if 150-rm.usedTime=0 then
+  if not rm.ifExcute then
+   begin
+    clock.Visible:=false;
+    clock.Enabled:=false;
+    exit;
+   end
+   else
+  begin
+    if rm.grabLandownerEnd then
+    begin
+       giveUpCardClick(sender);
+    end
+    else
+    begin
+        if rm.ifHavelandowenr then
+        begin
+          giveupgrabclick(sender);
+        end
+        else
+        begin
+          giveupCallClick(sender);
+        end;
+    end;
+
+  end;
 end;
 
 procedure TGameInterface.ClickCard(Sender: TObject);
@@ -330,6 +490,7 @@ begin
    StartGameClick(Sender);
    gameEnd.Visible:=false;
    continueGame.Visible:=false;
+   endGame.Visible:=false;
 end;
 
 procedure TGameInterface.cancelMatchClick(Sender: TObject);
@@ -344,25 +505,33 @@ end;
 procedure TGameInterface.ShowMyOutOfCards(cards : Tarray<string>);
 var
  i : integer;
- totalCardsLength : single;
+ totalLength : single;
  marginLeft : single;
 begin
+
+  marginLeft:=(self.ClientWidth-buchu.Width)/2;
+
   if length(cards)=0 then
   begin
+      buchu.Position.X :=marginLeft;
+      buchu.Position.Y :=self.ClientHeight-255;
+      buchu.WrapMode:=TImageWrapMode.Stretch;
+      buchu.Visible := true;
+      buchu.BringToFront;
     exit;
   end;
 
-    totalCardsLength :=(Length(cards)-1)* 30 + 50;
+    totalLength :=(Length(cards)-1)* 30 + 50;
 
-    marginLeft := (self.ClientWidth-totalCardsLength) / 2;
+    marginLeft := (self.ClientWidth-totalLength) / 2;
 
 
   for i := 0 to High(cards) do
       begin
-         CI.cardMap[cards[i]].Position.X := marginleft + i * 30;
-         CI.cardMap[cards[i]].Position.Y :=self.ClientHeight-255;
          CI.cardMap[cards[i]].Width := 50;
          CI.cardMap[cards[i]].Height := 90;
+         CI.cardMap[cards[i]].Position.X := marginleft + i * 30;
+         CI.cardMap[cards[i]].Position.Y :=self.ClientHeight-255;
          CI.cardMap[cards[i]].WrapMode:=TImageWrapMode.Stretch;
          Ci.cardMap[cards[i]].Visible := true;
          CI.cardMap[cards[i]].BringToFront;
@@ -376,14 +545,19 @@ var
 begin
     if length(cards)=0 then
     begin
+      buchu.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+50;
+      buchu.Position.Y :=self.ClientHeight/2-CI.backCardArray[0].Height;
+      buchu.WrapMode:=TImageWrapMode.Stretch;
+      buchu.Visible := true;
+      buchu.BringToFront;
       exit;
     end;
     for i := 0 to High(cards) do
       begin
-        CI.cardMap[cards[i]].Position.X:= cI.backCardArray[0].Position.X+50+(i+1)*20;
-        CI.cardMap[cards[i]].Position.Y:=self.ClientHeight/2-CI.backCardArray[0].Height;
         CI.cardMap[cards[i]].Width := 50;
         CI.cardMap[cards[i]].Height :=90;
+        CI.cardMap[cards[i]].Position.X:= cI.backCardArray[0].Position.X +50+(i+1)*20;
+        CI.cardMap[cards[i]].Position.Y:=self.ClientHeight/2-CI.backCardArray[0].Height;
         CI.cardMap[cards[i]].WrapMode:=TImageWrapMode.Stretch;
         CI.cardMap[cards[i]].Visible:=true;
         CI.cardMap[cards[i]].BringToFront;
@@ -397,6 +571,11 @@ var
 begin
     if length(cards)=0 then
     begin
+      buchu.Position.X :=CI.backCardArray[1].Position.X-buchu.Width-50;
+      buchu.Position.Y :=self.ClientHeight/2-CI.backCardArray[1].Height;
+      buchu.WrapMode:=TImageWrapMode.Stretch;
+      buchu.Visible := true;
+      buchu.BringToFront;
       exit;
     end;
       margin:=(length(cards)-1)*20+50;
@@ -405,40 +584,64 @@ begin
         CI.cardMap[cards[i]].Width := 50;
         CI.cardMap[cards[i]].Height :=90;
         CI.cardMap[cards[i]].Position.X:= self.ClientWidth-38-CI.backCardArray[1].Width-50-margin+(i+1)*20;
-        CI.cardMap[cards[i]].Position.Y:=self.ClientHeight/2-CI.backCardArray[0].Height;
-
+        CI.cardMap[cards[i]].Position.Y:=self.ClientHeight/2-CI.backCardArray[1].Height;
         CI.cardMap[cards[i]].WrapMode:=TImageWrapMode.Stretch;
         CI.cardMap[cards[i]].Visible:=true;
         CI.cardMap[cards[i]].BringToFront;
       end;
 end;
 
-procedure  TGameInterface.showHoleCards(cards : Tarray<string>) ;
+procedure  TGameInterface.showBackHoleCards() ;
 var
  i : integer;
  totalCardsLength : single;
  marginLeft : single;
 begin
-  if length(cards)=0 then
+  if length(rm.holeCards)=0 then
   begin
     exit;
   end;
 
-    totalCardsLength :=(Length(cards)-1)* 50 + 80;
+    totalCardsLength :=(Length(rm.holeCards))* 60;
 
     marginLeft := (self.ClientWidth-totalCardsLength) / 2;
 
-  for i := 0 to High(cards) do
+  for i := 2 to 2+High(rm.holeCards)  do
       begin
-         CI.cardMap[cards[i]].Position.X := marginleft + i * 50;
-         CI.cardMap[cards[i]].Position.Y := 0;
-         CI.cardMap[cards[i]].Width := 50;
-         CI.cardMap[cards[i]].Height := 120;
-         CI.cardMap[cards[i]].WrapMode:=TImageWrapMode.Stretch;
-         Ci.cardMap[cards[i]].Visible := true;
-         CI.cardMap[cards[i]].BringToFront;
+         CI.backCardArray[i].Position.X := marginleft + (i-2) * 60;
+         CI.backCardArray[i].Position.Y := 0;
+         CI.backCardArray[i].WrapMode:=TImageWrapMode.Stretch;
+         CI.backCardArray[i].Visible := true;
+         CI.backCardArray[i].BringToFront;
       end;
 //
+end;
+
+procedure TGameInterface.showFrontHoleCards();
+var
+ i : integer;
+ totalCardsLength : single;
+ marginLeft : single;
+begin
+  if length(rm.holeCards)=0 then
+  begin
+    exit;
+  end;
+
+    totalCardsLength :=(Length(rm.holeCards))* 60;
+
+    marginLeft := (self.ClientWidth-totalCardsLength) / 2;
+
+  for i := 2 to 2+High(rm.holeCards)  do
+      begin
+         CI.backCardArray[i].Bitmap.Assign(ci.cardMap[rm.holeCards[i-2]].Bitmap);
+         CI.backCardArray[i].Position.X := marginleft + (i-2) * 60;
+         CI.backCardArray[i].Position.Y := 0;
+         CI.backCardArray[i].WrapMode:=TImageWrapMode.Stretch;
+         CI.backCardArray[i].Visible := true;
+         CI.backCardArray[i].BringToFront;
+      end;
+
 end;
 
 procedure TGameInterface.showMyCards(cards : Tarray<string>);
@@ -527,42 +730,216 @@ begin
     rightName.BringToFront;
 end;
 
-procedure TGameInterface.ShowMyWaitText();
-begin
-    waitRec.Position.X:=0;
-    waitRec.Position.Y:= self.ClientHeight-WaitRec.Height;
+//procedure TGameInterface.ShowMyWaitText();
+//begin
+//    waitRec.Position.X:=0;
+//    waitRec.Position.Y:= self.ClientHeight-WaitRec.Height;
+//
+//    waitText.Visible := true;
+//    waitRec.Visible := true;
+//    waitRec.BringToFront;
+//end;
+//
+//procedure TGameInterface.ShowLeftWaitText();
+//var
+//  cardCenterX : single;
+//begin
+//    cardCenterX:=cI.backCardArray[0].Position.X+(cI.backCardArray[0].Width/2);
+//
+//    waitRec.Position.X :=  cardCenterX-LeftName.Size.Width/2;
+//    waitRec.Position.Y := self.ClientHeight/2-CI.backCardArray[0].Height-100;
+//
+//    waitText.Visible := true;
+//    waitRec.Visible := true;
+//    waitRec.BringToFront;
+//end;
+//
+//procedure TGameInterface.ShowRightWaitText();
+//var
+//  centerCardX: single;
+//begin
+//    centerCardX:=cI.backCardArray[1].Position.X+cI.backCardArray[1].Width/2;
+//
+//    waitRec.Position.X := centerCardX - rightName.Width/2;
+//    waitRec.Position.Y := self.ClientHeight/2-CI.backCardArray[1].Height-100;
+//    waitText.Visible := true;
+//    waitRec.Visible := true;
+//    waitRec.BringToFront;
+//end;
 
-    waitText.Visible := true;
-    waitRec.Visible := true;
-    waitRec.BringToFront;
+procedure TGameInterface.showMyBuQiangOrBujiao(ifcall : boolean);
+var
+  marginLeft : single;
+begin
+   marginLeft:=(self.ClientWidth-buqiang.Width)/2;
+   if not ifcall then
+  begin
+      buqiang.Position.X :=marginLeft;
+      buqiang.Position.Y :=self.ClientHeight-255;
+      buqiang.WrapMode:=TImageWrapMode.Stretch;
+      buqiang.Visible := true;
+      buqiang.BringToFront;
+  end
+  else
+  begin
+      bujiao.Position.X :=marginLeft;
+      bujiao.Position.Y :=self.ClientHeight-255;
+      bujiao.WrapMode:=TImageWrapMode.Stretch;
+      bujiao.Visible := true;
+      bujiao.BringToFront;
+  end;
 end;
 
-procedure TGameInterface.ShowLeftWaitText();
-var
-  cardCenterX : single;
+procedure TGameInterface.showLeftBuQiangOrBujiao(ifcall : boolean);
 begin
-    cardCenterX:=cI.backCardArray[0].Position.X+(cI.backCardArray[0].Width/2);
-
-    waitRec.Position.X :=  cardCenterX-LeftName.Size.Width/2;
-    waitRec.Position.Y := self.ClientHeight/2-CI.backCardArray[0].Height-100;
-
-    waitText.Visible := true;
-    waitRec.Visible := true;
-    waitRec.BringToFront;
+  if not  ifcall then
+  begin
+      buqiang.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+50;
+      buqiang.Position.Y :=self.ClientHeight/2-CI.backCardArray[0].Height;
+      buqiang.WrapMode:=TImageWrapMode.Stretch;
+      buqiang.Visible := true;
+      buqiang.BringToFront;
+  end
+  else
+  begin
+      bujiao.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+50;
+      bujiao.Position.Y :=self.ClientHeight/2-CI.backCardArray[0].Height;
+      bujiao.WrapMode:=TImageWrapMode.Stretch;
+      bujiao.Visible := true;
+      bujiao.BringToFront;
+  end;
 end;
 
-procedure TGameInterface.ShowRightWaitText();
-var
-  centerCardX: single;
+procedure TGameInterface.showRightBuQiangOrBujiao(ifcall : boolean);
 begin
-    centerCardX:=cI.backCardArray[1].Position.X+cI.backCardArray[1].Width/2;
+  if not ifcall then
+  begin
+      buqiang.Position.X :=CI.backCardArray[1].Position.X-buqiang.Width-50;
+      buqiang.Position.Y :=self.ClientHeight/2-CI.backCardArray[1].Height;
+      buqiang.WrapMode:=TImageWrapMode.Stretch;
+      buqiang.Visible := true;
+      buqiang.BringToFront;
+  end
+  else
+  begin
+      bujiao.Position.X :=CI.backCardArray[1].Position.X-bujiao.Width-50;
+      bujiao.Position.Y :=self.ClientHeight/2-CI.backCardArray[1].Height;
+      bujiao.WrapMode:=TImageWrapMode.Stretch;
+      bujiao.Visible := true;
+      bujiao.BringToFront;
+  end;
+end;
 
-    waitRec.Position.X := centerCardX - rightName.Width/2;
-    waitRec.Position.Y := self.ClientHeight/2-CI.backCardArray[1].Height-100;
-    waitText.Visible := true;
-    waitRec.Visible := true;
-    waitRec.BringToFront;
+procedure TGameInterface.showMyQiangOrJiaoDiZhu(ifcall : boolean);
+var
+  marginLeft : single;
+begin
+   marginLeft:=(self.ClientWidth-qiangdizhu.Width)/2;
+   if not ifcall then
+  begin
+      qiangdizhu.Position.X :=marginLeft;
+      qiangdizhu.Position.Y :=self.ClientHeight-255;
+      qiangdizhu.WrapMode:=TImageWrapMode.Stretch;
+      qiangdizhu.Visible := true;
+      qiangdizhu.BringToFront;
+  end
+  else
+  begin
+      jiaodizhu.Position.X :=marginLeft;
+      jiaodizhu.Position.Y :=self.ClientHeight-255;
+      jiaodizhu.WrapMode:=TImageWrapMode.Stretch;
+      jiaodizhu.Visible := true;
+      jiaodizhu.BringToFront;
+  end;
+end;
 
+procedure TGameInterface.showLeftQiangOrJiaoDiZhu(ifcall : boolean);
+begin
+  if not ifcall then
+  begin
+      qiangdizhu.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+50;
+      qiangdizhu.Position.Y :=self.ClientHeight/2-CI.backCardArray[0].Height;
+      qiangdizhu.WrapMode:=TImageWrapMode.Stretch;
+      qiangdizhu.Visible := true;
+      qiangdizhu.BringToFront;
+  end
+  else
+  begin
+      jiaodizhu.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+50;
+      jiaodizhu.Position.Y :=self.ClientHeight/2-CI.backCardArray[0].Height;
+      jiaodizhu.WrapMode:=TImageWrapMode.Stretch;
+      jiaodizhu.Visible := true;
+      jiaodizhu.BringToFront;
+  end;
+end;
+
+procedure TGameInterface.showRightQiangOrJiaoDiZhu(ifcall : boolean);
+begin
+  if not ifcall then
+  begin
+      qiangdizhu.Position.X :=CI.backCardArray[1].Position.X-qiangdizhu.Width-50;
+      qiangdizhu.Position.Y :=self.ClientHeight/2-CI.backCardArray[1].Height;
+      qiangdizhu.WrapMode:=TImageWrapMode.Stretch;
+      qiangdizhu.Visible := true;
+      qiangdizhu.BringToFront;
+  end
+  else
+  begin
+      jiaodizhu.Position.X :=CI.backCardArray[1].Position.X-jiaodizhu.Width-50;
+      jiaodizhu.Position.Y :=self.ClientHeight/2-CI.backCardArray[1].Height;
+      jiaodizhu.WrapMode:=TImageWrapMode.Stretch;
+      jiaodizhu.Visible := true;
+      jiaodizhu.BringToFront;
+  end;
+end;
+
+procedure TGameInterface.CloseImage();
+begin
+  bujiao.Visible:=false;
+  buqiang.Visible:=false;
+  jiaodizhu.Visible:=false;
+  qiangdizhu.Visible:=false;
+end;
+
+procedure TGameInterface.CloseButton();
+begin
+  giveupgrab.Visible:=false;
+  giveupcall.Visible:=false;
+  grablandowner.Visible:=false;
+  calllandowner.Visible:=false;
+end;
+
+procedure TGameInterface.ShowMyClock();
+var
+  marginLeft: single;
+begin
+    rm.usedTime:=0;
+    marginLeft:=(self.ClientWidth-clock.Width)/2;
+    clock.Position.X := marginleft;
+    clock.Position.Y :=self.ClientHeight-255;
+    clock.Visible:=true;
+    clock.Enabled:=true;
+    rm.ifExcute:=true;
+end;
+
+procedure TGameInterface.showLeftClock();
+begin
+    rm.usedTime:=0;
+    clock.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+50;
+    clock.Position.Y :=self.ClientHeight/2-CI.backCardArray[0].Height;
+    clock.Visible:=true;
+    clock.Enabled:=true;
+    rm.ifExcute:=false;
+end;
+
+procedure TGameInterface.showrightClock();
+begin
+      rm.usedTime:=0;
+      clock.Position.X :=CI.backCardArray[1].Position.X-clock.Width-50;
+      clock.Position.Y :=self.ClientHeight/2-CI.backCardArray[1].Height;
+      clock.Visible:=true;
+      clock.Enabled:=true;
+      rm.ifExcute:=false;
   //
 end;
 
@@ -614,6 +991,7 @@ procedure TGameInterface.SetButton();
 begin
   StartGame.Position.X:=(self.ClientWidth-StartGame.Width)/2;
   StartGame.Position.Y:=self.ClientHeight-180;
+  StartGame.Visible:=true;
 
   cancelMatch.Position.X:=(self.ClientWidth-cancelMatch.Width)/2;
   cancelMatch.Position.Y:=self.ClientHeight-180;
@@ -635,6 +1013,21 @@ begin
 
   endGame.Position.X:=(self.ClientWidth-endGame.Width)/2-100;
   endGame.Position.Y:=self.ClientHeight-225;
+
+  giveUpCall.Position.X:=(self.ClientWidth-giveUpCall.Width)/2 -100;
+  giveUpCall.Position.Y:=self.ClientHeight-225;
+
+  CallLandowner.Position.X:=(self.ClientWidth-CallLandowner.Width)/2 + 100;
+  CallLandowner.Position.Y:=self.ClientHeight-225;
+
+  giveUpGrab.Position.X:=(self.ClientWidth-giveUpGrab.Width)/2 -100;
+  giveUpGrab.Position.Y:=self.ClientHeight-225;
+
+  grabLandowner.Position.X:=(self.ClientWidth-grabLandowner.Width)/2 + 100;
+  grabLandowner.Position.Y:=self.ClientHeight-225;
+
+//  clock.Position.X:= (self.ClientWidth-clock.Width)/2;
+//  clock.Position.Y:=self.ClientHeight-225;
 
 end;
 

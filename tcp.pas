@@ -32,7 +32,6 @@ constructor TcpMessage.Create;
 begin
   fcon:= TConnection.Create;
   FCon.OnRead := OnSocketRead;
-
 end;
 
 destructor TcpMessage.Destroy;

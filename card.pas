@@ -14,6 +14,7 @@ type CardInfo = class
   procedure initCardMap();
   procedure initBackCard();
   procedure CloseCards();
+  procedure ReSetBackCards();
 
   constructor Create;
   destructor Destory;
@@ -118,7 +119,7 @@ var
   im : TImage;
   i : integer;
 begin
-  for i := 0 to 5 do
+  for i := 0 to 6 do
   begin
         im := TImage.Create(GameInterface);
         im.Parent := GameInterface;
@@ -142,10 +143,20 @@ begin
     im.Visible:=false;
   end;
 
-  for i := 0 to High(backCardArray) do
+  ReSetBackCards();
+
+end;
+
+procedure CardInfo.ReSetBackCards();
+var
+   i : integer;
+begin
+  for I := 0 to High(backCardArray) do
   begin
     backCardArray[i].Visible:=false;
+    backCardArray[i].Bitmap.Assign(GameInterface.Image1.Bitmap);
   end;
+
 end;
 
 end.

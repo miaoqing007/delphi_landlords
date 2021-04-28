@@ -26,6 +26,9 @@ type executeHandler = class
   procedure DoLoginFailed(LStr:TStringStream);
   procedure DoRegisterName(LStr:TStringStream);
   procedure DoGameOver(LStr:TStringStream);
+  procedure DoResetCards(LStr:TStringStream);
+  procedure DoReceiveGrabResult(LStr:TStringStream);
+  procedure DoGetLandowner(LStr:TStringStream);
 //  procedure AddCode;
 
 
@@ -80,6 +83,9 @@ begin
    CallBackDictionary.Add(2012,DoLoginFailed);                //登陆失败
    CallBackDictionary.Add(2014,DoRegisterName);              //设置玩家名字
    CallBackDictionary.Add(2017,DoGameOver);                  //游戏结束
+   CallBackDictionary.Add(2020,DoResetCards);                 //重新发牌
+   CallBackDictionary.Add(2021,DoReceiveGrabResult);          //收到其他玩家的抢地主结果
+   CallBackDictionary.Add(2019,DoGetLandowner);              //得到地主id
 end;
 
 
@@ -190,11 +196,12 @@ begin
 
    if ui.GetUserId=rm.uids[0] then
    begin
-   GameInterface.outOfCard.Visible := true;
-   GameInterface.giveUpCard.Visible := true;
-   rm.HideChoiceCards(rm.outOfCards);
+   GameInterface.giveupCall.Visible:=true;
+   GameInterface.CallLandowner.Visible:=true;
    end;
-   rm.ShowWaitText(rm.uids[0]);
+
+   rm.ShowWaitClock(rm.uids[0])
+
 end;
 
 procedure executeHandler.DoCancelPvpMatchSuccess(LStr:TStringStream);
@@ -270,19 +277,107 @@ end;
 procedure executeHandler.DoGameOver(LStr:TStringStream);
 var
   js : TjsonObject;
-  winId : string;
+  winIds : TJsonArray;
+  i : integer;
 begin
    js:=TjsonObject.ParseJSONValue(Lstr.DataString) as TJsonObject;
-   js.TryGetValue('winId',winId);
-    if winId=ui.GetUserId then
-    begin
-      GameInterface.GameVictory();
-    end
-    else
-    begin
-      GameInterface.GameDefeat();
-    end;
+   js.TryGetValue('winId',winIds);
+
+   for I := 0 to winIds.Count-1 do
+   begin
+     if (winIds.Items[i] as TJsonString).Value=ui.GetUserId then
+     begin
+         GameInterface.GameVictory();
+     end
+     else
+     begin
+         GameInterface.GameDefeat();
+     end;
+
+   end;
+
     js.DisposeOf;
+end;
+
+procedure executeHandler.DoResetCards(LStr:TStringStream);
+begin
+    GameInterface.CloseImage();
+    GameInterface.CloseButton();
+    rm.DisposeOf;
+//    GameInterface.LAYOUT1.BringToFront;
+//    TToast.MakeText(GameInterface.LAYOUT1, '重新发牌中', TToastLength.Toast_LENGTH_LONG);
+//    sleep(2000);
+    DoPvpPlayerSuccess(LStr);
+end;
+
+procedure executeHandler.DoReceiveGrabResult(LStr:TStringStream);
+var
+  playerId : string;
+  ifHaveLandowner,ifcall,ifGrab : boolean;
+  js : TJsonObject;
+begin
+   js:=TJsonObject.ParseJSONValue(Lstr.DataString)as TJsonObject;
+   js.TryGetValue('uid',playerId);
+   js.TryGetValue('ifGrab',ifgrab);
+   js.TryGetValue('ifhavelandowner',ifHaveLandowner);
+   js.TryGetValue('ifcall',ifcall);
+
+   rm.ifHavelandowenr:=ifHaveLandowner;
+
+
+   if rm.findNextId(playerId)=ui.GetUserId then
+   begin
+   if ifHaveLandowner then
+   begin
+    GameInterface.giveupGrab.Visible:=true;
+    GameInterface.GrabLandowner.Visible:=true;
+   end
+   else
+   begin
+    GameInterface.giveupCall.Visible:=true;
+    GameInterface.CallLandowner.Visible:=true;
+   end;
+   end;
+
+   rm.ShowGrabResult(playerId,ifGrab,ifcall);
+
+   rm.ShowWaitClock(rm.findNextId(playerId));
+
+   js.DisposeOf;
+end;
+
+procedure executeHandler.DoGetLandowner(LStr:TStringStream);
+var
+  landownerId : string;
+  cards : TJsonArray;
+  js : TJsonObject;
+begin
+  js := TJsonObject.ParseJSONValue(Lstr.DataString) as TJsonObject;
+  js.TryGetValue('id',landownerId);
+  js.TryGetValue('cards',cards);
+
+   if landownerId=ui.GetUserId then
+    begin
+    rm.SetOrUpdatePlayerMap(landownerId,'',cards);
+    rm.ifHavelandowenr := true;
+    GameInterface.outOfCard.Visible := true;
+    GameInterface.giveUpCard.Visible := true;
+    end;
+
+
+    GameInterface.CloseButton();
+
+//    sleep(3000);
+
+    GameInterface.CloseImage();
+
+    rm.grabLandownerEnd:=true;
+
+    GameInterface.showFrontHoleCards();
+
+    rm.ShowWaitClock(landownerId);
+
+  js.DisposeOf;
 end;
 
 end.
