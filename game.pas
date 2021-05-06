@@ -98,8 +98,6 @@ type
     myName: TText;
     rightName: TRectangle;
     leftName: TRectangle;
-    waitText: TText;
-    waitRec: TRectangle;
     gameEnd: TRectangle;
     gameEndText: TText;
     ContinueGame: TButton;
@@ -117,6 +115,7 @@ type
     Timer1: TTimer;
     clock: TImage;
     clockText: TText;
+    MediaPlayer1: TMediaPlayer;
 
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -180,6 +179,8 @@ var
 
 implementation
 
+uses music;
+
 {$R *.fmx}
 
 procedure TGameInterface.FormCreate(Sender: TObject);
@@ -189,9 +190,10 @@ begin
     UI := UserInfo.Create;
     CM:=cmFunction.Create;
     CI:=CardInfo.Create;
+//    BC:=mc.Create;
+     G_TcpMessage.ConnectionService();
 
-    G_TcpMessage.ConnectionService();
-
+//    bc.ExtractRes('SRC','FILE','MusicPath');
 
     EvaluationImageTagString();
     SetButton();
@@ -213,7 +215,7 @@ begin
     rightPlayerCardCount.Visible:=false;
     rightName.Visible:=false;
     leftName.Visible:=false;
-    waitRec.Visible:=false;
+//    waitRec.Visible:=false;
 end;
 
 procedure TGameInterface.FormDestroy(Sender: TObject);
@@ -339,12 +341,6 @@ begin
      js.AddPair('cards',JsAy);
      js.AddPair('roomId',TJsonString.Create(rm.roomid));
      G_TcpMessage.SendTcpMessageToService(js.ToString,2007);
-
-//     outofcard.Visible:=false;
-//     giveupcard.Visible:=false;
-//     clock.Visible:=false;
-//     clock.Enabled:=false;
-
      js.DisposeOf;
 end;
 
@@ -453,7 +449,15 @@ begin
     begin
         if rm.ifHavelandowenr then
         begin
-          giveupgrabclick(sender);
+          if rm.lastOutOfCardPlayer=ui.GetUserId then
+          begin
+          rm.AddOrRemoveChoiceCardsMap(rm.MyCards[High(rm.MyCards)],true);
+          outOfCardClick(sender);
+          end
+          else
+          begin
+           giveupgrabclick(sender);
+          end;
         end
         else
         begin
@@ -473,13 +477,13 @@ begin
 
       if rm.cardsClickCountMap[TImage(Sender).TagString] then
       begin
-         TImage(Sender).Position.Y:=TImage(Sender).Position.Y - 40;
+         TImage(Sender).Position.Y:=TImage(Sender).Position.Y - self.ClientHeight*0.057;
          rm.cardsClickCountMap[TImage(Sender).TagString] := false;
          rm.AddOrRemoveChoiceCardsMap(TImage(sender).TagString,true)
       end
       else
       begin
-        TImage(Sender).Position.Y := TImage(Sender).Position.Y + 40;
+        TImage(Sender).Position.Y := TImage(Sender).Position.Y + self.ClientHeight*0.057;
         rm.cardsClickCountMap[TImage(Sender).TagString] := true;
         rm.AddOrRemoveChoiceCardsMap(TImage(sender).TagString,false)
       end;
@@ -514,24 +518,24 @@ begin
   if length(cards)=0 then
   begin
       buchu.Position.X :=marginLeft;
-      buchu.Position.Y :=self.ClientHeight-255;
+      buchu.Position.Y :=self.ClientHeight-self.ClientHeight*0.453;
       buchu.WrapMode:=TImageWrapMode.Stretch;
       buchu.Visible := true;
       buchu.BringToFront;
     exit;
   end;
 
-    totalLength :=(Length(cards)-1)* 30 + 50;
+    totalLength :=(Length(cards)-1)*self.ClientWidth*0.031 + self.ClientWidth*0.052;
 
     marginLeft := (self.ClientWidth-totalLength) / 2;
 
 
   for i := 0 to High(cards) do
       begin
-         CI.cardMap[cards[i]].Width := 50;
-         CI.cardMap[cards[i]].Height := 90;
-         CI.cardMap[cards[i]].Position.X := marginleft + i * 30;
-         CI.cardMap[cards[i]].Position.Y :=self.ClientHeight-255;
+         CI.cardMap[cards[i]].Width :=  self.ClientWidth*0.052;
+         CI.cardMap[cards[i]].Height := self.ClientHeight*0.129;
+         CI.cardMap[cards[i]].Position.X := marginleft + i * self.ClientWidth*0.031;
+         CI.cardMap[cards[i]].Position.Y :=self.ClientHeight-self.ClientHeight*0.453;
          CI.cardMap[cards[i]].WrapMode:=TImageWrapMode.Stretch;
          Ci.cardMap[cards[i]].Visible := true;
          CI.cardMap[cards[i]].BringToFront;
@@ -545,7 +549,7 @@ var
 begin
     if length(cards)=0 then
     begin
-      buchu.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+50;
+      buchu.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+ self.ClientWidth*0.052;
       buchu.Position.Y :=self.ClientHeight/2-CI.backCardArray[0].Height;
       buchu.WrapMode:=TImageWrapMode.Stretch;
       buchu.Visible := true;
@@ -554,9 +558,10 @@ begin
     end;
     for i := 0 to High(cards) do
       begin
-        CI.cardMap[cards[i]].Width := 50;
-        CI.cardMap[cards[i]].Height :=90;
-        CI.cardMap[cards[i]].Position.X:= cI.backCardArray[0].Position.X +50+(i+1)*20;
+        CI.cardMap[cards[i]].Width :=  self.ClientWidth*0.052;
+        CI.cardMap[cards[i]].Height :=self.ClientHeight*0.129;
+        CI.cardMap[cards[i]].Position.X:= cI.backCardArray[0].Position.X + self.ClientWidth*0.052
+        +(i+1)*self.ClientWidth*0.021;
         CI.cardMap[cards[i]].Position.Y:=self.ClientHeight/2-CI.backCardArray[0].Height;
         CI.cardMap[cards[i]].WrapMode:=TImageWrapMode.Stretch;
         CI.cardMap[cards[i]].Visible:=true;
@@ -571,19 +576,21 @@ var
 begin
     if length(cards)=0 then
     begin
-      buchu.Position.X :=CI.backCardArray[1].Position.X-buchu.Width-50;
+      buchu.Position.X :=CI.backCardArray[1].Position.X-buchu.Width-
+      self.ClientWidth*0.052;
       buchu.Position.Y :=self.ClientHeight/2-CI.backCardArray[1].Height;
       buchu.WrapMode:=TImageWrapMode.Stretch;
       buchu.Visible := true;
       buchu.BringToFront;
       exit;
     end;
-      margin:=(length(cards)-1)*20+50;
+      margin:=(length(cards)-1)*self.ClientWidth*0.021+ self.ClientWidth*0.052;
        for i := 0 to High(cards) do
       begin
-        CI.cardMap[cards[i]].Width := 50;
-        CI.cardMap[cards[i]].Height :=90;
-        CI.cardMap[cards[i]].Position.X:= self.ClientWidth-38-CI.backCardArray[1].Width-50-margin+(i+1)*20;
+        CI.cardMap[cards[i]].Width :=  self.ClientWidth*0.052;
+        CI.cardMap[cards[i]].Height :=self.ClientHeight*0.129;
+        CI.cardMap[cards[i]].Position.X:= self.ClientWidth-38-CI.backCardArray[1].Width-
+        self.ClientWidth*0.052-margin+(i+1)*self.ClientWidth*0.021;
         CI.cardMap[cards[i]].Position.Y:=self.ClientHeight/2-CI.backCardArray[1].Height;
         CI.cardMap[cards[i]].WrapMode:=TImageWrapMode.Stretch;
         CI.cardMap[cards[i]].Visible:=true;
@@ -602,13 +609,13 @@ begin
     exit;
   end;
 
-    totalCardsLength :=(Length(rm.holeCards))* 60;
+    totalCardsLength :=(Length(rm.holeCards))*  CI.backCardArray[0].Width;
 
     marginLeft := (self.ClientWidth-totalCardsLength) / 2;
 
   for i := 2 to 2+High(rm.holeCards)  do
       begin
-         CI.backCardArray[i].Position.X := marginleft + (i-2) * 60;
+         CI.backCardArray[i].Position.X := marginleft + (i-2) * CI.backCardArray[0].Width;
          CI.backCardArray[i].Position.Y := 0;
          CI.backCardArray[i].WrapMode:=TImageWrapMode.Stretch;
          CI.backCardArray[i].Visible := true;
@@ -628,14 +635,14 @@ begin
     exit;
   end;
 
-    totalCardsLength :=(Length(rm.holeCards))* 60;
+    totalCardsLength :=(Length(rm.holeCards))* CI.backCardArray[0].Width;
 
     marginLeft := (self.ClientWidth-totalCardsLength) / 2;
 
   for i := 2 to 2+High(rm.holeCards)  do
       begin
          CI.backCardArray[i].Bitmap.Assign(ci.cardMap[rm.holeCards[i-2]].Bitmap);
-         CI.backCardArray[i].Position.X := marginleft + (i-2) * 60;
+         CI.backCardArray[i].Position.X := marginleft + (i-2) * CI.backCardArray[0].Width;
          CI.backCardArray[i].Position.Y := 0;
          CI.backCardArray[i].WrapMode:=TImageWrapMode.Stretch;
          CI.backCardArray[i].Visible := true;
@@ -656,16 +663,15 @@ begin
     exit;
   end;
 
-    totalCardsLength :=(Length(cards)-1)* 30 + 80;
+    totalCardsLength :=(Length(cards)-1)* CI.cardMap[cards[0]].Width*0.375 +
+     CI.cardMap[cards[0]].Width;
 
     marginLeft := (self.ClientWidth-totalCardsLength) / 2;
 
   for i := 0 to High(cards) do
       begin
-         CI.cardMap[cards[i]].Position.X := marginleft + i * 30;
-         CI.cardMap[cards[i]].Position.Y := self.ClientHeight-150;
-         CI.cardMap[cards[i]].Width := 80;
-         CI.cardMap[cards[i]].Height := 150;
+         CI.cardMap[cards[i]].Position.X := marginleft + i * CI.cardMap[cards[i]].Width*0.375;
+         CI.cardMap[cards[i]].Position.Y := layout1.Height-CI.cardMap[cards[i]].Height;
          CI.cardMap[cards[i]].WrapMode:=TImageWrapMode.Stretch;
          Ci.cardMap[cards[i]].Visible := true;
          CI.cardMap[cards[i]].BringToFront;
@@ -678,7 +684,7 @@ procedure TGameInterface.ShowLeftPlayerCards(count : Integer; name :string);
   cardCenterX : single;
 begin
 
-    cI.backCardArray[0].Position.X:=38;
+    cI.backCardArray[0].Position.X:=self.ClientWidth*0.039;
     CI.backCardArray[0].Position.Y := self.ClientHeight/2-CI.backCardArray[0].Height;
     CI.backCardArray[0].WrapMode:= TimageWrapMode.Stretch;
     CI.backCardArray[0].Visible := true;
@@ -686,8 +692,9 @@ begin
 
     cardCenterX:=cI.backCardArray[0].Position.X+(cI.backCardArray[0].Width/2);
 
-    leftPlayerCardCount.Size.Height:=30;
-    leftPlayerCardCount.Size.Width:=30;
+    leftPlayerCardCount.Size.Height:=self.ClientHeight*0.043;
+    leftPlayerCardCount.Size.Width:=self.ClientHeight*0.043;
+    leftPlayerCardCount.Font.Size:=13;
     leftPlayerCardCount.Position.X:= cardCenterX-leftPlayerCardCount.Size.Width/2;
     leftPlayerCardCount.Position.Y := self.ClientHeight/2;
     leftPlayerCardCount.Text := count.ToString;
@@ -695,7 +702,8 @@ begin
     leftPlayerCardCount.BringToFront;
 
     LeftName.Position.X :=  cardCenterX-LeftName.Size.Width/2;
-    LeftName.Position.Y := self.ClientHeight/2-CI.backCardArray[0].Height-50;
+    LeftName.Position.Y :=self.ClientHeight/2-CI.backCardArray[0].Height-
+    self.ClientHeight*0.071;
     LeftPlayerName.Text := name;
     LeftPlayerName.Visible := true;
     LeftName.Visible := true;
@@ -706,7 +714,8 @@ procedure TGameInterface.ShowRightPlayerCards(count : Integer;name :string);
 var
   centerCardX : single;
 begin
-    cI.backCardArray[1].Position.X:=self.ClientWidth-38-CI.backCardArray[1].Width;
+    cI.backCardArray[1].Position.X:=self.ClientWidth-self.ClientWidth*0.043-
+    CI.backCardArray[1].Width;
     CI.backCardArray[1].Position.Y := self.ClientHeight/2-CI.backCardArray[1].Height;
     CI.backCardArray[1].WrapMode:= TimageWrapMode.Stretch;
     CI.backCardArray[1].Visible := true;
@@ -714,58 +723,23 @@ begin
 
     centerCardX:=cI.backCardArray[1].Position.X+cI.backCardArray[1].Width/2;
 
-    rightPlayerCardCount.Size.Height:=30;
-    rightPlayerCardCount.Size.Width:=30;
+    rightPlayerCardCount.Size.Height:=self.ClientHeight*0.043;
+    rightPlayerCardCount.Size.Width:=self.ClientHeight*0.043;
     rightPlayerCardCount.Position.X := centerCardX - rightPlayerCardCount.Width/2;
     rightPlayerCardCount.Position.Y := self.ClientHeight/2;
+    rightPlayerCardCount.Font.Size:=13;
     rightPlayerCardCount.Text := count.ToString;
     rightPlayerCardCount.Visible := true;
     rightPlayerCardCount.BringToFront;
 
     rightName.Position.X := centerCardX - rightName.Width/2;
-    rightName.Position.Y := self.ClientHeight/2-CI.backCardArray[1].Height-50;
+    rightName.Position.Y := self.ClientHeight/2-CI.backCardArray[1].Height-
+    self.ClientHeight*0.071;
     rightPlayerName.Text := name;
     rightPlayerName.Visible := true;
     rightName.Visible := true;
     rightName.BringToFront;
 end;
-
-//procedure TGameInterface.ShowMyWaitText();
-//begin
-//    waitRec.Position.X:=0;
-//    waitRec.Position.Y:= self.ClientHeight-WaitRec.Height;
-//
-//    waitText.Visible := true;
-//    waitRec.Visible := true;
-//    waitRec.BringToFront;
-//end;
-//
-//procedure TGameInterface.ShowLeftWaitText();
-//var
-//  cardCenterX : single;
-//begin
-//    cardCenterX:=cI.backCardArray[0].Position.X+(cI.backCardArray[0].Width/2);
-//
-//    waitRec.Position.X :=  cardCenterX-LeftName.Size.Width/2;
-//    waitRec.Position.Y := self.ClientHeight/2-CI.backCardArray[0].Height-100;
-//
-//    waitText.Visible := true;
-//    waitRec.Visible := true;
-//    waitRec.BringToFront;
-//end;
-//
-//procedure TGameInterface.ShowRightWaitText();
-//var
-//  centerCardX: single;
-//begin
-//    centerCardX:=cI.backCardArray[1].Position.X+cI.backCardArray[1].Width/2;
-//
-//    waitRec.Position.X := centerCardX - rightName.Width/2;
-//    waitRec.Position.Y := self.ClientHeight/2-CI.backCardArray[1].Height-100;
-//    waitText.Visible := true;
-//    waitRec.Visible := true;
-//    waitRec.BringToFront;
-//end;
 
 procedure TGameInterface.showMyBuQiangOrBujiao(ifcall : boolean);
 var
@@ -775,7 +749,7 @@ begin
    if not ifcall then
   begin
       buqiang.Position.X :=marginLeft;
-      buqiang.Position.Y :=self.ClientHeight-255;
+      buqiang.Position.Y :=self.ClientHeight-self.ClientHeight*0.453;
       buqiang.WrapMode:=TImageWrapMode.Stretch;
       buqiang.Visible := true;
       buqiang.BringToFront;
@@ -783,7 +757,7 @@ begin
   else
   begin
       bujiao.Position.X :=marginLeft;
-      bujiao.Position.Y :=self.ClientHeight-255;
+      bujiao.Position.Y :=self.ClientHeight-self.ClientHeight*0.453;
       bujiao.WrapMode:=TImageWrapMode.Stretch;
       bujiao.Visible := true;
       bujiao.BringToFront;
@@ -794,7 +768,7 @@ procedure TGameInterface.showLeftBuQiangOrBujiao(ifcall : boolean);
 begin
   if not  ifcall then
   begin
-      buqiang.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+50;
+      buqiang.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+self.ClientWidth*0.052;
       buqiang.Position.Y :=self.ClientHeight/2-CI.backCardArray[0].Height;
       buqiang.WrapMode:=TImageWrapMode.Stretch;
       buqiang.Visible := true;
@@ -802,7 +776,7 @@ begin
   end
   else
   begin
-      bujiao.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+50;
+      bujiao.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+self.ClientWidth*0.052;
       bujiao.Position.Y :=self.ClientHeight/2-CI.backCardArray[0].Height;
       bujiao.WrapMode:=TImageWrapMode.Stretch;
       bujiao.Visible := true;
@@ -814,7 +788,7 @@ procedure TGameInterface.showRightBuQiangOrBujiao(ifcall : boolean);
 begin
   if not ifcall then
   begin
-      buqiang.Position.X :=CI.backCardArray[1].Position.X-buqiang.Width-50;
+      buqiang.Position.X :=CI.backCardArray[1].Position.X-buqiang.Width-self.ClientWidth*0.052;
       buqiang.Position.Y :=self.ClientHeight/2-CI.backCardArray[1].Height;
       buqiang.WrapMode:=TImageWrapMode.Stretch;
       buqiang.Visible := true;
@@ -822,7 +796,7 @@ begin
   end
   else
   begin
-      bujiao.Position.X :=CI.backCardArray[1].Position.X-bujiao.Width-50;
+      bujiao.Position.X :=CI.backCardArray[1].Position.X-bujiao.Width-self.ClientWidth*0.052;
       bujiao.Position.Y :=self.ClientHeight/2-CI.backCardArray[1].Height;
       bujiao.WrapMode:=TImageWrapMode.Stretch;
       bujiao.Visible := true;
@@ -838,7 +812,7 @@ begin
    if not ifcall then
   begin
       qiangdizhu.Position.X :=marginLeft;
-      qiangdizhu.Position.Y :=self.ClientHeight-255;
+      qiangdizhu.Position.Y :=self.ClientHeight-self.ClientHeight*0.453;
       qiangdizhu.WrapMode:=TImageWrapMode.Stretch;
       qiangdizhu.Visible := true;
       qiangdizhu.BringToFront;
@@ -846,7 +820,7 @@ begin
   else
   begin
       jiaodizhu.Position.X :=marginLeft;
-      jiaodizhu.Position.Y :=self.ClientHeight-255;
+      jiaodizhu.Position.Y :=self.ClientHeight-self.ClientHeight*0.453;
       jiaodizhu.WrapMode:=TImageWrapMode.Stretch;
       jiaodizhu.Visible := true;
       jiaodizhu.BringToFront;
@@ -857,7 +831,7 @@ procedure TGameInterface.showLeftQiangOrJiaoDiZhu(ifcall : boolean);
 begin
   if not ifcall then
   begin
-      qiangdizhu.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+50;
+      qiangdizhu.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+self.ClientWidth*0.052;
       qiangdizhu.Position.Y :=self.ClientHeight/2-CI.backCardArray[0].Height;
       qiangdizhu.WrapMode:=TImageWrapMode.Stretch;
       qiangdizhu.Visible := true;
@@ -865,7 +839,7 @@ begin
   end
   else
   begin
-      jiaodizhu.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+50;
+      jiaodizhu.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+self.ClientWidth*0.052;
       jiaodizhu.Position.Y :=self.ClientHeight/2-CI.backCardArray[0].Height;
       jiaodizhu.WrapMode:=TImageWrapMode.Stretch;
       jiaodizhu.Visible := true;
@@ -877,7 +851,7 @@ procedure TGameInterface.showRightQiangOrJiaoDiZhu(ifcall : boolean);
 begin
   if not ifcall then
   begin
-      qiangdizhu.Position.X :=CI.backCardArray[1].Position.X-qiangdizhu.Width-50;
+      qiangdizhu.Position.X :=CI.backCardArray[1].Position.X-qiangdizhu.Width-self.ClientWidth*0.052;
       qiangdizhu.Position.Y :=self.ClientHeight/2-CI.backCardArray[1].Height;
       qiangdizhu.WrapMode:=TImageWrapMode.Stretch;
       qiangdizhu.Visible := true;
@@ -885,7 +859,7 @@ begin
   end
   else
   begin
-      jiaodizhu.Position.X :=CI.backCardArray[1].Position.X-jiaodizhu.Width-50;
+      jiaodizhu.Position.X :=CI.backCardArray[1].Position.X-jiaodizhu.Width-self.ClientWidth*0.052;
       jiaodizhu.Position.Y :=self.ClientHeight/2-CI.backCardArray[1].Height;
       jiaodizhu.WrapMode:=TImageWrapMode.Stretch;
       jiaodizhu.Visible := true;
@@ -916,7 +890,7 @@ begin
     rm.usedTime:=0;
     marginLeft:=(self.ClientWidth-clock.Width)/2;
     clock.Position.X := marginleft;
-    clock.Position.Y :=self.ClientHeight-255;
+    clock.Position.Y :=self.ClientHeight-self.ClientHeight*0.453;//0.383
     clock.Visible:=true;
     clock.Enabled:=true;
     rm.ifExcute:=true;
@@ -925,7 +899,7 @@ end;
 procedure TGameInterface.showLeftClock();
 begin
     rm.usedTime:=0;
-    clock.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+50;
+    clock.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+self.ClientWidth*0.052;
     clock.Position.Y :=self.ClientHeight/2-CI.backCardArray[0].Height;
     clock.Visible:=true;
     clock.Enabled:=true;
@@ -935,7 +909,7 @@ end;
 procedure TGameInterface.showrightClock();
 begin
       rm.usedTime:=0;
-      clock.Position.X :=CI.backCardArray[1].Position.X-clock.Width-50;
+      clock.Position.X :=CI.backCardArray[1].Position.X-clock.Width-self.ClientWidth*0.052;
       clock.Position.Y :=self.ClientHeight/2-CI.backCardArray[1].Height;
       clock.Visible:=true;
       clock.Enabled:=true;
@@ -990,44 +964,44 @@ end;
 procedure TGameInterface.SetButton();
 begin
   StartGame.Position.X:=(self.ClientWidth-StartGame.Width)/2;
-  StartGame.Position.Y:=self.ClientHeight-180;
+  StartGame.Position.Y:=self.ClientHeight-self.ClientHeight*0.289;
   StartGame.Visible:=true;
 
   cancelMatch.Position.X:=(self.ClientWidth-cancelMatch.Width)/2;
-  cancelMatch.Position.Y:=self.ClientHeight-180;
+  cancelMatch.Position.Y:=self.ClientHeight-self.ClientHeight*0.289; //0.259
 
-  waitting.Position.X:=(self.ClientWidth-waitting.Width)/2+7;
-  waitting.Position.Y:=self.ClientHeight-215;
+//  .Position.X:=(self.ClientWidth-waitting.Width)/2+self.ClientWidth*0.007;
+//  waitRec.Position.Y:=self.ClientHeight-self.ClientHeight*0.309;
 
-  AniIndicator1.Position.X:=(self.ClientWidth-AniIndicator1.Width)/2-7;
-  AniIndicator1.Position.Y:=self.ClientHeight-275;
+  AniIndicator1.Position.X:=(self.ClientWidth-AniIndicator1.Width)/2-self.ClientWidth*0.007;
+  AniIndicator1.Position.Y:=self.ClientHeight-self.ClientHeight*0.455;  //0.395
 
-  giveUpCard.Position.X:=(self.ClientWidth-giveUpCard.Width)/2 -100;
-  giveUpCard.Position.Y:=self.ClientHeight-225;
+  giveUpCard.Position.X:=(self.ClientWidth-giveUpCard.Width)/2 -self.ClientWidth*0.104;
+  giveUpCard.Position.Y:=self.ClientHeight-self.ClientHeight*0.339;
 
-  outOfCard.Position.X:=(self.ClientWidth-outOfCard.Width)/2 + 100;
-  outOfCard.Position.Y:=self.ClientHeight-225;
+  outOfCard.Position.X:=(self.ClientWidth-outOfCard.Width)/2 + self.ClientWidth*0.104;
+  outOfCard.Position.Y:=self.ClientHeight-self.ClientHeight*0.339;
 
-  ContinueGame.Position.X:=(self.ClientWidth-ContinueGame.Width)/2+100;
-  ContinueGame.Position.Y:=self.ClientHeight-225;
+  ContinueGame.Position.X:=(self.ClientWidth-ContinueGame.Width)/2+self.ClientWidth*0.104;
+  ContinueGame.Position.Y:=self.ClientHeight-self.ClientHeight*0.339;
 
-  endGame.Position.X:=(self.ClientWidth-endGame.Width)/2-100;
-  endGame.Position.Y:=self.ClientHeight-225;
+  endGame.Position.X:=(self.ClientWidth-endGame.Width)/2-self.ClientWidth*0.104;
+  endGame.Position.Y:=self.ClientHeight-self.ClientHeight*0.339;
 
-  giveUpCall.Position.X:=(self.ClientWidth-giveUpCall.Width)/2 -100;
-  giveUpCall.Position.Y:=self.ClientHeight-225;
+  giveUpCall.Position.X:=(self.ClientWidth-giveUpCall.Width)/2 -self.ClientWidth*0.104;
+  giveUpCall.Position.Y:=self.ClientHeight-self.ClientHeight*0.339;
 
-  CallLandowner.Position.X:=(self.ClientWidth-CallLandowner.Width)/2 + 100;
-  CallLandowner.Position.Y:=self.ClientHeight-225;
+  CallLandowner.Position.X:=(self.ClientWidth-CallLandowner.Width)/2 + self.ClientWidth*0.104;
+  CallLandowner.Position.Y:=self.ClientHeight-self.ClientHeight*0.339;
 
-  giveUpGrab.Position.X:=(self.ClientWidth-giveUpGrab.Width)/2 -100;
-  giveUpGrab.Position.Y:=self.ClientHeight-225;
+  giveUpGrab.Position.X:=(self.ClientWidth-giveUpGrab.Width)/2 -self.ClientWidth*0.104;
+  giveUpGrab.Position.Y:=self.ClientHeight-self.ClientHeight*0.339;
 
-  grabLandowner.Position.X:=(self.ClientWidth-grabLandowner.Width)/2 + 100;
-  grabLandowner.Position.Y:=self.ClientHeight-225;
+  grabLandowner.Position.X:=(self.ClientWidth-grabLandowner.Width)/2 + self.ClientWidth*0.104;
+  grabLandowner.Position.Y:=self.ClientHeight-self.ClientHeight*0.339;
 
-//  clock.Position.X:= (self.ClientWidth-clock.Width)/2;
-//  clock.Position.Y:=self.ClientHeight-225;
+  clock.Width:= self.ClientWidth*0.093;
+  clock.Height:=self.ClientWidth*0.093;
 
 end;
 

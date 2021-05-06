@@ -13,7 +13,8 @@ uses
   room in 'room.pas',
   common in 'common.pas',
   card in 'card.pas',
-  uToast in 'uToast.pas';
+  uToast in 'uToast.pas',
+  music in 'music.pas';
 
 {$R *.res}
 

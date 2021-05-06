@@ -34,6 +34,8 @@ type RmInfo = class
 
   grabLandownerEnd : boolean;
 
+  lastOutOfCardPlayer:string;
+
 //  ifGrabLandowner : boolean;
 
   ifHavelandowenr :boolean;

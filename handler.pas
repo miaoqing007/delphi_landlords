@@ -46,7 +46,7 @@ var ExHandler :executeHandler;
 
 implementation
 
-uses game,tcp,room,card;
+uses game,tcp,room,card,music;
 
 constructor executeHandler.Create;
 begin
@@ -225,6 +225,11 @@ begin
 
     rm.SetOutOfCards(id,outofCards);
 
+    if outOfCards.Count<>0 then
+    begin
+      rm.lastOutOfCardPlayer := id;
+    end;
+
     RM.SetOrUpdatePlayerMap(id,'',cards);
 
     if id =Ui.GetUserId then
@@ -235,9 +240,14 @@ begin
 
     if rm.nextPlayerId=UI.GetUserId then
     begin
+        if rm.nextPlayerId<>rm.lastOutOfCardPlayer then
+        begin
+        GameInterface.giveUpCard.Visible := true;
+        end;
        GameInterface.outOfCard.Visible := true;
-       GameInterface.giveUpCard.Visible := true;
     end;
+
+//    BC.readCardNumber(cm.TJosnArray2TArray(outofcards),0);
 
     js.DisposeOf;
 end;
@@ -361,9 +371,10 @@ begin
     rm.SetOrUpdatePlayerMap(landownerId,'',cards);
     rm.ifHavelandowenr := true;
     GameInterface.outOfCard.Visible := true;
-    GameInterface.giveUpCard.Visible := true;
+//    GameInterface.giveUpCard.Visible := true;
     end;
 
+    rm.lastOutOfCardPlayer:=landownerid;
 
     GameInterface.CloseButton();
 

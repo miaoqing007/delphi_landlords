@@ -84,7 +84,7 @@ end;
 
 function tcpMessage.ConnectionService:Boolean;
 begin
-  fcon.ConnectTo('127.0.0.1',51000);
+  fcon.ConnectTo('192.168.1.115',51000);
   Result:=fcon.IsConnected;
 end;
 

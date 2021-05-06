@@ -2,7 +2,7 @@ unit card;
 
 interface
 
-uses System.Generics.Collections,FMX.Objects;
+uses System.Generics.Collections,FMX.Objects,fmx.Dialogs,System.SysUtils;
 
 type CardInfo = class
 
@@ -117,6 +117,7 @@ end;
 procedure CardInfo.initBackCard();
 var
   im : TImage;
+  im2: Timage;
   i : integer;
 begin
   for i := 0 to 6 do
@@ -124,11 +125,17 @@ begin
         im := TImage.Create(GameInterface);
         im.Parent := GameInterface;
         im.Bitmap.Assign(GameInterface.Image1.Bitmap);
-        im.Height := 100;
-        im.Width := 60;
+        im.Height := GameInterface.ClientHeight*0.143;
+        im.Width :=  GameInterface.ClientWidth*0.062;
         im.Visible := false;
         SetLength(backCardArray, Length(backCardArray)+1);
         backCardArray[High(backCardArray)] := im;
+  end;
+
+  for im2 in cardMap.Values do
+  begin
+    im2.Width := GameInterface.ClientWidth*0.083;
+    im2.Height:=GameInterface.ClientHeight*0.215;;
   end;
 
 end;
