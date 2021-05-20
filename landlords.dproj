@@ -102,6 +102,8 @@
         <Icon_MainIcon>$(BDS)\bin\delphi_PROJECTICON.ico</Icon_MainIcon>
         <Icns_MainIcns>$(BDS)\bin\delphi_PROJECTICNS.icns</Icns_MainIcns>
         <SanitizedProjectName>landlords</SanitizedProjectName>
+        <OrientationLandscapeLeft>true</OrientationLandscapeLeft>
+        <OrientationLandscapeRight>true</OrientationLandscapeRight>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Android)'!=''">
         <DCC_UsePackage>DBXSqliteDriver;RESTComponents;DBXInterBaseDriver;emsclientfiredac;tethering;DataSnapFireDAC;bindcompfmx;FmxTeeUI;fmx;FireDACIBDriver;FireDACDBXDriver;dbexpress;IndyCore;dsnap;emsclient;DataSnapCommon;FireDACCommon;RESTBackendComponents;soapserver;bindengine;CloudService;FireDACCommonDriver;DataSnapClient;inet;IndyIPCommon;bindcompdbx;IndyIPServer;IndySystem;fmxFireDAC;FireDAC;FireDACSqliteDriver;FMXTee;soaprtl;DbxCommonDriver;xmlrtl;soapmidas;DataSnapNativeClient;FireDACDSDriver;rtl;DbxClientDriver;CustomIPTransport;bindcomp;IndyIPClient;dbxcds;dsnapxml;DataSnapProviderClient;dbrtl;IndyProtocols;$(DCC_UsePackage)</DCC_UsePackage>
@@ -244,6 +246,8 @@
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -286,6 +290,8 @@
         <DCCReference Include="card.pas"/>
         <DCCReference Include="uToast.pas"/>
         <DCCReference Include="music.pas"/>
+        <DCCReference Include="Goos.pas"/>
+        <DCCReference Include="uPack.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -306,29 +312,16 @@
                 <Source>
                     <Source Name="MainSource">landlords.dpr</Source>
                 </Source>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k270.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp270.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_48x48.png" Configuration="Debug" Class="Android_NotificationIcon48">
-                    <Platform Name="Android64">
-                        <RemoteName>ic_notification.png</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_36x36.png" Configuration="Debug" Class="Android_LauncherIcon36">
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui11.mp3" Configuration="Debug" Class="File">
                     <Platform Name="Android">
-                        <RemoteName>ic_launcher.png</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_96x96.png" Configuration="Debug" Class="Android_NotificationIcon96">
-                    <Platform Name="Android64">
-                        <RemoteName>ic_notification.png</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_72x72.png" Configuration="Debug" Class="Android_LauncherIcon72">
-                    <Platform Name="Android">
-                        <RemoteName>ic_launcher.png</RemoteName>
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_dui11.mp3</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -338,9 +331,10 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="$(BDS)\lib\android\debug\armeabi\libnative-activity.so" Configuration="Debug" Class="AndroidLibnativeArmeabiFile">
-                    <Platform Name="Android64">
-                        <RemoteName>liblandlords.so</RemoteName>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_sidailiangdui.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_sidailiangdui.mp3</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -362,14 +356,565 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="$(BDS)\lib\android\debug\mips\libnative-activity.so" Configuration="Debug" Class="AndroidLibnativeMipsFile">
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_buyao3.mp3" Configuration="Debug" Class="File">
                     <Platform Name="Android">
-                        <RemoteName>liblandlords.so</RemoteName>
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_buyao3.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_9.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_9.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_zhadan.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_zhadan.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_jiabei.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_jiabei.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Android\Debug\splash_image_def.xml" Configuration="Debug" Class="AndroidSplashImageDef">
+                    <Platform Name="Android">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="Android64\Debug\liblandlords.so" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Android64">
+                        <RemoteName>liblandlords.so</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Win64\Debug\landlords.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win64">
+                        <RemoteName>landlords.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\10010000-yy_chaojijiabei.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>10010000-yy_chaojijiabei.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_3.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_3.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_96x96.png" Configuration="Debug" Class="Android_NotificationIcon96">
+                    <Platform Name="Android">
+                        <RemoteName>ic_notification.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_14.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_14.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_bujiabei.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_bujiabei.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Android64\Debug\classes.dex" Configuration="Debug" Class="AndroidClassesDexFile">
+                    <Platform Name="Android64">
+                        <RemoteName>classes.dex</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_buyao1.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_buyao1.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_sidaier.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_sidaier.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\Redist\iossimulator\libcgunwind.1.0.dylib" Class="DependencyModule">
+                    <Platform Name="iOSSimulator">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Chat_7.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_Chat_7.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui9.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_dui9.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui1.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_dui1.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_NoRob.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_NoRob.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_24x24.png" Configuration="Debug" Class="Android_NotificationIcon24">
+                    <Platform Name="Android">
+                        <RemoteName>ic_notification.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Chat_0.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_Chat_0.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib" Class="DependencyModule">
+                    <Platform Name="OSX32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Android\Debug\colors.xml" Configuration="Debug" Class="Android_Colors">
+                    <Platform Name="Android">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_48x48.png" Configuration="Debug" Class="Android_NotificationIcon48">
+                    <Platform Name="Android">
+                        <RemoteName>ic_notification.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple11.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_tuple11.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple13.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_tuple13.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui5.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_dui5.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_4.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_4.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_shunzi.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_shunzi.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple10.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_tuple10.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Android\Debug\strings.xml" Configuration="Debug" Class="Android_Strings">
+                    <Platform Name="Android">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui2.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_dui2.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_96x96.png" Configuration="Debug" Class="Android_LauncherIcon96">
+                    <Platform Name="Android64">
+                        <RemoteName>ic_launcher.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_72x72.png" Configuration="Debug" Class="Android_NotificationIcon72">
+                    <Platform Name="Android">
+                        <RemoteName>ic_notification.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Chat_1.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_Chat_1.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Chat_2.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_Chat_2.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dani1.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_dani1.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Chat_8.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_Chat_8.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Rob2.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_Rob2.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\lib\android\debug\armeabi-v7a\libnative-activity.so" Configuration="Debug" Class="AndroidLibnativeArmeabiv7aFile">
+                    <Platform Name="Android64">
+                        <RemoteName>liblandlords.so</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui12.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_dui12.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_SplashImage_470x320.png" Configuration="Debug" Class="Android_SplashImage470">
+                    <Platform Name="Android64">
+                        <RemoteName>splash_image.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_SplashImage_640x480.png" Configuration="Debug" Class="Android_SplashImage640">
+                    <Platform Name="Android">
+                        <RemoteName>splash_image.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Rob3.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_Rob3.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple2.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_tuple2.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_buyao4.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_buyao4.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Share.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_Share.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_15.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_15.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_48x48.png" Configuration="Debug" Class="Android_LauncherIcon48">
+                    <Platform Name="Android">
+                        <RemoteName>ic_launcher.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Android\Debug\classes.dex" Configuration="Debug" Class="AndroidClassesDexFile">
+                    <Platform Name="Android">
+                        <RemoteName>classes.dex</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_10.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_10.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Android\Debug\liblandlords.so" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Android">
+                        <RemoteName>liblandlords.so</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Android\Debug\styles.xml" Configuration="Debug" Class="AndroidSplashStyles">
+                    <Platform Name="Android">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Android64\Debug\AndroidManifest.xml" Configuration="Debug" Class="ProjectAndroidManifest">
+                    <Platform Name="Android64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_1.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_1.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_12.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_12.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Chat_5.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_Chat_5.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui6.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_dui6.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple5.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_tuple5.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Chat_10.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_Chat_10.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_48x48.png" Configuration="Debug" Class="Android_LauncherIcon48">
+                    <Platform Name="Android64">
+                        <RemoteName>ic_launcher.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\myMusic.txt" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>myMusic.txt</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui4.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_dui4.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui10.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_dui10.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple7.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_tuple7.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_SplashImage_426x320.png" Configuration="Debug" Class="Android_SplashImage426">
+                    <Platform Name="Android64">
+                        <RemoteName>splash_image.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dani3.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_dani3.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_8.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_8.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple8.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_tuple8.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Android64\Debug\strings.xml" Configuration="Debug" Class="Android_Strings">
+                    <Platform Name="Android64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Android\Debug\styles-v21.xml" Configuration="Debug" Class="AndroidSplashStylesV21">
+                    <Platform Name="Android">
+                        <RemoteName>styles.xml</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple4.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_tuple4.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_48x48.png" Configuration="Debug" Class="Android_NotificationIcon48">
+                    <Platform Name="Android64">
+                        <RemoteName>ic_notification.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_36x36.png" Configuration="Debug" Class="Android_LauncherIcon36">
+                    <Platform Name="Android">
+                        <RemoteName>ic_launcher.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_96x96.png" Configuration="Debug" Class="Android_NotificationIcon96">
+                    <Platform Name="Android64">
+                        <RemoteName>ic_notification.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_13.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_13.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_NoOrder.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_NoOrder.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_72x72.png" Configuration="Debug" Class="Android_LauncherIcon72">
+                    <Platform Name="Android">
+                        <RemoteName>ic_launcher.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple3.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_tuple3.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_baojing1.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_baojing1.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_2.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_2.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\lib\android\debug\armeabi\libnative-activity.so" Configuration="Debug" Class="AndroidLibnativeArmeabiFile">
+                    <Platform Name="Android64">
+                        <RemoteName>liblandlords.so</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Chat_6.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_Chat_6.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Order.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_Order.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\lib\android\debug\mips\libnative-activity.so" Configuration="Debug" Class="AndroidLibnativeMipsFile">
+                    <Platform Name="Android">
                         <RemoteName>liblandlords.so</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
@@ -380,37 +925,14 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Win64\Debug\landlords.exe" Configuration="Debug" Class="ProjectOutput">
-                    <Platform Name="Win64">
-                        <RemoteName>landlords.exe</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
                 <DeployFile LocalName="Android64\Debug\styles.xml" Configuration="Debug" Class="AndroidSplashStyles">
                     <Platform Name="Android64">
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="Android\Debug\splash_image_def.xml" Configuration="Debug" Class="AndroidSplashImageDef">
-                    <Platform Name="Android">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_36x36.png" Configuration="Debug" Class="Android_NotificationIcon36">
                     <Platform Name="Android64">
                         <RemoteName>ic_notification.png</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_96x96.png" Configuration="Debug" Class="Android_NotificationIcon96">
-                    <Platform Name="Android">
-                        <RemoteName>ic_notification.png</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="Android64\Debug\classes.dex" Configuration="Debug" Class="AndroidClassesDexFile">
-                    <Platform Name="Android64">
-                        <RemoteName>classes.dex</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -425,30 +947,23 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="$(BDS)\Redist\iossimulator\libcgunwind.1.0.dylib" Class="DependencyModule">
-                    <Platform Name="iOSSimulator">
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
                 <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_144x144.png" Configuration="Debug" Class="Android_LauncherIcon144">
                     <Platform Name="Android">
                         <RemoteName>ic_launcher.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_24x24.png" Configuration="Debug" Class="Android_NotificationIcon24">
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_feiji.mp3" Configuration="Debug" Class="File">
                     <Platform Name="Android">
-                        <RemoteName>ic_notification.png</RemoteName>
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_feiji.mp3</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib" Class="DependencyModule">
-                    <Platform Name="OSX32">
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="Android\Debug\colors.xml" Configuration="Debug" Class="Android_Colors">
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui13.mp3" Configuration="Debug" Class="File">
                     <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_dui13.mp3</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -458,26 +973,23 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_48x48.png" Configuration="Debug" Class="Android_NotificationIcon48">
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dani2.mp3" Configuration="Debug" Class="File">
                     <Platform Name="Android">
-                        <RemoteName>ic_notification.png</RemoteName>
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_dani2.mp3</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Android\Debug\strings.xml" Configuration="Debug" Class="Android_Strings">
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_6.mp3" Configuration="Debug" Class="File">
                     <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_6.mp3</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_SplashImage_960x720.png" Configuration="Debug" Class="Android_SplashImage960">
                     <Platform Name="Android64">
                         <RemoteName>splash_image.png</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_96x96.png" Configuration="Debug" Class="Android_LauncherIcon96">
-                    <Platform Name="Android64">
-                        <RemoteName>ic_launcher.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -493,9 +1005,10 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_72x72.png" Configuration="Debug" Class="Android_NotificationIcon72">
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_liandui.mp3" Configuration="Debug" Class="File">
                     <Platform Name="Android">
-                        <RemoteName>ic_notification.png</RemoteName>
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_liandui.mp3</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -508,24 +1021,6 @@
                 <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_72x72.png" Configuration="Debug" Class="Android_NotificationIcon72">
                     <Platform Name="Android64">
                         <RemoteName>ic_notification.png</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="$(BDS)\lib\android\debug\armeabi-v7a\libnative-activity.so" Configuration="Debug" Class="AndroidLibnativeArmeabiv7aFile">
-                    <Platform Name="Android64">
-                        <RemoteName>liblandlords.so</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_SplashImage_470x320.png" Configuration="Debug" Class="Android_SplashImage470">
-                    <Platform Name="Android64">
-                        <RemoteName>splash_image.png</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_SplashImage_640x480.png" Configuration="Debug" Class="Android_SplashImage640">
-                    <Platform Name="Android">
-                        <RemoteName>splash_image.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -535,15 +1030,44 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_sandaiyidui.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_sandaiyidui.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple1.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_tuple1.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="$(BDS)\lib\android\debug\mips\libnative-activity.so" Configuration="Debug" Class="AndroidLibnativeMipsFile">
                     <Platform Name="Android64">
                         <RemoteName>liblandlords.so</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_48x48.png" Configuration="Debug" Class="Android_LauncherIcon48">
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Chat_3.mp3" Configuration="Debug" Class="File">
                     <Platform Name="Android">
-                        <RemoteName>ic_launcher.png</RemoteName>
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_Chat_3.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman.zip" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman.zip</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple6.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_tuple6.mp3</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -552,15 +1076,17 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Android\Debug\classes.dex" Configuration="Debug" Class="AndroidClassesDexFile">
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_11.mp3" Configuration="Debug" Class="File">
                     <Platform Name="Android">
-                        <RemoteName>classes.dex</RemoteName>
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_11.mp3</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Android\Debug\liblandlords.so" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple9.mp3" Configuration="Debug" Class="File">
                     <Platform Name="Android">
-                        <RemoteName>liblandlords.so</RemoteName>
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_tuple9.mp3</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -569,13 +1095,31 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Android64\Debug\AndroidManifest.xml" Configuration="Debug" Class="ProjectAndroidManifest">
-                    <Platform Name="Android64">
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui3.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_dui3.mp3</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Android\Debug\styles.xml" Configuration="Debug" Class="AndroidSplashStyles">
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui7.mp3" Configuration="Debug" Class="File">
                     <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_dui7.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui8.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_dui8.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Rob1.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_Rob1.mp3</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -584,9 +1128,17 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_48x48.png" Configuration="Debug" Class="Android_LauncherIcon48">
-                    <Platform Name="Android64">
-                        <RemoteName>ic_launcher.png</RemoteName>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_buyao2.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_buyao2.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_7.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_7.mp3</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -601,9 +1153,31 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_SplashImage_426x320.png" Configuration="Debug" Class="Android_SplashImage426">
-                    <Platform Name="Android64">
-                        <RemoteName>splash_image.png</RemoteName>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_5.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_5.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple12.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_tuple12.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_wangzha.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_wangzha.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_sandaiyi.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_sandaiyi.mp3</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -613,14 +1187,24 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Android64\Debug\strings.xml" Configuration="Debug" Class="Android_Strings">
-                    <Platform Name="Android64">
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_baojing2.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_baojing2.mp3</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Android\Debug\styles-v21.xml" Configuration="Debug" Class="AndroidSplashStylesV21">
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Chat_9.mp3" Configuration="Debug" Class="File">
                     <Platform Name="Android">
-                        <RemoteName>styles.xml</RemoteName>
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_Chat_9.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Chat_4.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>Woman_Chat_4.mp3</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

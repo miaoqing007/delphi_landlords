@@ -14,13 +14,16 @@ uses
   common in 'common.pas',
   card in 'card.pas',
   uToast in 'uToast.pas',
-  music in 'music.pas';
+  music in 'music.pas',
+  Goos in 'Goos.pas',
+  uPack in 'uPack.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
   //Application.CreateForm(TLoginInterface, LoginInterface);
+  Application.FormFactor.Orientations := [TFormOrientation.Landscape, TFormOrientation.InvertedLandscape];
   Application.CreateForm(TGameInterface, GameInterface);
   Application.Run;
 end.

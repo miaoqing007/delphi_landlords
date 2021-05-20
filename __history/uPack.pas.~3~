@@ -1,0 +1,186 @@
+unit uPack;
+
+interface
+
+uses FMX.Dialogs, System.Classes, System.Types, System.SysUtils, System.IOUtils, System.Generics.Collections;
+
+type TPackTool = class
+  private
+    FFiles: TDictionary<string, TMemoryStream>;
+  public
+    function PackFolder(ASrcPath: string; ADstFile: string; IsPackExt: Boolean = True): Boolean;
+    function UnPackFile(AFilePath,NewName: string): Boolean;
+    function GetFileStream(AFileName: string; AStream: TMemoryStream): Boolean;
+    function UnPackFromStream(AStream: TMemoryStream): Boolean;
+    procedure Clear;
+  public
+    constructor Create;
+    destructor Destroy; override;
+  property Files: TDictionary<string, TMemoryStream> read FFiles write FFiles;
+end;
+
+var TPT :TPackTool;
+
+implementation
+
+{ TPackTool }
+
+procedure TPackTool.Clear;
+var
+  I: TObject;
+begin
+  for I in FFiles.Values do
+  begin
+    I.DisposeOf;
+  end;
+end;
+
+constructor TPackTool.Create;
+begin
+  FFiles := TDictionary<string, TMemoryStream>.Create;
+end;
+
+destructor TPackTool.Destroy;
+begin
+  Clear;
+  FFiles.DisposeOf;
+  inherited;
+end;
+
+function TPackTool.GetFileStream(AFileName: string; AStream: TMemoryStream): Boolean;
+begin
+  if not FFiles.ContainsKey(AFileName) then
+  Exit(False);
+
+  FFiles[AFileName].Seek(LongInt(0), 0);
+  AStream.Clear;
+  AStream.CopyFrom(FFiles[AFileName], FFiles[AFileName].Size);
+  AStream.Seek(LongInt(0), 0);
+end;
+
+function TPackTool.PackFolder(ASrcPath, ADstFile: string; IsPackExt: Boolean): Boolean;
+var
+  LStream: TMemoryStream;
+  LNameStr: TStringStream;
+  LNameSize: Cardinal;
+  LFileSize: Cardinal;
+  LName: string;
+  LFileStream: TMemoryStream;
+  LFiles: TStringDynArray;
+  I: Integer;
+begin
+  if not TDirectory.Exists(ASrcPath) then
+  Exit;
+
+  try
+    LStream := TMemoryStream.Create;
+    LNameStr := TStringStream.Create('', TEncoding.UTF8);
+    LFileStream := TMemoryStream.Create;
+
+    LFiles := System.IOUtils.TDirectory.GetFiles(ASrcPath);
+    for I := Low(LFiles) to High(LFiles) do
+    begin
+      LNameStr.Clear;
+
+      if IsPackExt then
+         LNameStr.WriteString(ExtractFileName(LFiles[I]))
+      else LNameStr.WriteString(StringReplace(ExtractFileName(LFiles[I]), ExtractFileExt(LFiles[I]), '', []));
+
+      LNameSize := LNameStr.Size;
+      if LNameStr.DataString = '' then
+      Continue;
+
+      LStream.Write(LNameSize, SizeOf(Cardinal));
+      LNameStr.Seek(LongInt(0), 0);
+      LStream.CopyFrom(LNameStr, LNameStr.Size);
+      LFileStream.Clear;
+      LFileStream.LoadFromFile(LFiles[I]);
+      LFileStream.Seek(LongInt(0), 0);
+      LFileSize := LFileStream.Size;
+      LStream.Write(LFileSize, SizeOf(Cardinal));
+      LStream.CopyFrom(LFileStream, LFileStream.Size);
+    end;
+
+
+    LStream.SaveToFile(ADstFile);
+  finally
+    LStream.DisposeOf;
+    LNameStr.DisposeOf;
+    LFileStream.DisposeOf;
+  end;
+
+end;
+
+function TPackTool.UnPackFile(AFilePath,NewName: string): Boolean;
+var
+  LStream: TMemoryStream;
+  LNameStr: TStringStream;
+  LNameSize: Cardinal;
+  LFileSize: Cardinal;
+  LName: string;
+  LFileStream: TMemoryStream;
+  LStoreStream: TMemoryStream;
+begin
+  if not TFile.Exists(AFilePath) then
+  Exit(False);
+
+  try
+    LStream := TMemoryStream.Create;
+    LStream.LoadFromFile(AFilePath);
+    UnPackFromStream(LStream);
+//    Lstream.SaveToFile(NewName);
+    exit;
+  finally
+    LStream.DisposeOf;
+  end;
+
+  Exit(True);
+end;
+
+function TPackTool.UnPackFromStream(AStream: TMemoryStream): Boolean;
+var
+  LNameStr: TStringStream;
+  LNameSize: Cardinal;
+  LFileSize: Cardinal;
+  LName: string;
+  LFileStream: TMemoryStream;
+  LStoreStream: TMemoryStream;
+begin
+  if AStream.Size = 0 then
+  Exit;
+
+  AStream.Seek(LongInt(0), 0);
+  try
+    LFileStream := TMemoryStream.Create;
+    LNameStr:= TStringStream.Create('', TEncoding.UTF8);
+
+    while AStream.Position < AStream.Size do
+    begin
+      LFileStream.Clear;
+      LNameStr.Clear;
+
+      AStream.Read(LNameSize, SizeOf(Cardinal));
+      LNameStr.CopyFrom(AStream, LNameSize);
+      AStream.Read(LFileSize, SizeOf(Cardinal));
+      LFileStream.CopyFrom(AStream, LFileSize);
+
+      LNameStr.Seek(LongInt(0), 0);
+      LFileStream.Seek(LongInt(0), 0);
+
+      if not FFiles.ContainsKey(LNameStr.DataString) then
+        FFiles.Add(LNameStr.DataString, TMemoryStream.Create);
+
+      FFiles[LNameStr.DataString].Clear;
+      FFiles[LNameStr.DataString].CopyFrom(LFileStream, LFileStream.Size);
+      FFiles[LNameStr.DataString].Seek(LongInt(0), 0);
+    end;
+
+  finally
+    LFileStream.DisposeOf;
+    LNameStr.DisposeOf;
+  end;
+
+  Exit(True);
+end;
+
+end.

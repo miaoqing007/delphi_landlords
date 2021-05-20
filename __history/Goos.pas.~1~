@@ -1,0 +1,11 @@
+unit Goos;
+
+interface
+
+implementation
+
+{$IFDEFINE MSWINDOWS}
+
+{$ENDIF}
+
+end.

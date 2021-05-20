@@ -2,7 +2,7 @@ unit common;
 
 interface
 
-uses system.JSON;
+uses system.JSON,system.IOUtils;
 
 
 
@@ -33,6 +33,11 @@ begin
         TA[High(TA)] :=(Tja.Items[i] as TJsonString).Value;
    end;
    Result:=TA;
+end;
+
+function Send():boolean;
+begin
+  Tpath.GetTempPath();
 end;
 
 end.

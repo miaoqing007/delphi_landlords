@@ -125,8 +125,8 @@ begin
         im := TImage.Create(GameInterface);
         im.Parent := GameInterface;
         im.Bitmap.Assign(GameInterface.Image1.Bitmap);
-        im.Height := GameInterface.ClientHeight*0.143;
-        im.Width :=  GameInterface.ClientWidth*0.062;
+        im.Height := GameInterface.TempHeight*0.143;
+        im.Width :=  GameInterface.TempWidth*0.062;
         im.Visible := false;
         SetLength(backCardArray, Length(backCardArray)+1);
         backCardArray[High(backCardArray)] := im;
@@ -134,8 +134,8 @@ begin
 
   for im2 in cardMap.Values do
   begin
-    im2.Width := GameInterface.ClientWidth*0.083;
-    im2.Height:=GameInterface.ClientHeight*0.215;;
+    im2.Width := GameInterface.TempWidth*0.083;
+    im2.Height:=GameInterface.TempHeight*0.215;;
   end;
 
 end;

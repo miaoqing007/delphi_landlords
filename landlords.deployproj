@@ -5,7 +5,7 @@
     </ProjectExtensions>
     <PropertyGroup>
         <DeviceId Condition="'$(Platform)'=='Android'">127.0.0.1:7555</DeviceId>
-        <DeviceId Condition="'$(Platform)'=='Android64'">127.0.0.1:7555</DeviceId>
+        <DeviceId Condition="'$(Platform)'=='Android64'"/>
         <DeviceId Condition="'$(Platform)'=='iOSDevice64'"/>
         <DeviceId Condition="'$(Platform)'=='iOSSimulator'">iPhone5</DeviceId>
     </PropertyGroup>
@@ -37,20 +37,11 @@
     <ItemGroup Condition="'$(Platform)'=='Linux64'"/>
     <ItemGroup Condition="'$(Platform)'=='OSX64'"/>
     <ItemGroup Condition="'$(Platform)'=='Android'">
-        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_36x36.png" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\res\drawable-ldpi\</RemoteDir>
-            <RemoteName>ic_launcher.png</RemoteName>
-            <DeployClass>Android_LauncherIcon36</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_72x72.png" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\res\drawable-hdpi\</RemoteDir>
-            <RemoteName>ic_launcher.png</RemoteName>
-            <DeployClass>Android_LauncherIcon72</DeployClass>
-            <Operation>1</Operation>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui11.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_dui11.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
@@ -64,6 +55,15 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_sidailiangdui.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_sidailiangdui.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_36x36.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>landlords\res\drawable-hdpi\</RemoteDir>
             <RemoteName>ic_notification.png</RemoteName>
@@ -73,11 +73,38 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="$(BDS)\lib\android\debug\mips\libnative-activity.so" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\library\lib\mips\</RemoteDir>
-            <RemoteName>liblandlords.so</RemoteName>
-            <DeployClass>AndroidLibnativeMipsFile</DeployClass>
-            <Operation>1</Operation>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_buyao3.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_buyao3.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_9.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_9.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_zhadan.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_zhadan.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_jiabei.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_jiabei.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
@@ -91,10 +118,596 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\10010000-yy_chaojijiabei.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>10010000-yy_chaojijiabei.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_3.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_3.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_96x96.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>landlords\res\drawable-xxxhdpi\</RemoteDir>
             <RemoteName>ic_notification.png</RemoteName>
             <DeployClass>Android_NotificationIcon96</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_14.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_14.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_bujiabei.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_bujiabei.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_buyao1.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_buyao1.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_sidaier.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_sidaier.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Chat_7.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_Chat_7.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui9.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_dui9.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui1.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_dui1.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_NoRob.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_NoRob.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_24x24.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\res\drawable-mdpi\</RemoteDir>
+            <RemoteName>ic_notification.png</RemoteName>
+            <DeployClass>Android_NotificationIcon24</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Chat_0.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_Chat_0.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Android\Debug\colors.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\res\values\</RemoteDir>
+            <RemoteName>colors.xml</RemoteName>
+            <DeployClass>Android_Colors</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_48x48.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\res\drawable-xhdpi\</RemoteDir>
+            <RemoteName>ic_notification.png</RemoteName>
+            <DeployClass>Android_NotificationIcon48</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple11.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_tuple11.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple13.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_tuple13.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui5.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_dui5.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_4.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_4.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_shunzi.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_shunzi.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple10.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_tuple10.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Android\Debug\strings.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\res\values\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <DeployClass>Android_Strings</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui2.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_dui2.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_72x72.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\res\drawable-xxhdpi\</RemoteDir>
+            <RemoteName>ic_notification.png</RemoteName>
+            <DeployClass>Android_NotificationIcon72</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Chat_1.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_Chat_1.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Chat_2.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_Chat_2.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dani1.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_dani1.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Chat_8.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_Chat_8.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Rob2.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_Rob2.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui12.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_dui12.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_SplashImage_640x480.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\res\drawable-large\</RemoteDir>
+            <RemoteName>splash_image.png</RemoteName>
+            <DeployClass>Android_SplashImage640</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Rob3.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_Rob3.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple2.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_tuple2.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_buyao4.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_buyao4.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Share.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_Share.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_15.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_15.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_48x48.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\res\drawable-mdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <DeployClass>Android_LauncherIcon48</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Android\Debug\classes.dex" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\classes\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
+            <DeployClass>AndroidClassesDexFile</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_10.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_10.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Android\Debug\liblandlords.so" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\library\lib\armeabi-v7a\</RemoteDir>
+            <RemoteName>liblandlords.so</RemoteName>
+            <DeployClass>ProjectOutput</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="Android\Debug\styles.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\res\values\</RemoteDir>
+            <RemoteName>styles.xml</RemoteName>
+            <DeployClass>AndroidSplashStyles</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_1.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_1.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_12.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_12.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Chat_5.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_Chat_5.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui6.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_dui6.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple5.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_tuple5.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Chat_10.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_Chat_10.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\myMusic.txt" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>myMusic.txt</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui4.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_dui4.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui10.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_dui10.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple7.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_tuple7.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dani3.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_dani3.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_8.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_8.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple8.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_tuple8.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Android\Debug\styles-v21.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\res\values-v21\</RemoteDir>
+            <RemoteName>styles.xml</RemoteName>
+            <DeployClass>AndroidSplashStylesV21</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple4.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_tuple4.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_36x36.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\res\drawable-ldpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <DeployClass>Android_LauncherIcon36</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_13.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_13.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_NoOrder.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_NoOrder.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_72x72.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\res\drawable-hdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <DeployClass>Android_LauncherIcon72</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple3.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_tuple3.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_baojing1.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_baojing1.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_2.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_2.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Chat_6.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_Chat_6.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Order.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_Order.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\lib\android\debug\mips\libnative-activity.so" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\library\lib\mips\</RemoteDir>
+            <RemoteName>liblandlords.so</RemoteName>
+            <DeployClass>AndroidLibnativeMipsFile</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -127,20 +740,20 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_24x24.png" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\res\drawable-mdpi\</RemoteDir>
-            <RemoteName>ic_notification.png</RemoteName>
-            <DeployClass>Android_NotificationIcon24</DeployClass>
-            <Operation>1</Operation>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_feiji.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_feiji.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="Android\Debug\colors.xml" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\res\values\</RemoteDir>
-            <RemoteName>colors.xml</RemoteName>
-            <DeployClass>Android_Colors</DeployClass>
-            <Operation>1</Operation>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui13.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_dui13.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
@@ -154,38 +767,29 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_48x48.png" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\res\drawable-xhdpi\</RemoteDir>
-            <RemoteName>ic_notification.png</RemoteName>
-            <DeployClass>Android_NotificationIcon48</DeployClass>
-            <Operation>1</Operation>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dani2.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_dani2.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="Android\Debug\strings.xml" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\res\values\</RemoteDir>
-            <RemoteName>strings.xml</RemoteName>
-            <DeployClass>Android_Strings</DeployClass>
-            <Operation>1</Operation>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_6.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_6.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_72x72.png" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\res\drawable-xxhdpi\</RemoteDir>
-            <RemoteName>ic_notification.png</RemoteName>
-            <DeployClass>Android_NotificationIcon72</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_SplashImage_640x480.png" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\res\drawable-large\</RemoteDir>
-            <RemoteName>splash_image.png</RemoteName>
-            <DeployClass>Android_SplashImage640</DeployClass>
-            <Operation>1</Operation>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_liandui.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_liandui.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
@@ -199,11 +803,47 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_48x48.png" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\res\drawable-mdpi\</RemoteDir>
-            <RemoteName>ic_launcher.png</RemoteName>
-            <DeployClass>Android_LauncherIcon48</DeployClass>
-            <Operation>1</Operation>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_sandaiyidui.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_sandaiyidui.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple1.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_tuple1.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Chat_3.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_Chat_3.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman.zip" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman.zip</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple6.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_tuple6.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
@@ -217,30 +857,74 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="Android\Debug\classes.dex" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\classes\</RemoteDir>
-            <RemoteName>classes.dex</RemoteName>
-            <DeployClass>AndroidClassesDexFile</DeployClass>
-            <Operation>1</Operation>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_11.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_11.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="Android\Debug\liblandlords.so" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\library\lib\armeabi-v7a\</RemoteDir>
-            <RemoteName>liblandlords.so</RemoteName>
-            <DeployClass>ProjectOutput</DeployClass>
-            <Operation>1</Operation>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple9.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_tuple9.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
-            <Required>True</Required>
         </DeployFile>
-        <DeployFile Include="Android\Debug\styles.xml" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\res\values\</RemoteDir>
-            <RemoteName>styles.xml</RemoteName>
-            <DeployClass>AndroidSplashStyles</DeployClass>
-            <Operation>1</Operation>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui3.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_dui3.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui7.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_dui7.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dui8.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_dui8.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Rob1.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_Rob1.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_buyao2.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_buyao2.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_7.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_7.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
@@ -254,11 +938,65 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="Android\Debug\styles-v21.xml" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\res\values-v21\</RemoteDir>
-            <RemoteName>styles.xml</RemoteName>
-            <DeployClass>AndroidSplashStylesV21</DeployClass>
-            <Operation>1</Operation>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_5.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_5.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple12.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_tuple12.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_wangzha.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_wangzha.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_sandaiyi.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_sandaiyi.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_baojing2.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_baojing2.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Chat_9.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_Chat_9.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_Chat_4.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>Woman_Chat_4.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
@@ -285,33 +1023,6 @@
         </DeployFile>
     </ItemGroup>
     <ItemGroup Condition="'$(Platform)'=='Android64'">
-        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_48x48.png" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\res\drawable-xhdpi\</RemoteDir>
-            <RemoteName>ic_notification.png</RemoteName>
-            <DeployClass>Android_NotificationIcon48</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_96x96.png" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\res\drawable-xxxhdpi\</RemoteDir>
-            <RemoteName>ic_notification.png</RemoteName>
-            <DeployClass>Android_NotificationIcon96</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="$(BDS)\lib\android\debug\armeabi\libnative-activity.so" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\library\lib\armeabi\</RemoteDir>
-            <RemoteName>liblandlords.so</RemoteName>
-            <DeployClass>AndroidLibnativeArmeabiFile</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
         <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_36x36.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>landlords\res\drawable-ldpi\</RemoteDir>
             <RemoteName>ic_launcher.png</RemoteName>
@@ -340,6 +1051,105 @@
             <Overwrite>True</Overwrite>
             <Required>True</Required>
         </DeployFile>
+        <DeployFile Include="Android64\Debug\classes.dex" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\classes\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
+            <DeployClass>AndroidClassesDexFile</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_96x96.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\res\drawable-xhdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <DeployClass>Android_LauncherIcon96</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\lib\android\debug\armeabi-v7a\libnative-activity.so" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\library\lib\armeabi-v7a\</RemoteDir>
+            <RemoteName>liblandlords.so</RemoteName>
+            <DeployClass>AndroidLibnativeArmeabiv7aFile</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_SplashImage_470x320.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\res\drawable-normal\</RemoteDir>
+            <RemoteName>splash_image.png</RemoteName>
+            <DeployClass>Android_SplashImage470</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Android64\Debug\AndroidManifest.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\</RemoteDir>
+            <RemoteName>AndroidManifest.xml</RemoteName>
+            <DeployClass>ProjectAndroidManifest</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_48x48.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\res\drawable-mdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <DeployClass>Android_LauncherIcon48</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_SplashImage_426x320.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\res\drawable-small\</RemoteDir>
+            <RemoteName>splash_image.png</RemoteName>
+            <DeployClass>Android_SplashImage426</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Android64\Debug\strings.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\res\values\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <DeployClass>Android_Strings</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_48x48.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\res\drawable-xhdpi\</RemoteDir>
+            <RemoteName>ic_notification.png</RemoteName>
+            <DeployClass>Android_NotificationIcon48</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_96x96.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\res\drawable-xxxhdpi\</RemoteDir>
+            <RemoteName>ic_notification.png</RemoteName>
+            <DeployClass>Android_NotificationIcon96</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\lib\android\debug\armeabi\libnative-activity.so" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\library\lib\armeabi\</RemoteDir>
+            <RemoteName>liblandlords.so</RemoteName>
+            <DeployClass>AndroidLibnativeArmeabiFile</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_24x24.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>landlords\res\drawable-mdpi\</RemoteDir>
             <RemoteName>ic_notification.png</RemoteName>
@@ -367,28 +1177,10 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="Android64\Debug\classes.dex" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\classes\</RemoteDir>
-            <RemoteName>classes.dex</RemoteName>
-            <DeployClass>AndroidClassesDexFile</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
         <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_SplashImage_960x720.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>landlords\res\drawable-xlarge\</RemoteDir>
             <RemoteName>splash_image.png</RemoteName>
             <DeployClass>Android_SplashImage960</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_96x96.png" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\res\drawable-xhdpi\</RemoteDir>
-            <RemoteName>ic_launcher.png</RemoteName>
-            <DeployClass>Android_LauncherIcon96</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -421,24 +1213,6 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="$(BDS)\lib\android\debug\armeabi-v7a\libnative-activity.so" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\library\lib\armeabi-v7a\</RemoteDir>
-            <RemoteName>liblandlords.so</RemoteName>
-            <DeployClass>AndroidLibnativeArmeabiv7aFile</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_SplashImage_470x320.png" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\res\drawable-normal\</RemoteDir>
-            <RemoteName>splash_image.png</RemoteName>
-            <DeployClass>Android_SplashImage470</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
         <DeployFile Include="$(BDS)\lib\android\debug\mips\libnative-activity.so" Condition="'$(Config)'=='Debug'">
             <RemoteDir>landlords\library\lib\mips\</RemoteDir>
             <RemoteName>liblandlords.so</RemoteName>
@@ -457,15 +1231,6 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="Android64\Debug\AndroidManifest.xml" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\</RemoteDir>
-            <RemoteName>AndroidManifest.xml</RemoteName>
-            <DeployClass>ProjectAndroidManifest</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
         <DeployFile Include="Android64\Debug\splash_image_def.xml" Condition="'$(Config)'=='Debug'">
             <RemoteDir>landlords\res\drawable\</RemoteDir>
             <RemoteName>splash_image_def.xml</RemoteName>
@@ -475,37 +1240,10 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_48x48.png" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\res\drawable-mdpi\</RemoteDir>
-            <RemoteName>ic_launcher.png</RemoteName>
-            <DeployClass>Android_LauncherIcon48</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_SplashImage_426x320.png" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\res\drawable-small\</RemoteDir>
-            <RemoteName>splash_image.png</RemoteName>
-            <DeployClass>Android_SplashImage426</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
         <DeployFile Include="Android64\Debug\styles-v21.xml" Condition="'$(Config)'=='Debug'">
             <RemoteDir>landlords\res\values-v21\</RemoteDir>
             <RemoteName>styles.xml</RemoteName>
             <DeployClass>AndroidSplashStylesV21</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="Android64\Debug\strings.xml" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>landlords\res\values\</RemoteDir>
-            <RemoteName>strings.xml</RemoteName>
-            <DeployClass>Android_Strings</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>

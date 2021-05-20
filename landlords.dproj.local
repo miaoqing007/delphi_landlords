@@ -6,8 +6,8 @@
     <Transaction>2021/04/13 11:25:08.000.871,D:\workgame\doudizhu\Project1.dproj=C:\Users\Administrator\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
     <Transaction>2021/04/13 11:32:13.000.104,=D:\workgame\doudizhu\login.pas</Transaction>
     <Transaction>2021/04/13 11:32:23.000.564,=D:\workgame\doudizhu\Unit2.pas</Transaction>
-    <Transaction>2021/04/13 11:32:40.000.838,D:\workgame\doudizhu\Unit2.pas=D:\workgame\doudizhu\game.pas</Transaction>
     <Transaction>2021/04/13 11:32:40.000.838,D:\workgame\doudizhu\Unit2.fmx=D:\workgame\doudizhu\game.fmx</Transaction>
+    <Transaction>2021/04/13 11:32:40.000.838,D:\workgame\doudizhu\Unit2.pas=D:\workgame\doudizhu\game.pas</Transaction>
     <Transaction>2021/04/13 13:41:39.000.469,=D:\workgame\doudizhu\uDSimpleTcpClient.pas</Transaction>
     <Transaction>2021/04/13 13:48:04.000.480,=D:\workgame\doudizhu\Unit1.pas</Transaction>
     <Transaction>2021/04/13 13:48:22.000.014,D:\workgame\doudizhu\Unit1.pas=D:\workgame\doudizhu\tcp.pas</Transaction>
@@ -24,10 +24,10 @@
     <Transaction>2021/04/15 11:27:30.000.674,=D:\workgame\doudizhu\dictionaryMap.pas</Transaction>
     <Transaction>2021/04/15 11:32:58.000.906,D:\workgame\doudizhu\dictionaryMap.pas=D:\workgame\doudizhu\handler.pas</Transaction>
     <Transaction>2021/04/16 15:08:55.000.049,=D:\workgame\doudizhu\Unit1.pas</Transaction>
-    <Transaction>2021/04/16 15:09:40.000.118,D:\workgame\doudizhu\Unit1.pas=D:\workgame\doudizhu\gameStart.pas</Transaction>
     <Transaction>2021/04/16 15:09:40.000.118,D:\workgame\doudizhu\Unit1.fmx=D:\workgame\doudizhu\gameStart.fmx</Transaction>
-    <Transaction>2021/04/16 15:12:57.000.082,D:\workgame\doudizhu\gameStart.pas=D:\workgame\doudizhu\StartGame.pas</Transaction>
+    <Transaction>2021/04/16 15:09:40.000.118,D:\workgame\doudizhu\Unit1.pas=D:\workgame\doudizhu\gameStart.pas</Transaction>
     <Transaction>2021/04/16 15:12:57.000.082,D:\workgame\doudizhu\gameStart.fmx=D:\workgame\doudizhu\StartGame.fmx</Transaction>
+    <Transaction>2021/04/16 15:12:57.000.082,D:\workgame\doudizhu\gameStart.pas=D:\workgame\doudizhu\StartGame.pas</Transaction>
     <Transaction>2021/04/16 15:28:21.000.921,=D:\workgame\doudizhu\Unit1.pas</Transaction>
     <Transaction>2021/04/16 15:28:33.000.636,D:\workgame\doudizhu\Unit1.pas=D:\workgame\doudizhu\userInfo.pas</Transaction>
     <Transaction>2021/04/16 15:30:06.000.063,D:\workgame\doudizhu\userInfo.pas=D:\workgame\doudizhu\user.pas</Transaction>
@@ -45,9 +45,12 @@
     <Transaction>2021/04/27 14:21:52.000.323,=D:\workgame\doudizhu\Unit1.pas</Transaction>
     <Transaction>2021/04/29 11:24:11.000.845,=D:\workgame\doudizhu\Unit1.pas</Transaction>
     <Transaction>2021/04/29 11:24:34.000.628,D:\workgame\doudizhu\Unit1.pas=D:\workgame\doudizhu\music.pas</Transaction>
+    <Transaction>2021/05/20 10:14:29.000.497,=D:\workgame\doudizhu\Unit1.pas</Transaction>
+    <Transaction>2021/05/20 10:14:53.000.180,D:\workgame\doudizhu\Unit1.pas=D:\workgame\doudizhu\Goos.pas</Transaction>
+    <Transaction>2021/05/20 16:01:16.000.498,=D:\workgame\doudizhu\uPack.pas</Transaction>
   </Transactions>
 	<ActiveMobileDevice>
-		<NoProfile iOSSimulator="iPhone5" Android64="127.0.0.1:7555" Android="127.0.0.1:7555"/>
+		<NoProfile iOSSimulator="iPhone5" Android64="" Android="127.0.0.1:7555"/>
 	</ActiveMobileDevice>
 	<BT_BuildType>Debug</BT_BuildType>
 </BorlandProject>

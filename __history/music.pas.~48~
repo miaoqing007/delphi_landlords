@@ -1,0 +1,157 @@
+unit music;
+
+interface
+
+uses FMX.Media,system.Classes,FMX.Dialogs,SysUtils,FMX.Forms,system.IOUtils,
+      system.ZLib,uPack;
+
+type mc = class
+
+    public
+
+    procedure PlayMusic(ResName,ResType, ResNewName: string);
+    procedure SetMPlayerVolume(mp : TMediaPlayer;volume :single);
+    procedure ExtractRes(ResName,ResType, ResNewName: string);
+    procedure readCardNumber(cards :Tarray<string>;ty :integer);
+    procedure UnPackBgmDic();
+
+    constructor Create();
+    destructor Destory();
+end;
+
+var BC :mc;
+
+implementation
+
+
+uses game,goos;
+
+constructor mc.Create();
+begin
+   TPT:=  TPackTool.Create;
+
+  showmessage(Tpath.GetDocumentsPath);
+
+//  if not DirectoryExists(Tpath.GetDocumentsPath+PathDelim+'bgm')  then
+//   begin
+//     createDir(Tpath.GetDocumentsPath+PathDelim+'bgm');
+//   end;
+//    playMusic('SRC1','FILE1','1.mp3');
+
+end;
+
+destructor mc.Destory();
+begin
+
+end;
+
+procedure mc.UnPackBgmDic();
+
+//var
+//
+//  dps: TDecompressionStream;
+//
+//  files,saves: TMemoryStream;
+//
+//  nums: Integer;
+
+begin
+
+    if fileExists(Tpath.GetDocumentsPath+PathDelim+'Woman.zip') then
+    begin
+      showmessage('文件存在');
+        TPT.UnPackFile(Tpath.GetDocumentsPath+PathDelim+'Woman.zip');
+    end
+    else
+    begin
+      showmessage('文件不存在');
+    end;
+
+
+
+//  files := TMemoryStream.Create;
+//
+//  files.LoadFromFile(Tpath.GetDocumentsPath+PathDelim+'Woman.zip');    //载入要解压的文件
+//
+//  files.Position := 0;
+//
+//  files.ReadBuffer(nums,SizeOf(nums));   //读取文件大小
+//
+//  saves := TMemoryStream.Create;
+//
+//  saves.SetSize(nums);                  //设置接收文件流大小
+//
+//  dps := TDecompressionStream.Create(files);     //把文件出入解压流
+//
+//  dps.Read(saves.Memory^, nums);               //解压好的放入接收文件流
+//
+//  saves.SaveToFile(Tpath.GetDocumentsPath+PathDelim+'bgm');            //保存文件
+//
+//  dps.Free;
+//
+//  saves.Free;
+//
+//  files.Free;
+//
+//  ShowMessage('解压成功');
+end;
+
+procedure mc.PlayMusic(ResName,ResType, ResNewName: string);
+begin
+
+ if not fileExists(Tpath.GetDocumentsPath+PathDelim+'bgm'+PathDelim+ResNewName) then
+  begin
+      if goos.currentSystem='Windows' then
+      begin
+        ExtractRes(ResName,ResType,ResNewName);
+      end
+      else
+      begin
+
+      end;
+
+  end;
+  GameInterface.MediaPlayer1.FileName:=Tpath.GetDocumentsPath+PathDelim+'bgm'+PathDelim+ResNewName;
+  GameInterface.MediaPlayer1.Play;
+
+end;
+
+
+ procedure mc.ExtractRes(ResName,ResType, ResNewName: string);   //释放资源文件
+var
+    Res: TResourceStream;
+begin
+  Res := TResourceStream.Create(Hinstance, Resname, Pchar(ResType));
+  Res.SaveToFile(Tpath.GetDocumentsPath+PathDelim+'bgm'+PathDelim+ResNewName);
+  Res.Free;
+end;
+
+
+procedure mc.readCardNumber(cards : Tarray<string>;ty :integer);
+//var
+// str : string;
+begin
+ case length(cards) of
+   0:
+   begin
+
+   end;
+   1:
+   begin
+   delete(cards[0],1,1);
+    playMusic('SRC'+cards[0],'FILE'+cards[0],cards[0]+'.mp3');
+//    playMusic('cards[0]'+'.mp3');
+   end;
+ end;
+
+end;
+
+
+
+procedure mc.SetMPlayerVolume(mp :TMediaPlayer;volume : single);
+begin
+    mp.Volume:=volume;
+end;
+
+end.
+
