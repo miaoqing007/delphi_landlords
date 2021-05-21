@@ -29,6 +29,7 @@ type executeHandler = class
   procedure DoResetCards(LStr:TStringStream);
   procedure DoReceiveGrabResult(LStr:TStringStream);
   procedure DoGetLandowner(LStr:TStringStream);
+  procedure OnSound(ifcall,ifgrab :boolean);
 //  procedure AddCode;
 
 
@@ -352,6 +353,8 @@ begin
 
    rm.ShowGrabResult(playerId,ifGrab,ifcall);
 
+   OnSound(ifcall,ifgrab);
+
    rm.ShowWaitClock(rm.findNextId(playerId));
 
    js.DisposeOf;
@@ -390,6 +393,32 @@ begin
     rm.ShowWaitClock(landownerId);
 
   js.DisposeOf;
+end;
+
+procedure executeHandler.OnSound(ifcall,ifgrab :boolean);
+begin
+      if ifgrab then
+   begin
+    if ifcall then
+   begin
+     bc.readsound(1);
+   end
+   else
+   begin
+     bc.readsound(3)
+   end;
+   end
+   else
+   begin
+    if ifcall then
+   begin
+     bc.readsound(2);
+   end
+   else
+   begin
+     bc.readsound(4);
+   end;
+   end;
 end;
 
 end.

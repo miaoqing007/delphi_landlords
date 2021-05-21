@@ -46,7 +46,7 @@ var ExHandler :executeHandler;
 
 implementation
 
-uses game,tcp,room,card;
+uses game,tcp,room,card,music;
 
 constructor executeHandler.Create;
 begin
@@ -213,19 +213,20 @@ end;
 procedure executeHandler.DoOutOfCardSuccess(LStr:TStringStream);
 var
   Js : TJsonObject;
-  cards : TjsonArray;
-  outofCards : TJsonArray;
-  id : string;
-  nextId :string;
+  outofCards,cards : TJsonArray;
+  id,nextId,randomNum : string;
+  ty :integer;
 begin
     Js:=TJsonObject.ParseJSONValue(Lstr.DataString) as TJsonObject;
     js.TryGetValue('id',id);
     js.TryGetValue('cards',cards);
     js.TryGetValue('outOfCards',outOfCards);
+    js.TryGetValue('randomNum',randomNum);
+    js.TryGetValue('ty',ty);
 
     rm.SetOutOfCards(id,outofCards);
 
-    if cards.Count<>0 then
+    if outOfCards.Count<>0 then
     begin
       rm.lastOutOfCardPlayer := id;
     end;
@@ -246,6 +247,8 @@ begin
         end;
        GameInterface.outOfCard.Visible := true;
     end;
+
+    BC.readCardNumber(cm.TJosnArray2TArray(outofcards),randomNum,ty);
 
     js.DisposeOf;
 end;
@@ -369,9 +372,10 @@ begin
     rm.SetOrUpdatePlayerMap(landownerId,'',cards);
     rm.ifHavelandowenr := true;
     GameInterface.outOfCard.Visible := true;
-    GameInterface.giveUpCard.Visible := true;
+//    GameInterface.giveUpCard.Visible := true;
     end;
 
+    rm.lastOutOfCardPlayer:=landownerid;
 
     GameInterface.CloseButton();
 
