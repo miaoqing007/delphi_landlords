@@ -213,15 +213,16 @@ end;
 procedure executeHandler.DoOutOfCardSuccess(LStr:TStringStream);
 var
   Js : TJsonObject;
-  cards : TjsonArray;
-  outofCards : TJsonArray;
-  id : string;
-  nextId :string;
+  outofCards,cards : TJsonArray;
+  id,nextId,randomNum : string;
+  ty :integer;
 begin
     Js:=TJsonObject.ParseJSONValue(Lstr.DataString) as TJsonObject;
     js.TryGetValue('id',id);
     js.TryGetValue('cards',cards);
     js.TryGetValue('outOfCards',outOfCards);
+    js.TryGetValue('randomNum',randomNum);
+    js.TryGetValue('ty',ty);
 
     rm.SetOutOfCards(id,outofCards);
 
@@ -247,7 +248,7 @@ begin
        GameInterface.outOfCard.Visible := true;
     end;
 
-//    BC.readCardNumber(cm.TJosnArray2TArray(outofcards),0);
+    BC.readCardNumber(cm.TJosnArray2TArray(outofcards),randomNum,ty);
 
     js.DisposeOf;
 end;

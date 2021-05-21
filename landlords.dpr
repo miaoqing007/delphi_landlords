@@ -15,8 +15,7 @@ uses
   card in 'card.pas',
   uToast in 'uToast.pas',
   music in 'music.pas',
-  Goos in 'Goos.pas',
-  uPack in 'uPack.pas';
+  Goos in 'Goos.pas';
 
 {$R *.res}
 

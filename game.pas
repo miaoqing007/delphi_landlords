@@ -88,7 +88,6 @@ type
     two_3: TImage;
     two_4: TImage;
     StyleBook1: TStyleBook;
-    background: TImage;
     Layout1: TLayout;
     Image1: TImage;
     leftPlayerCardCount: TText;
@@ -108,7 +107,7 @@ type
     buchu: TImage;
     bujiao: TImage;
     buqiang: TImage;
-    Image2: TImage;
+    background: TImage;
     qiangdizhu: TImage;
     grabLandowner: TButton;
     giveupGrab: TButton;
@@ -116,6 +115,7 @@ type
     clock: TImage;
     clockText: TText;
     MediaPlayer1: TMediaPlayer;
+    Image3: TImage;
 
 
     procedure FormCreate(Sender: TObject);
@@ -229,7 +229,6 @@ begin
     rightPlayerCardCount.Visible:=false;
     rightName.Visible:=false;
     leftName.Visible:=false;
-//    waitRec.Visible:=false;
 end;
 
 procedure TGameInterface.FormDestroy(Sender: TObject);

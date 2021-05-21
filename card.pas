@@ -44,8 +44,8 @@ end;
 
 procedure CardInfo.initCardMap();
 begin
-    cardMap.TryAdd('Q88',GameInterface.dawang);    //大王
-    cardMap.TryAdd('K99',GameInterface.xiaowang);    //小王
+    cardMap.TryAdd('K99',GameInterface.dawang);    //大王
+    cardMap.TryAdd('Q88',GameInterface.xiaowang);    //小王
 
     cardMap.TryAdd('A3',GameInterface.three_1);     //3
     cardMap.TryAdd('B3',GameInterface.three_2);
@@ -151,7 +151,6 @@ begin
   end;
 
   ReSetBackCards();
-
 end;
 
 procedure CardInfo.ReSetBackCards();
