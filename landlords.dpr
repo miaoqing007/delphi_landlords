@@ -15,7 +15,9 @@ uses
   card in 'card.pas',
   uToast in 'uToast.pas',
   music in 'music.pas',
-  Goos in 'Goos.pas';
+  Goos in 'Goos.pas',
+  chat in 'chat.pas',
+  uDDesignListbox in 'uDDesignListbox.pas';
 
 {$R *.res}
 

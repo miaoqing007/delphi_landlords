@@ -87,9 +87,10 @@ type
     two_2: TImage;
     two_3: TImage;
     two_4: TImage;
+
     StyleBook1: TStyleBook;
     Layout1: TLayout;
-    Image1: TImage;
+    cardback: TImage;
     leftPlayerCardCount: TText;
     rightPlayerCardCount: TText;
     leftPlayerName: TText;
@@ -107,7 +108,7 @@ type
     buchu: TImage;
     bujiao: TImage;
     buqiang: TImage;
-    background: TImage;
+    chaticon: TImage;
     qiangdizhu: TImage;
     grabLandowner: TButton;
     giveupGrab: TButton;
@@ -115,7 +116,14 @@ type
     clock: TImage;
     clockText: TText;
     MediaPlayer1: TMediaPlayer;
-    Image3: TImage;
+    MediaPlayer2: TMediaPlayer;
+    chatframe: TMemo;
+    chatin: TEdit;
+    chatsend: TRectangle;
+    chatsendtext: TText;
+    chatcloseRec: TRectangle;
+    chatclose: TText;
+    dizhuicon: TImage;
 
 
     procedure FormCreate(Sender: TObject);
@@ -164,6 +172,13 @@ type
     procedure showrightClock();
     procedure doCountdown(sender : Tobject);
     procedure setTempWidthAndTempHeight();
+    procedure chatsendtextClick(Sender: TObject);
+    procedure chatcloseClick(Sender: TObject);
+    procedure setChatFrame();
+    procedure chaticonClick(Sender: TObject);
+    procedure showLeftDiZhuIcon();
+    procedure showRightDiZhuIcon();
+    procedure showMyDiZhuIcon();
 
   private
     { Private declarations }
@@ -185,7 +200,7 @@ var
 
 implementation
 
-uses music;
+uses music,chat;
 
 {$R *.fmx}
 
@@ -198,6 +213,7 @@ begin
     UI := UserInfo.Create;
     CM:=cmFunction.Create;
     CI:=CardInfo.Create;
+    CC:=ChatClass.Create;
 
     BC:=mc.Create;
 
@@ -205,6 +221,7 @@ begin
 
     EvaluationImageTagString();
     SetButton();
+    setChatFrame();
 
     if goos.currentSystem='Android' then
      begin
@@ -543,6 +560,26 @@ begin
      AniIndicator1.Enabled:=false;
      AniIndicator1.Visible:=false;
      waitting.Visible:=false;
+end;
+
+procedure TGameInterface.chatcloseClick(Sender: TObject);
+begin
+    chatin.Text:='';
+    chatsend.Visible:=false;
+    chaticon.Visible:=true;
+end;
+
+procedure TGameInterface.chaticonClick(Sender: TObject);
+begin
+    chaticon.Visible:=false;
+    chatsend.Visible:=true;
+    chatsend.BringToFront;
+end;
+
+procedure TGameInterface.chatsendtextClick(Sender: TObject);
+begin
+    cc.outputChatMessage(chatin.Text);
+    chatin.Text:='';
 end;
 
 procedure TGameInterface.ShowMyOutOfCards(cards : Tarray<string>);
@@ -956,10 +993,32 @@ begin
   //
 end;
 
+procedure TGameInterface.ShowLeftDiZhuIcon();
+begin
+  dizhuicon.Position.X := cI.backCardArray[0].Position.X + self.TempWidth*0.052;
+  dizhuicon.Position.Y := self.TempHeight/2 - CI.backCardArray[0].Height*2;
+  dizhuicon.Visible:=true;
+end;
+
+procedure TGameInterface.showRightDizhuIcon();
+begin
+  dizhuicon.Position.X:= self.TempWidth-38-CI.backCardArray[1].Width-self.TempWidth*0.052;
+  dizhuicon.Position.Y:=self.TempHeight/2-CI.backCardArray[1].Height*2;
+  dizhuicon.Visible:=true;
+end;
+
+procedure TGameInterface.showMyDiZhuIcon();
+begin
+  dizhuicon.Position.X:=(self.TempWidth-giveUpCall.Width)/2 -self.TempWidth*0.104-dizhuicon.Width;
+  dizhuicon.Position.Y:= self.TempHeight-self.TempHeight*0.339;
+  dizhuicon.Visible:=true;
+end;
+
 procedure TGameInterface.GameVictory();
 begin
   gameEndText.Text:='Ê¤Àû';
   gameEndText.Color:=TAlphaColorRec.Gold;
+  bc.playbackgroundmusic('SRCWin','FILEWin','MusicEx_Win.mp3');
 
   DoGameEnd();
 end;
@@ -968,6 +1027,7 @@ procedure TGameInterface.GameDefeat();
 begin
   gameEndText.Text:='Ê§°Ü';
   gameEndText.Color:=TAlphaColorRec.Red;
+  bc.playbackgroundmusic('SRCLose','FILELose','MusicEx_Lose.mp3');
 
   DoGameEnd();
 end;
@@ -985,6 +1045,8 @@ begin
   giveUpCard.Visible:=false;
   outOfCard.Visible:=false;
   gameEnd.BringToFront;
+  dizhuicon.Visible:=false;
+  chatframe.Lines.Clear;
   rm.DisposeOf;
 end;
 
@@ -1038,6 +1100,36 @@ begin
   clock.Width:= self.TempWidth*0.093;
   clock.Height:=self.TempWidth*0.093;
 
+end;
+
+procedure TGameInterface.setChatFrame();
+begin
+  chatsend.Width:=tempWidth*0.052;
+  chatsend.Height:=tempHeight*0.05;
+
+  chatin.Width:=tempWidth*0.244;
+  chatin.Height:=tempheight*0.05;
+
+  chatframe.Width:=tempwidth*0.296;
+  chatframe.Height:=tempheight*0.323;
+
+  chatcloseRec.Width:=tempwidth*0.027;
+  chatcloseRec.Height:=tempHeight*0.024;
+
+  chaticon.Width:=tempwidth*0.052;
+  chaticon.Height:=tempheight*0.072;
+
+  dizhuicon.Width:=tempwidth*0.052;
+  dizhuicon.Height:=tempheight*0.072;
+
+  chatsend.Position.X:=tempWidth-chatsend.Width;
+  chatsend.Position.Y:=tempHeight-chatsend.Height;
+
+  chaticon.Position.X:=tempwidth-chaticon.Width;
+  chaticon.Position.Y:=tempheight-chaticon.Height;
+
+  chaticon.Visible:=false;
+  chatframe.WordWrap:=true;
 end;
 
 procedure TGameInterface.EvaluationImageTagString();

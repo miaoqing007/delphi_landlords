@@ -47,7 +47,7 @@ var ExHandler :executeHandler;
 
 implementation
 
-uses game,tcp,room,card,music;
+uses game,tcp,room,card,music,chat;
 
 constructor executeHandler.Create;
 begin
@@ -141,11 +141,7 @@ begin
   UI.SetUserName(name);
   UI.SetUserId(uid);
 
-//  if not (name='') then
-//  begin
-//     SName.Visible:=false;
-//     UI.SetUserName(name);
-//  end;
+  bc.playbackgroundmusic('SRCWelcome','FILEWelcome','MusicEx_Welcome.mp3');
 
   Js.DisposeOf;
 end;
@@ -186,6 +182,7 @@ begin
            pj.TryGetValue('cards',cards);
            Pj.TryGetValue('name',name);
            RM.SetOrUpdatePlayerMap(id,name,cards);
+           cc.outputChatMessage('玩家'+name+'加入聊天室');
            pj.DisposeOf;
        end;
    end;
@@ -201,7 +198,10 @@ begin
    GameInterface.CallLandowner.Visible:=true;
    end;
 
-   rm.ShowWaitClock(rm.uids[0])
+   bc.playbackgroundmusic('SRCExciting','FILEExciting','MusicEx_Exciting.mp3');
+
+   GameInterface.chaticon.Visible:=true;
+   rm.ShowWaitClock(rm.uids[0]);
 
 end;
 
@@ -375,22 +375,21 @@ begin
     rm.SetOrUpdatePlayerMap(landownerId,'',cards);
     rm.ifHavelandowenr := true;
     GameInterface.outOfCard.Visible := true;
-//    GameInterface.giveUpCard.Visible := true;
     end;
 
     rm.lastOutOfCardPlayer:=landownerid;
 
-    GameInterface.CloseButton();
-
-//    sleep(3000);
-
-    GameInterface.CloseImage();
-
     rm.grabLandownerEnd:=true;
+
+    rm.ShowDiZhuIcon(landownerid);
+
+    rm.ShowWaitClock(landownerId);
 
     GameInterface.showFrontHoleCards();
 
-    rm.ShowWaitClock(landownerId);
+    GameInterface.CloseButton();
+
+    GameInterface.CloseImage();
 
   js.DisposeOf;
 end;

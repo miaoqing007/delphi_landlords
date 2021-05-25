@@ -8,11 +8,12 @@ type mc = class
 
     public
 
-    procedure PlayMusic(ResName,ResType, ResNewName: string);
+    procedure PlayMusic(ResName,ResType, filename: string);
     procedure SetMPlayerVolume(mp : TMediaPlayer;volume :single);
     procedure ExtractRes(ResName,ResType, ResNewName: string);
     procedure readCardNumber(cards :Tarray<string>;randomNum :string;ty :integer);
     procedure readsound(giveOrCall: integer);
+    procedure playbackgroundmusic(ResName,ResType, filename: string);
 
     constructor Create();
     destructor Destory();
@@ -40,33 +41,60 @@ begin
 
 end;
 
-procedure mc.PlayMusic(ResName,ResType, ResNewName: string);
+procedure mc.PlayMusic(ResName,ResType, filename: string);
 var
-  fileName:string;
+  pathfileName:string;
 begin
 
   if goos.currentSystem='Windows' then
   begin
-     fileName:= Tpath.GetDocumentsPath+PathDelim+'bgm'+PathDelim+ResNewName;
-     if not fileExists(fileName) then
+     pathfileName:= Tpath.GetDocumentsPath+PathDelim+'bgm'+PathDelim+filename;
+     if not fileExists(pathfileName) then
      begin
-        ExtractRes(ResName,ResType,fileName);
+        ExtractRes(ResName,ResType,pathfileName);
      end;
   end
   else
   begin
-    fileName:=Tpath.GetDocumentsPath+PathDelim+ResNewName;
+    pathfileName:=Tpath.GetDocumentsPath+PathDelim+filename;
   end;
 
-  if not fileExists(filename) then
+  if not fileExists(pathfileName) then
   begin
     exit;
   end;
 
-  GameInterface.MediaPlayer1.FileName:=fileName;
+  GameInterface.MediaPlayer1.FileName:=pathfileName;
   GameInterface.MediaPlayer1.Play;
 end;
 
+
+procedure mc.playbackgroundmusic(ResName,ResType, filename: string);
+var
+  pathfileName:string;
+begin
+
+  if goos.currentSystem='Windows' then
+  begin
+     pathfileName:= Tpath.GetDocumentsPath+PathDelim+'bgm'+PathDelim+filename;
+     if not fileExists(pathfileName) then
+     begin
+        ExtractRes(ResName,ResType,pathfileName);
+     end;
+  end
+  else
+  begin
+    pathfileName:=Tpath.GetDocumentsPath+PathDelim+filename;
+  end;
+
+  if not fileExists(pathfileName) then
+  begin
+    exit;
+  end;
+
+  GameInterface.MediaPlayer2.FileName:=pathfileName;
+  GameInterface.MediaPlayer2.Play;
+end;
 
  procedure mc.ExtractRes(ResName,ResType, ResNewName: string);   //释放资源文件
 var

@@ -124,7 +124,7 @@ begin
   begin
         im := TImage.Create(GameInterface);
         im.Parent := GameInterface;
-        im.Bitmap.Assign(GameInterface.Image1.Bitmap);
+        im.Bitmap.Assign(GameInterface.cardback.Bitmap);
         im.Height := GameInterface.TempHeight*0.143;
         im.Width :=  GameInterface.TempWidth*0.062;
         im.Visible := false;
@@ -160,7 +160,7 @@ begin
   for I := 0 to High(backCardArray) do
   begin
     backCardArray[i].Visible:=false;
-    backCardArray[i].Bitmap.Assign(GameInterface.Image1.Bitmap);
+    backCardArray[i].Bitmap.Assign(GameInterface.cardback.Bitmap);
   end;
 
 end;

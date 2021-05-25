@@ -61,6 +61,7 @@ type RmInfo = class
   function findNextId(uid : string):string;
   procedure ShowWaitClock(uid : string);
   procedure ShowGrabResult(uid : string;ifGrab,ifcall : boolean);
+  procedure ShowDiZhuIcon(uid : string);
 
 end;
 
@@ -353,6 +354,29 @@ begin
       GameInterface.showRightBuQiangOrBuJiao(ifcall);
     end;
     exit;
+  end;
+end;
+
+procedure Rminfo.ShowDiZhuIcon(uid :string);
+begin
+
+  GameInterface.CloseImage();
+
+  if uid =ui.GetUserId then
+  begin
+      GameInterface.showMyDiZhuIcon;
+      exit;
+  end;
+
+  if playerleftMap.ContainsKey(uid) then
+  begin
+      GameInterface.showLeftDiZhuIcon;
+      exit;
+  end;
+
+  if playerRightMap.ContainsKey(uid) then
+  begin
+      GameInterface.showRightDiZhuIcon;
   end;
 end;
 
