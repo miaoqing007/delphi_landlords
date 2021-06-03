@@ -2,7 +2,7 @@ unit music;
 
 interface
 
-uses FMX.Media,system.Classes,FMX.Dialogs,SysUtils,FMX.Forms,system.IOUtils;
+uses FMX.Media,system.Classes,FMX.Dialogs,SysUtils,FMX.Forms,system.IOUtils,appfilepath;
 
 type mc = class
 
@@ -28,12 +28,11 @@ uses game,goos;
 
 constructor mc.Create();
 begin
-  if (goos.currentSystem='Windows')and
-  not DirectoryExists(Tpath.GetDocumentsPath+PathDelim+'bgm')then
-  begin
-    CreateDir(Tpath.GetDocumentsPath+PathDelim+'bgm');
-  end;
-
+//  if (goos.currentSystem='Windows')and
+//  not DirectoryExists(Tpath.GetDocumentsPath+PathDelim+'bgm')then
+//  begin
+//    CreateDir(Tpath.GetDocumentsPath+PathDelim+'bgm');
+//  end;
 end;
 
 destructor mc.Destory();
@@ -48,7 +47,7 @@ begin
 
   if goos.currentSystem='Windows' then
   begin
-     pathfileName:= Tpath.GetDocumentsPath+PathDelim+'bgm'+PathDelim+filename;
+     pathfileName:= appfilepath.WinRootBgmDir+filename;
      if not fileExists(pathfileName) then
      begin
         ExtractRes(ResName,ResType,pathfileName);
@@ -56,7 +55,7 @@ begin
   end
   else
   begin
-    pathfileName:=Tpath.GetDocumentsPath+PathDelim+filename;
+    pathfileName:=appfilepath.AndriodRootDir+filename;
   end;
 
   if not fileExists(pathfileName) then
@@ -76,7 +75,7 @@ begin
 
   if goos.currentSystem='Windows' then
   begin
-     pathfileName:= Tpath.GetDocumentsPath+PathDelim+'bgm'+PathDelim+filename;
+     pathfileName:= appfilepath.WinRootBgmDir+filename;
      if not fileExists(pathfileName) then
      begin
         ExtractRes(ResName,ResType,pathfileName);
@@ -84,7 +83,7 @@ begin
   end
   else
   begin
-    pathfileName:=Tpath.GetDocumentsPath+PathDelim+filename;
+    pathfileName:=appfilepath.AndriodRootDir+filename;
   end;
 
   if not fileExists(pathfileName) then
@@ -92,8 +91,8 @@ begin
     exit;
   end;
 
-  GameInterface.MediaPlayer2.FileName:=pathfileName;
-  GameInterface.MediaPlayer2.Play;
+//  GameInterface.MediaPlayer2.FileName:=pathfileName;
+//  GameInterface.MediaPlayer2.Play;
 end;
 
  procedure mc.ExtractRes(ResName,ResType, ResNewName: string);   //释放资源文件

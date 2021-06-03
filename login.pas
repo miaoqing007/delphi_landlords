@@ -5,8 +5,8 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
-  FMX.Edit, FMX.Objects, FMX.Controls.Presentation,tcp,System.JSON, FMX.Layouts,
-  uToast;
+  FMX.Edit, FMX.Objects, FMX.Controls.Presentation,tcp,System.JSON, FMX.Layouts,system.IOUtils,
+  uToast,appfilepath;
 
 type
   TLoginFrame = class(TFrame)
@@ -24,6 +24,9 @@ type
     procedure Text3Click(Sender: TObject);
     procedure Text2Click(Sender: TObject);
     procedure LoginFailed(msg : string);
+    procedure ReadJsonFile;
+    procedure WriteJsonFile(username,password :string);
+    procedure Login(username,password :string);
   private
     { Private declarations }
   public
@@ -39,16 +42,62 @@ begin
 //   showMessage('开始注册');
 end;
 
-procedure TLoginFrame.Text3Click(Sender: TObject);
+procedure TLoginFrame.ReadJsonFile;
 var
-//result : int16;
-userName : string;
-password: string;
+  m_Json: TJSONObject;
+  m_StringStream:      TStringStream;
+  pathName,username,password : string;
+begin
+  pathName:=appfilepath.WinRootLandlordsDir+'loginfile.json';
+   if fileExists(pathName) then
+  begin
+  m_StringStream := TStringStream.Create('', TEncoding.UTF8);
+  m_Json := TJSONObject.Create;
+
+  m_StringStream.LoadFromFile(pathName);
+
+  m_Json := TJSONObject.ParseJSONValue(m_StringStream.DataString) as TJSONObject;
+  m_json.TryGetValue('username',username);
+  m_json.TryGetValue('password',password);
+
+  Login(username,password);
+
+  m_stringstream.DisposeOf;
+  m_json.DisposeOf;
+  end;
+end;
+
+
+procedure TLoginFrame.WriteJsonFile(username,password :string);
+var
+  m_Json: TJSONObject;
+  m_StringStream:      TStringStream;
+begin
+  m_StringStream := TStringStream.Create('', TEncoding.UTF8);
+  m_Json := TJSONObject.Create;
+  m_Json.AddPair('username',username);
+  m_Json.AddPair('password',password);
+
+  m_stringStream.Clear;
+  m_stringStream.WriteString(m_json.ToString);
+  m_stringstream.SaveToFile(appfilepath.WinRootLandlordsDir+'loginfile.json');
+
+  m_stringstream.DisposeOf;
+  m_Json.DisposeOf;
+end;
+
+
+procedure TLoginFrame.Text3Click(Sender: TObject);
+begin
+   Login(inputUsername.Text,inputpassword.Text);
+end;
+
+
+procedure TLoginFrame.Login(username,password :string);
+var
 LJson: TJsonObject;
 begin
-  userName:=inputUserName.Text;
-  password:=inputPassword.Text;
-    if (name='')or (password='') then
+    if (username='')or (password='') then
     begin
     Self.LAYOUT1.BringToFront;
     TToast.MakeText(Self.LAYOUT1,'用户名或密码不能为空', TToastLength.Toast_LENGTH_LONG);

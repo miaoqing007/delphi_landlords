@@ -14,6 +14,7 @@ type
     button: TButton;
     Image1: TImage;
     Layout1: TLayout;
+    Text1: TText;
     procedure buttonClick(Sender: TObject);
   private
     { Private declarations }

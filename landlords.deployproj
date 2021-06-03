@@ -4,7 +4,7 @@
         <ProjectFileVersion>12</ProjectFileVersion>
     </ProjectExtensions>
     <PropertyGroup>
-        <DeviceId Condition="'$(Platform)'=='Android'">127.0.0.1:7555</DeviceId>
+        <DeviceId Condition="'$(Platform)'=='Android'"/>
         <DeviceId Condition="'$(Platform)'=='Android64'"/>
         <DeviceId Condition="'$(Platform)'=='iOSDevice64'"/>
         <DeviceId Condition="'$(Platform)'=='iOSSimulator'">iPhone5</DeviceId>
@@ -69,6 +69,15 @@
             <RemoteName>ic_notification.png</RemoteName>
             <DeployClass>Android_NotificationIcon36</DeployClass>
             <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\MusicEx\openinganimation.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>openinganimation.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
@@ -262,6 +271,15 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\MusicEx\MusicEx_Exciting.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>MusicEx_Exciting.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple13.mp3" Condition="'$(Config)'=='Debug'">
             <RemoteDir>landlords\assets\internal\</RemoteDir>
             <RemoteName>Woman_tuple13.mp3</RemoteName>
@@ -301,6 +319,15 @@
         <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple10.mp3" Condition="'$(Config)'=='Debug'">
             <RemoteDir>landlords\assets\internal\</RemoteDir>
             <RemoteName>Woman_tuple10.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\MusicEx\MusicEx_Normal2.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>MusicEx_Normal2.mp3</RemoteName>
             <DeployClass>File</DeployClass>
             <Operation>0</Operation>
             <LocalCommand/>
@@ -409,6 +436,15 @@
         <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple2.mp3" Condition="'$(Config)'=='Debug'">
             <RemoteDir>landlords\assets\internal\</RemoteDir>
             <RemoteName>Woman_tuple2.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\MusicEx\MusicEx_Win.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>MusicEx_Win.mp3</RemoteName>
             <DeployClass>File</DeployClass>
             <Operation>0</Operation>
             <LocalCommand/>
@@ -578,6 +614,15 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\MusicEx\MusicEx_Welcome.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>MusicEx_Welcome.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_dani3.mp3" Condition="'$(Config)'=='Debug'">
             <RemoteDir>landlords\assets\internal\</RemoteDir>
             <RemoteName>Woman_dani3.mp3</RemoteName>
@@ -590,6 +635,15 @@
         <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_8.mp3" Condition="'$(Config)'=='Debug'">
             <RemoteDir>landlords\assets\internal\</RemoteDir>
             <RemoteName>Woman_8.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\MusicEx\MusicEx_Normal.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>MusicEx_Normal.mp3</RemoteName>
             <DeployClass>File</DeployClass>
             <Operation>0</Operation>
             <LocalCommand/>
@@ -842,6 +896,15 @@
         <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_tuple6.mp3" Condition="'$(Config)'=='Debug'">
             <RemoteDir>landlords\assets\internal\</RemoteDir>
             <RemoteName>Woman_tuple6.mp3</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\MusicEx\MusicEx_Lose.mp3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>landlords\assets\internal\</RemoteDir>
+            <RemoteName>MusicEx_Lose.mp3</RemoteName>
             <DeployClass>File</DeployClass>
             <Operation>0</Operation>
             <LocalCommand/>

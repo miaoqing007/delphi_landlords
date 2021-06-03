@@ -1,0 +1,79 @@
+unit login;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
+  FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
+  FMX.Edit, FMX.Objects, FMX.Controls.Presentation,tcp,System.JSON, FMX.Layouts,system.IOUtils,
+  uToast;
+
+type
+  TLoginFrame = class(TFrame)
+    userName: TText;
+    inputUserName: TEdit;
+    password: TText;
+    inputPassword: TEdit;
+    Rectangle1: TRectangle;
+    Image1: TImage;
+    Rectangle2: TRectangle;
+    Text3: TText;
+    Layout1: TLayout;
+
+
+    procedure Text3Click(Sender: TObject);
+    procedure Text2Click(Sender: TObject);
+    procedure LoginFailed(msg : string);
+    procedure AutoLogin;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+implementation
+
+{$R *.fmx}
+
+procedure TLoginFrame.Text2Click(Sender: TObject);
+begin
+//   showMessage('开始注册');
+end;
+
+procedure TLoginFrame.AutoLogin;
+begin
+  //
+end;
+
+procedure TLoginFrame.Text3Click(Sender: TObject);
+var
+//result : int16;
+userName : string;
+password: string;
+LJson: TJsonObject;
+begin
+  userName:=inputUserName.Text;
+  password:=inputPassword.Text;
+    if (name='')or (password='') then
+    begin
+    Self.LAYOUT1.BringToFront;
+    TToast.MakeText(Self.LAYOUT1,'用户名或密码不能为空', TToastLength.Toast_LENGTH_LONG);
+    end
+    else
+    begin
+        LJson:=TJsonObject.Create;
+        LJson.AddPair('account',TJsonString.Create(userName));
+        LJson.AddPair('password',TJsonString.Create(password));
+        G_TcpMessage.SendTcpMessageToService(LJson.ToString,2001);
+        LJson.DisposeOf;
+    end;
+end;
+
+procedure TLoginFrame.LoginFailed(msg : string);
+begin
+  self.Layout1.BringToFront;
+  TToast.MakeText(Self.LAYOUT1,msg, TToastLength.Toast_LENGTH_LONG);
+end;
+
+end.
+

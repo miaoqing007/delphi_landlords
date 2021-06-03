@@ -9,8 +9,12 @@ type UserInfo = class
   Cards : array of string;
 
   public
+  ifInGamimg :boolean;
+
+  public
   procedure SetUserId(uid :string);
   procedure SetUserName(name:string);
+  procedure SetIfInGaming(result : boolean);
   function GetUserId():string;
   function GetUserName():string;
 
@@ -41,6 +45,11 @@ end;
 procedure  UserInfo.SetUserId(uid:string);
 begin
   UserId := uid;
+end;
+
+procedure UserInfo.SetIfInGaming(result : boolean);
+begin
+  ifInGamimg:=result;
 end;
 
 function UserInfo.GetUserId():string;

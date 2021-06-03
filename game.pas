@@ -121,9 +121,10 @@ type
     chatin: TEdit;
     chatsend: TRectangle;
     chatsendtext: TText;
-    chatcloseRec: TRectangle;
-    chatclose: TText;
     dizhuicon: TImage;
+    chathint: TRoundRect;
+    chathintNum: TText;
+    background: TImage;
 
 
     procedure FormCreate(Sender: TObject);
@@ -144,9 +145,6 @@ type
     procedure ShowRightPlayerCards(count : integer; name : string);
     procedure ShowLeftOutOfCards(cards :Tarray<string>);
     procedure ShowRightOutOfCards(cards : Tarray<string>);
-//    procedure ShowMyWaitText();
-//    procedure ShowLeftWaitText();
-//    procedure ShowRightWaitText();
     procedure giveUpCardClick(Sender: TObject);
     procedure GameVictory();
     procedure GameDefeat();
@@ -175,20 +173,25 @@ type
     procedure chatsendtextClick(Sender: TObject);
     procedure chatcloseClick(Sender: TObject);
     procedure setChatFrame();
-    procedure chaticonClick(Sender: TObject);
     procedure showLeftDiZhuIcon();
     procedure showRightDiZhuIcon();
     procedure showMyDiZhuIcon();
+    procedure chaticonClick(Sender: TObject);
+    procedure Layout1Click(Sender: TObject);
+    procedure backgroundClick(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char;
+      Shift: TShiftState);
 
   private
     { Private declarations }
 //     image1ClickCount:integer;
+
   private
 //    procedure OnSocketRead(AStream: TMemoryStream);
     ifAssignment :boolean;
   public
-      TempWidth:integer;
-      TempHeight:integer;
+      TempWidth:single;
+      TempHeight:single;
     { Public declarations }
   end;
 
@@ -212,7 +215,7 @@ begin
     ExHandler := executeHandler.Create;
     UI := UserInfo.Create;
     CM:=cmFunction.Create;
-    CI:=CardInfo.Create;
+
     CC:=ChatClass.Create;
 
     BC:=mc.Create;
@@ -220,8 +223,11 @@ begin
     G_TcpMessage.ConnectionService();
 
     EvaluationImageTagString();
+
     SetButton();
-    setChatFrame();
+
+    CI:=CardInfo.Create;
+//    setChatFrame();
 
     if goos.currentSystem='Android' then
      begin
@@ -238,6 +244,8 @@ begin
     SName.BringToFront;
     LFrame.BringToFront;
 
+//    Lframe.ReadJsonFile;
+
 end;
 
 procedure TGameInterface.CloseRec();
@@ -251,6 +259,15 @@ end;
 procedure TGameInterface.FormDestroy(Sender: TObject);
 begin
     G_TcpMessage.DisposeOf;
+end;
+
+procedure TGameInterface.FormKeyUp(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if chatsend.Visible and (key=13) then
+  begin
+     chatsendtextClick(sender);
+  end;
 end;
 
 procedure TGameInterface.FormResize(Sender: TObject);
@@ -312,6 +329,17 @@ begin
 
 end;
 
+procedure TGameInterface.Layout1Click(Sender: TObject);
+begin
+    if  chaticon.Visible then
+    begin
+      chatsend.Visible:=false;
+      chatframe.Visible:=false;
+      chatin.Visible:=false;
+      chaticon.Visible:=true;
+    end;
+end;
+
 procedure TGameInterface.giveupCallClick(Sender: TObject);
 var
   js :TJsonObject;
@@ -328,6 +356,17 @@ begin
     clock.Enabled:=false;
 
     js.DisposeOf;
+end;
+
+procedure TGameInterface.backgroundClick(Sender: TObject);
+begin
+    if not chaticon.Visible and ui.ifInGamimg then
+    begin
+      chatsend.Visible:=false;
+      chatframe.Visible:=false;
+      chatin.Visible:=false;
+      chaticon.Visible:=true;
+    end;
 end;
 
 procedure TGameInterface.callLandownerClick(Sender: TObject);
@@ -467,15 +506,15 @@ begin
     exit;
   end;
 
-  if self.ClientHeight>self.ClientWidth then
+  if self.Layout1.Height>self.Layout1.Width then
   begin
-    tempWidth:=self.ClientHeight;
-    tempHeight:=self.ClientWidth;
+    tempWidth:=self.Layout1.Height;
+    tempHeight:=self.Layout1.Width;
   end
   else
   begin
-     tempWidth:=self.ClientWidth;
-     tempHeight:=self.ClientHeight;
+     tempWidth:=self.Layout1.Width;
+     tempHeight:=self.Layout1.Height;
   end;
   ifAssignment:=true;
 end;
@@ -571,22 +610,37 @@ end;
 
 procedure TGameInterface.chaticonClick(Sender: TObject);
 begin
+    chathint.Visible:=false;
+    rm.roomMsgNum:=0;
     chaticon.Visible:=false;
     chatsend.Visible:=true;
+    chatin.Visible:=true;
+    chatframe.Visible:=true;
+    chatin.BringToFront;
+    chatframe.BringToFront;
     chatsend.BringToFront;
 end;
 
 procedure TGameInterface.chatsendtextClick(Sender: TObject);
+var
+  js :TJsonObject;
 begin
-    cc.outputChatMessage(chatin.Text);
+    if chatin.Text='' then
+    begin
+      TToast.MakeText(Self.LAYOUT1,'请发送正确信息', TToastLength.Toast_LENGTH_LONG);
+      exit;
+    end;
+    js:=TJsonObject.Create;
+    js.AddPair('msg',TJsonString.Create(chatin.Text));
+    G_TcpMessage.SendTcpMessageToService(js.ToString,2021);
     chatin.Text:='';
+    js.DisposeOf;
 end;
 
 procedure TGameInterface.ShowMyOutOfCards(cards : Tarray<string>);
 var
  i : integer;
- totalLength : single;
- marginLeft : single;
+ totalLength,marginLeft : single;
 begin
 
   marginLeft:=(self.TempWidth-buchu.Width)/2;
@@ -622,21 +676,24 @@ end;
 procedure TGameInterface.ShowLeftOutOfCards(cards : Tarray<string>);
 var
   i: integer;
+  im1:Timage;
 begin
     if length(cards)=0 then
     begin
-      buchu.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+ self.TempWidth*0.052;
-      buchu.Position.Y :=self.TempHeight/2-CI.backCardArray[0].Height;
-      buchu.WrapMode:=TImageWrapMode.Stretch;
-      buchu.Visible := true;
-      buchu.BringToFront;
+    CI.imageMap.TryGetValue(buchu.Name+'1',im1);
+      im1.Position.X :=cI.backCardArray[0].Position.X + cI.backCardArray[0].Width + self.TempWidth*0.052;
+      im1.Position.Y :=self.TempHeight/2-CI.backCardArray[0].Height;
+      im1.WrapMode:=TImageWrapMode.Stretch;
+      im1.Visible := true;
+      im1.BringToFront;
       exit;
     end;
     for i := 0 to High(cards) do
       begin
         CI.cardMap[cards[i]].Width :=  self.TempWidth*0.052;
         CI.cardMap[cards[i]].Height := self.TempHeight*0.129;
-        CI.cardMap[cards[i]].Position.X := cI.backCardArray[0].Position.X + self.TempWidth*0.052
+        CI.cardMap[cards[i]].Position.X := cI.backCardArray[0].Position.X +ci.backCardArray[0].Width
+        + self.TempWidth*0.052
         +(i+1) * self.TempWidth * 0.021;
         CI.cardMap[cards[i]].Position.Y := self.TempHeight/2 - CI.backCardArray[0].Height;
         CI.cardMap[cards[i]].WrapMode := TImageWrapMode.Stretch;
@@ -649,15 +706,16 @@ procedure TGameInterface.ShowRightOutOfCards(cards : Tarray<string>);
 var
   i: integer;
   margin: single;
+  im1:TImage;
 begin
     if length(cards)=0 then
     begin
-      buchu.Position.X := CI.backCardArray[1].Position.X-buchu.Width-
-      self.TempWidth*0.052;
-      buchu.Position.Y := self.TempHeight/2-CI.backCardArray[1].Height;
-      buchu.WrapMode:=TImageWrapMode.Stretch;
-      buchu.Visible := true;
-      buchu.BringToFront;
+    CI.imageMap.TryGetValue(buchu.Name+'2',im1);
+      im1.Position.X := CI.backCardArray[1].Position.X-im1.Width-self.TempWidth*0.052;
+      im1.Position.Y := self.TempHeight/2-CI.backCardArray[1].Height;
+      im1.WrapMode:=TImageWrapMode.Stretch;
+      im1.Visible := true;
+      im1.BringToFront;
       exit;
     end;
       margin:=(length(cards)-1)*self.TempWidth*0.021+ self.TempWidth*0.052;
@@ -665,8 +723,8 @@ begin
       begin
         CI.cardMap[cards[i]].Width :=  self.TempWidth*0.052;
         CI.cardMap[cards[i]].Height :=self.TempHeight*0.129;
-        CI.cardMap[cards[i]].Position.X:= self.TempWidth-38-CI.backCardArray[1].Width-
-        self.TempWidth*0.052-margin+(i+1)*self.TempWidth*0.021;
+        CI.cardMap[cards[i]].Position.X:=ci.backCardArray[1].Position.x-ci.cardMap[cards[i]].Width-self.TempWidth*0.052
+        -margin+(i+1)*self.TempWidth*0.021;
         CI.cardMap[cards[i]].Position.Y:=self.TempHeight/2-CI.backCardArray[1].Height;
         CI.cardMap[cards[i]].WrapMode:=TImageWrapMode.Stretch;
         CI.cardMap[cards[i]].Visible:=true;
@@ -747,7 +805,7 @@ begin
   for i := 0 to High(cards) do
       begin
          CI.cardMap[cards[i]].Position.X := marginleft + i * CI.cardMap[cards[i]].Width*0.375;
-         CI.cardMap[cards[i]].Position.Y := layout1.Height-CI.cardMap[cards[i]].Height;
+         CI.cardMap[cards[i]].Position.Y := self.Layout1.Height-CI.cardMap[cards[i]].Height;
          CI.cardMap[cards[i]].WrapMode:=TImageWrapMode.Stretch;
          Ci.cardMap[cards[i]].Visible := true;
          CI.cardMap[cards[i]].BringToFront;
@@ -841,42 +899,52 @@ begin
 end;
 
 procedure TGameInterface.showLeftBuQiangOrBujiao(ifcall : boolean);
+var
+  im1,im2 :TImage;
 begin
   if not  ifcall then
   begin
-      buqiang.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+self.TempWidth*0.052;
-      buqiang.Position.Y :=self.TempHeight/2-CI.backCardArray[0].Height;
-      buqiang.WrapMode:=TImageWrapMode.Stretch;
-      buqiang.Visible := true;
-      buqiang.BringToFront;
+  CI.imageMap.TryGetValue(buqiang.Name+'1',im1);
+      im1.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+self.TempWidth*0.052;
+      im1.Position.Y :=self.TempHeight/2-CI.backCardArray[0].Height;
+      im1.WrapMode:=TImageWrapMode.Stretch;
+      im1.Visible := true;
+      im1.BringToFront;
+//      showmessage(im1.Name);
   end
   else
   begin
-      bujiao.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+self.TempWidth*0.052;
-      bujiao.Position.Y :=self.TempHeight/2-CI.backCardArray[0].Height;
-      bujiao.WrapMode:=TImageWrapMode.Stretch;
-      bujiao.Visible := true;
-      bujiao.BringToFront;
+  CI.imageMap.TryGetValue(bujiao.Name+'1',im2);
+      im2.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+self.TempWidth*0.052;
+      im2.Position.Y :=self.TempHeight/2-CI.backCardArray[0].Height;
+      im2.WrapMode:=TImageWrapMode.Stretch;
+      im2.Visible := true;
+      im2.BringToFront;
+//      showmessage(im2.Name);
   end;
 end;
 
 procedure TGameInterface.showRightBuQiangOrBujiao(ifcall : boolean);
+var
+  im1,im2 : Timage;
 begin
   if not ifcall then
   begin
-      buqiang.Position.X :=CI.backCardArray[1].Position.X-buqiang.Width-self.TempWidth*0.052;
-      buqiang.Position.Y :=self.TempHeight/2-CI.backCardArray[1].Height;
-      buqiang.WrapMode:=TImageWrapMode.Stretch;
-      buqiang.Visible := true;
-      buqiang.BringToFront;
+  CI.imageMap.TryGetValue(buqiang.Name+'2',im1);
+      im1.Position.X :=CI.backCardArray[1].Position.X-im1.Width-self.TempWidth*0.052;
+      im1.Position.Y :=self.TempHeight/2-CI.backCardArray[1].Height;
+      im1.WrapMode:=TImageWrapMode.Stretch;
+      im1.Visible := true;
+      im1.BringToFront;
   end
   else
   begin
-      bujiao.Position.X :=CI.backCardArray[1].Position.X-bujiao.Width-self.TempWidth*0.052;
-      bujiao.Position.Y :=self.TempHeight/2-CI.backCardArray[1].Height;
-      bujiao.WrapMode:=TImageWrapMode.Stretch;
-      bujiao.Visible := true;
-      bujiao.BringToFront;
+  CI.imageMap.TryGetValue(bujiao.Name+'2',im2);
+      im2.Position.X :=CI.backCardArray[1].Position.X-im2.Width-self.TempWidth*0.052;
+      im2.Position.Y :=self.TempHeight/2-CI.backCardArray[1].Height;
+      im2.WrapMode:=TImageWrapMode.Stretch;
+      im2.Visible := true;
+      im2.BringToFront;
   end;
 end;
 
@@ -904,14 +972,17 @@ begin
 end;
 
 procedure TGameInterface.showLeftQiangOrJiaoDiZhu(ifcall : boolean);
+var
+  im1 : TImage;
 begin
   if not ifcall then
   begin
-      qiangdizhu.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+self.TempWidth*0.052;
-      qiangdizhu.Position.Y :=self.TempHeight/2-CI.backCardArray[0].Height;
-      qiangdizhu.WrapMode:=TImageWrapMode.Stretch;
-      qiangdizhu.Visible := true;
-      qiangdizhu.BringToFront;
+  ci.imageMap.TryGetValue(qiangdizhu.Name+'1',im1);
+      im1.Position.X :=cI.backCardArray[0].Position.X+cI.backCardArray[0].Width+self.TempWidth*0.052;
+      im1.Position.Y :=self.TempHeight/2-CI.backCardArray[0].Height;
+      im1.WrapMode:=TImageWrapMode.Stretch;
+      im1.Visible := true;
+      im1.BringToFront;
   end
   else
   begin
@@ -924,14 +995,17 @@ begin
 end;
 
 procedure TGameInterface.showRightQiangOrJiaoDiZhu(ifcall : boolean);
+var
+  im1: Timage;
 begin
   if not ifcall then
   begin
-      qiangdizhu.Position.X :=CI.backCardArray[1].Position.X-qiangdizhu.Width-self.TempWidth*0.052;
-      qiangdizhu.Position.Y :=self.TempHeight/2-CI.backCardArray[1].Height;
-      qiangdizhu.WrapMode:=TImageWrapMode.Stretch;
-      qiangdizhu.Visible := true;
-      qiangdizhu.BringToFront;
+  ci.imageMap.TryGetValue(qiangdizhu.Name+'2',im1);
+      im1.Position.X :=CI.backCardArray[1].Position.X-im1.Width-self.TempWidth*0.052;
+      im1.Position.Y :=self.TempHeight/2-CI.backCardArray[1].Height;
+      im1.WrapMode:=TImageWrapMode.Stretch;
+      im1.Visible := true;
+      im1.BringToFront;
   end
   else
   begin
@@ -949,6 +1023,7 @@ begin
   buqiang.Visible:=false;
   jiaodizhu.Visible:=false;
   qiangdizhu.Visible:=false;
+  Ci.closeimages;
 end;
 
 procedure TGameInterface.CloseButton();
@@ -985,7 +1060,7 @@ end;
 procedure TGameInterface.showrightClock();
 begin
       rm.usedTime:=0;
-      clock.Position.X :=CI.backCardArray[1].Position.X-clock.Width-self.TempWidth*0.052;
+      clock.Position.X :=CI.backCardArray[1].Position.X-self.TempWidth*0.052-clock.Width;
       clock.Position.Y :=self.TempHeight/2-CI.backCardArray[1].Height;
       clock.Visible:=true;
       clock.Enabled:=true;
@@ -1062,13 +1137,13 @@ procedure TGameInterface.SetButton();
 begin
   StartGame.Position.X:=(self.TempWidth-StartGame.Width)/2;
   StartGame.Position.Y:=self.TempHeight-self.TempHeight*0.289;
-  StartGame.Visible:=true;
+  if not ui.ifInGamimg then
+  begin
+     StartGame.Visible:=true;
+  end;
 
   cancelMatch.Position.X:=(self.TempWidth-cancelMatch.Width)/2;
   cancelMatch.Position.Y:=self.TempHeight-self.TempHeight*0.289; //0.259
-
-//  .Position.X:=(self.TempWidth-waitting.Width)/2+self.TempWidth*0.007;
-//  waitRec.Position.Y:=self.TempHeight-self.TempHeight*0.309;
 
   AniIndicator1.Position.X:=(self.TempWidth-AniIndicator1.Width)/2-self.TempWidth*0.007;
   AniIndicator1.Position.Y:=self.TempHeight-self.TempHeight*0.455;  //0.395
@@ -1100,10 +1175,6 @@ begin
   clock.Width:= self.TempWidth*0.093;
   clock.Height:=self.TempWidth*0.093;
 
-end;
-
-procedure TGameInterface.setChatFrame();
-begin
   chatsend.Width:=tempWidth*0.052;
   chatsend.Height:=tempHeight*0.05;
 
@@ -1113,20 +1184,42 @@ begin
   chatframe.Width:=tempwidth*0.296;
   chatframe.Height:=tempheight*0.323;
 
-  chatcloseRec.Width:=tempwidth*0.027;
-  chatcloseRec.Height:=tempHeight*0.024;
-
   chaticon.Width:=tempwidth*0.052;
   chaticon.Height:=tempheight*0.072;
 
   dizhuicon.Width:=tempwidth*0.052;
   dizhuicon.Height:=tempheight*0.072;
 
+  jiaodizhu.Width:=tempwidth*0.093;
+  jiaodizhu.Height:=tempheight*0.057;
+
+  qiangdizhu.Width:=tempwidth*0.093;
+  qiangdizhu.Height:=tempheight*0.057;
+
+  buqiang.Width:=tempwidth*0.093;
+  buqiang.Height:=tempheight*0.057;
+
+  bujiao.Width:=tempwidth*0.093;
+  bujiao.Height:=tempheight*0.057;
+
+  buchu.Width:=tempwidth*0.093;
+  buchu.Height:=tempheight*0.057;
+end;
+
+procedure TGameInterface.setChatFrame();
+begin
+
   chatsend.Position.X:=tempWidth-chatsend.Width;
-  chatsend.Position.Y:=tempHeight-chatsend.Height;
+  chatsend.Position.Y:=self.Layout1.Height-chatsend.Height;
+
+  chatin.Position.X:=tempWidth-chatsend.Width-chatin.Width;
+  chatin.Position.Y:=self.Layout1.Height-chatin.Height;
+
+  chatframe.Position.X:=chatin.Position.X;
+  chatframe.Position.Y:=chatin.Position.Y-chatframe.Height;
 
   chaticon.Position.X:=tempwidth-chaticon.Width;
-  chaticon.Position.Y:=tempheight-chaticon.Height;
+  chaticon.Position.Y:=self.Layout1.Height-chaticon.Height;
 
   chaticon.Visible:=false;
   chatframe.WordWrap:=true;
@@ -1203,6 +1296,7 @@ begin
     two_3.TagString:= 'C15';
     two_4.TagString:= 'D15';
 end;
+
 
 end.
 

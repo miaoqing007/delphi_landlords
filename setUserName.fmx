@@ -23450,4 +23450,14 @@ object setUserNameFrame: TsetUserNameFrame
     Text = #30830'    '#35748
     OnClick = buttonClick
   end
+  object Text1: TText
+    Position.X = 168.000000000000000000
+    Position.Y = 248.000000000000000000
+    Size.Width = 81.000000000000000000
+    Size.Height = 49.000000000000000000
+    Size.PlatformDefault = False
+    Text = #35282#33394#21517
+    TextSettings.Font.Family = 'YouYuan'
+    TextSettings.Font.Size = 16.000000000000000000
+  end
 end
