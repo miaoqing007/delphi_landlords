@@ -388,15 +388,16 @@ begin
 
     rm.grabLandownerEnd:=true;
 
+    GameInterface.CloseButton();
+
+    GameInterface.CloseImage();
+
     rm.ShowDiZhuIcon(landownerid);
 
     rm.ShowWaitClock(landownerId);
 
     GameInterface.showFrontHoleCards();
 
-    GameInterface.CloseButton();
-
-    GameInterface.CloseImage();
 
   js.DisposeOf;
 end;

@@ -230,10 +230,7 @@ var
 begin
   for im in imagemap.Values do
   begin
-     if (im.Name<>'buchu1') and (im.Name<>'buchu2') then
-     begin
-       im.Visible:=false;
-     end;
+    im.Visible:=false;
   end;
 
 end;

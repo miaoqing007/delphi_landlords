@@ -5,7 +5,7 @@
         <FrameworkType>FMX</FrameworkType>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
-        <Platform Condition="'$(Platform)'==''">Win64</Platform>
+        <Platform Condition="'$(Platform)'==''">Android</Platform>
         <TargetedPlatforms>37915</TargetedPlatforms>
         <AppType>Application</AppType>
         <MainSource>landlords.dpr</MainSource>
@@ -343,16 +343,17 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
+                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\MusicEx\openinganimation.mp3" Configuration="Debug" Class="File">
+                    <Platform Name="Android">
+                        <RemoteDir>assets\internal</RemoteDir>
+                        <RemoteName>openinganimation.mp3</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\Woman\Woman_sidailiangdui.mp3" Configuration="Debug" Class="File">
                     <Platform Name="Android">
                         <RemoteDir>assets\internal</RemoteDir>
                         <RemoteName>Woman_sidailiangdui.mp3</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_36x36.png" Configuration="Debug" Class="Android_LauncherIcon36">
-                    <Platform Name="Android64">
-                        <RemoteName>ic_launcher.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -362,10 +363,9 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="D:\BaiduNetdiskDownload\斗地主资源\0453.【游来游趣】欢乐斗地主UI界面音效素材集\【素材王国】欢乐斗地主UI界面音效素材集\最新音效\MusicEx\openinganimation.mp3" Configuration="Debug" Class="File">
-                    <Platform Name="Android">
-                        <RemoteDir>assets\internal</RemoteDir>
-                        <RemoteName>openinganimation.mp3</RemoteName>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_36x36.png" Configuration="Debug" Class="Android_LauncherIcon36">
+                    <Platform Name="Android64">
+                        <RemoteName>ic_launcher.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -1038,12 +1038,6 @@
                     <Platform Name="Android">
                         <RemoteDir>assets\internal</RemoteDir>
                         <RemoteName>Woman_6.mp3</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="Win64\Debug\landlords.rsm" Configuration="Debug" Class="DebugSymbols">
-                    <Platform Name="Win64">
-                        <RemoteName>landlords.rsm</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

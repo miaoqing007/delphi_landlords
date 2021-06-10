@@ -10,11 +10,18 @@ type CardInfo = class
 
   backCardArray : Tarray<TImage>;
 
-  public
+  imageMap : TDictionary<string,TImage>;
+
+  private
   procedure initCardMap();
   procedure initBackCard();
+  procedure initImageMap();
+
+  public
   procedure CloseCards();
   procedure ReSetBackCards();
+  procedure closeimages();
+
 
   constructor Create;
   destructor Destory;
@@ -30,15 +37,20 @@ constructor Cardinfo.Create;
 begin
    cardMap:=TDictionary<string,TImage>.Create;
 
+   imageMap:=TDictionary<string,TImage>.Create;
+
    initCardMap();
 
    initBackCard();
+
+   initImageMap();
 
 end;
 
 destructor CardInfo.Destory;
 begin
   cardMap.DisposeOf;
+  imageMap.DisposeOf;
   inherited;
 end;
 
@@ -140,6 +152,53 @@ begin
 
 end;
 
+procedure CardInfo.initImageMap();
+var
+  i: integer;
+  im : TImage;
+begin
+  for i := 1 to 8 do
+    begin
+     im:=TImage.Create(GameInterface);
+     im.Width:=GameInterface.bujiao.Width;
+     im.Height:=GameInterface.bujiao.Height;
+     im.Parent := GameInterface;
+      if i<3 then
+      begin
+         im.Name:=GameInterface.buchu.Name+i.ToString;
+         im.Bitmap.Assign(GameInterface.buchu.Bitmap);
+         im.Visible:=false;
+         ImageMap.TryAdd(im.Name,im);
+      end;
+
+      if (i>=3) and (i<5) then
+      begin
+        im.Name:=GameInterface.bujiao.Name+(i-2).ToString;
+        im.Bitmap.Assign(GameInterface.bujiao.Bitmap);
+         im.Visible:=false;
+        ImageMap.TryAdd(im.Name,im);
+      end;
+
+      if (i>=5)and(i<7) then
+      begin
+        im.Name:=GameInterface.buqiang.Name+(i-4).ToString;
+        im.Bitmap.Assign(GameInterface.buqiang.Bitmap);
+         im.Visible:=false;
+        ImageMap.TryAdd(im.Name,im);
+      end;
+
+      if (i>=7)and (i<8) then
+      begin
+        im.Name:=GameInterface.qiangdizhu.Name+(i-6).ToString;
+        im.Bitmap.Assign(GameInterface.qiangdizhu.Bitmap);
+         im.Visible:=false;
+        ImageMap.TryAdd(im.Name,im);
+      end;
+    end;
+
+  //
+end;
+
 procedure CardInfo.CloseCards();
 var
    im : TImage;
@@ -160,7 +219,18 @@ begin
   for I := 0 to High(backCardArray) do
   begin
     backCardArray[i].Visible:=false;
-    backCardArray[i].Bitmap.Assign(GameInterface.Image1.Bitmap);
+    backCardArray[i].Bitmap.Assign(GameInterface.cardback.Bitmap);
+  end;
+
+end;
+
+procedure CardInfo.closeimages();
+var
+  im : Timage;
+begin
+  for im in imagemap.Values do
+  begin
+       im.Visible:=false;
   end;
 
 end;
